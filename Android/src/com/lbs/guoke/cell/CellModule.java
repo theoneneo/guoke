@@ -3,6 +3,7 @@ package com.lbs.guoke.cell;
 import java.util.List;
 
 import com.lbs.guoke.GuoKeApp;
+import com.lbs.guoke.controller.CellModuleManager;
 
 import android.content.Context;
 import android.telephony.NeighboringCellInfo;
@@ -35,14 +36,14 @@ public class CellModule {
 	switch (signal) {
 	case RadioLayerProvider.EVENT_SIGNAL_CELL_LOCATION: {
 	    if (rd.cellId > 0 && rd.locationAreaCode > 0) {
-		GuoKeApp.getApplication().getCellInfos().clear();		
+		CellModuleManager.instance().getCellInfos().clear();		
 		CellInfo cellInfo = new CellInfo();
 		cellInfo.isCDMA = false;
 		cellInfo.cellid = rd.cellId;
 		cellInfo.lac = rd.locationAreaCode;
 		cellInfo.mnc = rd.mobileNetworkCode;
 		cellInfo.mcc = rd.mobileCountryCode;
-		GuoKeApp.getApplication().getCellInfos().add(cellInfo);
+		CellModuleManager.instance().getCellInfos().add(cellInfo);
 		getNeiborCells(false, rd.locationAreaCode, rd.mobileNetworkCode, rd.mobileCountryCode);
 		GuoKeApp.getApplication().updateCell();
 	    } else {
@@ -60,14 +61,14 @@ public class CellModule {
 	switch (signal) {
 	case RadioLayerProvider.EVENT_SIGNAL_CELL_LOCATION:	    
 	    if (cdmaData != null) {
-		GuoKeApp.getApplication().getCellInfos().clear();		
+		CellModuleManager.instance().getCellInfos().clear();		
 		CellInfo cellInfo = new CellInfo();
 		cellInfo.isCDMA = true;
 		cellInfo.cellid = cdmaData.baseStationId;
 		cellInfo.lac = cdmaData.networkId;
 		cellInfo.mnc = cdmaData.mobileNetworkCode;
 		cellInfo.mcc = cdmaData.mobileCountryCode;
-		GuoKeApp.getApplication().getCellInfos().add(cellInfo);
+		CellModuleManager.instance().getCellInfos().add(cellInfo);
 		getNeiborCells(true, cdmaData.networkId, cdmaData.mobileNetworkCode, cdmaData.mobileCountryCode);
 		GuoKeApp.getApplication().updateCell();
 	    } else {
@@ -118,7 +119,7 @@ public class CellModule {
 		    cellInfo.lac = lac;
 		    cellInfo.mnc = mnc;
 		    cellInfo.mcc = mcc;
-		    GuoKeApp.getApplication().getCellInfos().add(cellInfo);
+		    CellModuleManager.instance().getCellInfos().add(cellInfo);
 		}
 	    }
 	} catch (Exception e) {
@@ -127,10 +128,10 @@ public class CellModule {
     }
     
     public class CellInfo {
-	    public boolean isCDMA = false;
-	    public int cellid;
-	    public int lac;
-	    public int mcc;
-	    public int mnc;
+	public boolean isCDMA = false;
+	public int cellid;
+	public int lac;
+	public int mcc;
+	public int mnc;
     }
 }

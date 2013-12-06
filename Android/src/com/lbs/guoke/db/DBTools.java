@@ -2,7 +2,7 @@ package com.lbs.guoke.db;
 
 import java.util.ArrayList;
 
-import com.lbs.guoke.db.DataBase.CELL_DATA_COLLECT_DB;
+import com.lbs.guoke.db.DataBase.CELL_DATA_DB;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -40,13 +40,13 @@ public class DBTools {
 	    int size = cellids.size();
 	    StringBuffer buf = new StringBuffer();
 	    for(int i = 0; i < size; i++){
-		buf.append(CELL_DATA_COLLECT_DB.CELLID+ " = ");
+		buf.append(CELL_DATA_DB.CELLID+ " = ");
 		buf.append(String.valueOf(cellids.get(i)));
 		if(i != size - 1)
 		    buf.append(" or ");
 	    }
 	    cursor = mContext.getContentResolver().query(
-		    CELL_DATA_COLLECT_DB.CONTENT_URI, null, buf.toString(), null, null);
+		    CELL_DATA_DB.CONTENT_URI, null, buf.toString(), null, null);
 	    if (cursor != null) {
 		cursor.moveToFirst();
 		return cursor;
@@ -83,7 +83,7 @@ public class DBTools {
 	value.put("name", toValidRs(name));
 	value.put("introduction", toValidRs(introduction));
 	value.put("thumimg", toValidRs(thumimg));
-	mContext.getContentResolver().insert(CELL_DATA_COLLECT_DB.CONTENT_URI, value);
+	mContext.getContentResolver().insert(CELL_DATA_DB.CONTENT_URI, value);
     }
 
     public static String toValidRs(String obj) {
