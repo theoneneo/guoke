@@ -14,12 +14,10 @@ public class CellModule {
     private boolean mEnabled = false;
     private RadioLayerProvider radioDataProvider;
     private Context mContext;
-    
+
     public CellModule(Context context) {
-	synchronized (this) {
-	    mContext = context;
-	    radioDataProvider = RadioLayerProvider.getInst(context);
-	}
+	mContext = context;
+	radioDataProvider = RadioLayerProvider.getInst(context);
     }
 
     private RadioLayerNotify radioDataNotify = new RadioLayerNotify() {
@@ -36,7 +34,7 @@ public class CellModule {
 	switch (signal) {
 	case RadioLayerProvider.EVENT_SIGNAL_CELL_LOCATION: {
 	    if (rd.cellId > 0 && rd.locationAreaCode > 0) {
-		CellModuleManager.instance().getCellInfos().clear();		
+		CellModuleManager.instance().getCellInfos().clear();
 		CellInfo cellInfo = new CellInfo();
 		cellInfo.isCDMA = false;
 		cellInfo.cellid = rd.cellId;
@@ -44,8 +42,10 @@ public class CellModule {
 		cellInfo.mnc = rd.mobileNetworkCode;
 		cellInfo.mcc = rd.mobileCountryCode;
 		CellModuleManager.instance().getCellInfos().add(cellInfo);
-		getNeiborCells(false, rd.locationAreaCode, rd.mobileNetworkCode, rd.mobileCountryCode);
-		GuoKeApp.getApplication().updateCell();
+		getNeiborCells(false, rd.locationAreaCode,
+			rd.mobileNetworkCode, rd.mobileCountryCode);
+		GuoKeApp.getApplication().eventAction(
+			GuoKeApp.GUOKE_CELL_UPDATE, null);
 	    } else {
 	    }
 	}
@@ -59,9 +59,9 @@ public class CellModule {
 
     private void onCdmaDataChange(CdmaData cdmaData, int signal) {
 	switch (signal) {
-	case RadioLayerProvider.EVENT_SIGNAL_CELL_LOCATION:	    
+	case RadioLayerProvider.EVENT_SIGNAL_CELL_LOCATION:
 	    if (cdmaData != null) {
-		CellModuleManager.instance().getCellInfos().clear();		
+		CellModuleManager.instance().getCellInfos().clear();
 		CellInfo cellInfo = new CellInfo();
 		cellInfo.isCDMA = true;
 		cellInfo.cellid = cdmaData.baseStationId;
@@ -69,8 +69,10 @@ public class CellModule {
 		cellInfo.mnc = cdmaData.mobileNetworkCode;
 		cellInfo.mcc = cdmaData.mobileCountryCode;
 		CellModuleManager.instance().getCellInfos().add(cellInfo);
-		getNeiborCells(true, cdmaData.networkId, cdmaData.mobileNetworkCode, cdmaData.mobileCountryCode);
-		GuoKeApp.getApplication().updateCell();
+		getNeiborCells(true, cdmaData.networkId,
+			cdmaData.mobileNetworkCode, cdmaData.mobileCountryCode);
+		GuoKeApp.getApplication().eventAction(
+			GuoKeApp.GUOKE_CELL_UPDATE, null);
 	    } else {
 	    }
 	    break;
@@ -78,7 +80,7 @@ public class CellModule {
 	    break;
 	}
     }
-    
+
     /**
      * Enables this provider. When enabled, calls to getStatus() must be
      * handled. Hardware may be started up when the provider is enabled.
@@ -126,7 +128,7 @@ public class CellModule {
 	    e.printStackTrace();
 	}
     }
-    
+
     public class CellInfo {
 	public boolean isCDMA = false;
 	public int cellid;

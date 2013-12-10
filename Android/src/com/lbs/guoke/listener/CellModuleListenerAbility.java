@@ -2,12 +2,11 @@ package com.lbs.guoke.listener;
 
 import java.lang.ref.WeakReference;
 
-public class CellModuleListenerAbility extends ListenerAbility{
-    public void notifyListener() {
+public class CellModuleListenerAbility extends ListenerAbility {
+    public void notifyCellChangeListener() {
 	if (myIsInvalid) {
 	    return;
 	}
-
 	synchronized (mLock) {
 	    WeakReference<Listener> wr = null;
 	    CellModuleListener tempListener = null;
@@ -21,7 +20,7 @@ public class CellModuleListenerAbility extends ListenerAbility{
 		    myListener.removeElementAt(i);
 		    continue;
 		} else {
-		    tempListener.onStatusChange();
+		    tempListener.onCellChange();
 		}
 	    }
 	}

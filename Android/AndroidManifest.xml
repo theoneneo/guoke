@@ -16,13 +16,19 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/StyledIndicators" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <provider android:name="com.lbs.guoke.db.DBContentProvider" android:authorities="com.lbs.guoke.db.provider"/>
+        <service android:name="com.lbs.guoke.controller.GuoKeService">
+            <intent-filter> 
+		        <action android:name="com.lbs.guoke.controller.GuoKeService" /> 
+		    </intent-filter>
+        </service>          
     </application>
 
 </manifest>
