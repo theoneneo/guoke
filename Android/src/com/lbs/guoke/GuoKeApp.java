@@ -2,6 +2,8 @@ package com.lbs.guoke;
 
 import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.GuoKeService;
+import com.lbs.guoke.controller.MySiteModuleManager;
+import com.lbs.guoke.controller.RemindModuleManager;
 
 import android.app.Application;
 import android.content.Intent;
@@ -12,6 +14,8 @@ public class GuoKeApp extends Application {
     public static final int GUOKE_CELL_UPDATE = 10000;
     
     private static CellModuleManager mCellManager;
+    private static RemindModuleManager mRemindManager;
+    private static MySiteModuleManager mMySiteManager;
     private static GuoKeApp app;
 
     @Override
@@ -19,6 +23,8 @@ public class GuoKeApp extends Application {
 	super.onCreate();
 	app = this;
 	mCellManager = CellModuleManager.instance(this);
+	mRemindManager = RemindModuleManager.instance(this);
+	mMySiteManager = MySiteModuleManager.instance(this);
     }
     
     public void onTerminate(){

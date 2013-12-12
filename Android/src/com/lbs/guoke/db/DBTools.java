@@ -68,15 +68,38 @@ public class DBTools {
 	return null;
     }
 
-    public void insertCellData(int cellid, String name, String introduction,
-	    String thumimg) {
+    public void insertSiteData(String name, String address, int type, String imageLink, String mark) {
 	ContentValues value = new ContentValues();
-	value.put("cellid", cellid);
+	value.put("key", "site"+System.currentTimeMillis());
 	value.put("name", toValidRs(name));
-	value.put("introduction", toValidRs(introduction));
-	value.put("thumimg", toValidRs(thumimg));
+	value.put("address", toValidRs(address));
+	value.put("type", type);
+	value.put("image", toValidRs(imageLink));
+	value.put("mark", toValidRs(mark));
 	mContext.getContentResolver().insert(CELL_DATA_DB.CONTENT_URI, value);
     }
+    
+    public void insertCellData(String name, String address, int type, String imageLink, String mark) {
+	ContentValues value = new ContentValues();
+	value.put("key", "site"+System.currentTimeMillis());
+	value.put("name", toValidRs(name));
+	value.put("address", toValidRs(address));
+	value.put("type", type);
+	value.put("image", toValidRs(imageLink));
+	value.put("mark", toValidRs(mark));
+	mContext.getContentResolver().insert(CELL_DATA_DB.CONTENT_URI, value);
+    }
+    
+    public void insertRemindData(String name, String address, int type, String imageLink, String mark) {
+	ContentValues value = new ContentValues();
+	value.put("key", "site"+System.currentTimeMillis());
+	value.put("name", toValidRs(name));
+	value.put("address", toValidRs(address));
+	value.put("type", type);
+	value.put("image", toValidRs(imageLink));
+	value.put("mark", toValidRs(mark));
+	mContext.getContentResolver().insert(CELL_DATA_DB.CONTENT_URI, value);
+    }    
 
     public static String toValidRs(String obj) {
 	if (obj == null)
