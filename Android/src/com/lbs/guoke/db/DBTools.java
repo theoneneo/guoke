@@ -2,6 +2,7 @@ package com.lbs.guoke.db;
 
 import java.util.ArrayList;
 
+import com.lbs.guoke.cell.CellModule.CellInfo;
 import com.lbs.guoke.db.DataBase.CELL_DATA_DB;
 
 import android.content.ContentValues;
@@ -32,17 +33,17 @@ public class DBTools {
 	DBContentProvider.closeDB();
     }
 
-    public static Cursor findCellData(ArrayList<Integer> cellids) {
-	if(cellids == null)
+    public static Cursor findCellData(ArrayList<CellInfo> cellids) {
+	if (cellids == null)
 	    return null;
 	Cursor cursor = null;
 	try {
 	    int size = cellids.size();
 	    StringBuffer buf = new StringBuffer();
-	    for(int i = 0; i < size; i++){
-		buf.append(CELL_DATA_DB.CELLID+ " = ");
+	    for (int i = 0; i < size; i++) {
+		buf.append(CELL_DATA_DB.CELLID + " = ");
 		buf.append(String.valueOf(cellids.get(i)));
-		if(i != size - 1)
+		if (i != size - 1)
 		    buf.append(" or ");
 	    }
 	    cursor = mContext.getContentResolver().query(
@@ -59,25 +60,16 @@ public class DBTools {
 	return cursor;
     }
 
-//    public static Cursor findCellDataItem(String time) {
-//	Cursor cursor = null;
-//	try {
-//	    cursor = mContext.getContentResolver().query(
-//		    CELL_DATA_COLLECT_DB.CONTENT_URI, null, "time = " + time, null,
-//		    null);
-//	    if (cursor != null) {
-//		cursor.moveToFirst();
-//		return cursor;
-//	    } else {
-//		return null;
-//	    }
-//	} catch (Exception e) {
-//	    e.printStackTrace();
-//	}
-//	return cursor;
-//    }
+    public static Cursor getAllRemindInfos() {
+	return null;
+    }
 
-    public void insertCellData(int cellid, String name, String introduction, String thumimg) {
+    public static Cursor getAllSiteInfos() {
+	return null;
+    }
+
+    public void insertCellData(int cellid, String name, String introduction,
+	    String thumimg) {
 	ContentValues value = new ContentValues();
 	value.put("cellid", cellid);
 	value.put("name", toValidRs(name));

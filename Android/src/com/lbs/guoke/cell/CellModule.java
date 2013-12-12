@@ -44,8 +44,7 @@ public class CellModule {
 		CellModuleManager.instance().getCellInfos().add(cellInfo);
 		getNeiborCells(false, rd.locationAreaCode,
 			rd.mobileNetworkCode, rd.mobileCountryCode);
-		GuoKeApp.getApplication().eventAction(
-			GuoKeApp.GUOKE_CELL_UPDATE, null);
+		CellModuleManager.instance().UpdateCellData();
 	    } else {
 	    }
 	}
@@ -71,8 +70,7 @@ public class CellModule {
 		CellModuleManager.instance().getCellInfos().add(cellInfo);
 		getNeiborCells(true, cdmaData.networkId,
 			cdmaData.mobileNetworkCode, cdmaData.mobileCountryCode);
-		GuoKeApp.getApplication().eventAction(
-			GuoKeApp.GUOKE_CELL_UPDATE, null);
+		CellModuleManager.instance().UpdateCellData();
 	    } else {
 	    }
 	    break;

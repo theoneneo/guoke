@@ -49,4 +49,8 @@ public class CellModuleManager {
     public CellModuleListenerAbility getCellModuleListenerAbility(){
 	return cellModuleLA;
     }
+    
+    public void UpdateCellData(){
+	cellModuleLA.notifyCellChangeListener();
+    }
 }

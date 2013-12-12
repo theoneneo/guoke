@@ -42,11 +42,6 @@ public class GuoKeApp extends Application {
 	@Override
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
-	    	case GuoKeApp.GUOKE_CELL_UPDATE:
-	    	    if(mCellManager == null)
-	    		mCellManager= CellModuleManager.instance(GuoKeApp.this);
-//	    	    mCellManager
-	    	    break;
 	    	default:
 	    	    break;
 	    }
