@@ -8,13 +8,14 @@ public class DataBase {
 	public static final Uri CONTENT_URI = Uri.parse("content://com.lbs.guoke.db.provider/cell_data");
 	public static final String _ID = "_id";
 	public static final String KEY = "key";
+	public static final String ISCDMA = "iscdma";
 	public static final String CELLID = "cellid";
 	public static final String LAC = "lac";
 	public static final String MNC = "mnc";
 	public static final String MCC = "mcc";
 
 	public static final String CREATE_TABLE = "CREATE TABLE cell_data(_id INTEGER PRIMARY KEY AUTOINCREMENT"
-	    + ", key TEXT, cellid INTEGER, lac INTEGER, mnc INTEGER, mcc INTEGER);";
+	    + ", key TEXT, iscdma INTEGER, cellid INTEGER, lac INTEGER, mnc INTEGER, mcc INTEGER);";
     }
     
     public static final class MESSAGE_DATA_DB implements BaseColumns {
@@ -39,7 +40,7 @@ public class DataBase {
 	public static final String REMINDMUSIC = "remindmusic";
 
 	public static final String CREATE_TABLE = "CREATE TABLE remind_data(_id INTEGER PRIMARY KEY AUTOINCREMENT"
-	    + ", key TEXT, title TEXT, message TEXT, isremind BOOLEAN, isvibrate BOOLEAN, remindmusic INTEGER);";
+	    + ", key TEXT, title TEXT, message TEXT, isremind INTEGER, isvibrate INTEGER, remindmusic INTEGER);";
     }
     
     public static final class ADDRESS_DATA_DB implements BaseColumns {
