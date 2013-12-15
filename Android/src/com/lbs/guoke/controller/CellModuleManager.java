@@ -17,6 +17,7 @@ public class CellModuleManager {
 	// private static CellModuleListenerAbility cellModuleLA;
 	public static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
 	public static ArrayList<CellInfo> dbCellInfos = new ArrayList<CellInfo>();
+	public static ArrayList<CellInfo> tempCellInfos = new ArrayList<CellInfo>();
 
 	public CellModuleManager(GuoKeApp app) {
 		this.app = app;
@@ -58,14 +59,15 @@ public class CellModuleManager {
 		// "明天第一城", 0, null, "家", mCellInfos);
 		Thread thread = new Thread() {
 			public void run() {
-				if(mCellInfos == null)
+				if (mCellInfos == null)
 					return;
 				synchronized (mCellInfos) {
 					for (int i = 0; i < mCellInfos.size(); i++) {
 						CellInfo ci = mCellInfos.get(i);
-						if(dbCellInfos == null)
+						if (dbCellInfos == null)
 							return;
-						for(int m = 0; m < dbCellInfos.size(); m++){
+						for (int m = 0; m < dbCellInfos.size(); m++) {
+							CellInfo di = dbCellInfos.get(m);
 						}
 					}
 				}
