@@ -55,8 +55,6 @@ public class CellModuleManager {
 
 	public void UpdateCellData() {
 		// cellModuleLA.notifyCellChangeListener();
-		// DBTools.instance(app.getApplicationContext()).insertSiteData("立水桥",
-		// "明天第一城", 0, null, "家", mCellInfos);
 		Thread thread = new Thread() {
 			public void run() {
 				if (mCellInfos == null)
@@ -68,6 +66,12 @@ public class CellModuleManager {
 							return;
 						for (int m = 0; m < dbCellInfos.size(); m++) {
 							CellInfo di = dbCellInfos.get(m);
+							if (ci.isCDMA == di.isCDMA
+									&& ci.cellid == di.cellid
+									&& ci.lac == di.lac && ci.mnc == di.mcc
+									&& ci.mcc == di.mcc) {
+								tempCellInfos.add(di);
+							}
 						}
 					}
 				}

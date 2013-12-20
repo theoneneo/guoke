@@ -1,7 +1,7 @@
 package com.lbs.guoke.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.lbs.guoke.R;
 
-public class AddRemindFragment extends ListFragment {
+public class AddRemindFragment extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

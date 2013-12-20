@@ -4,18 +4,22 @@ import com.lbs.guoke.R;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.fragment.RemindListFragment.RemindViewHolder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MySiteListFragment extends ListFragment {
+	private MySiteListFragmentListener fListener;
 	private SiteAdapter adapter;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,10 +29,39 @@ public class MySiteListFragment extends ListFragment {
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		initUI();
+	}
+	
+	@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+        	fListener = (MySiteListFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentListener");
+        }
+    }
+	
+	private void initUI(){	
 		adapter = new SiteAdapter(getActivity());
+		LayoutInflater inflater = LayoutInflater.from(getActivity());
+		View headView = (View) inflater.inflate(R.layout.view_add, null);
+		getListView().addHeaderView(headView);
+		Button btn_add = (Button)headView.findViewById(R.id.btn_add);
+		btn_add.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				fListener.LoadAddSiteFragmentListener(AddSiteFragment.ADD_DATA_STATUS);
+			}	
+		});		
 		setListAdapter(adapter);
 	}
 	
+    public interface MySiteListFragmentListener{
+        public void LoadAddSiteFragmentListener(int type);
+    }
+    
 	public void updateAdapter(){
 		adapter.notifyDataSetChanged();
 	}

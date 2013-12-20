@@ -1,5 +1,6 @@
 package com.lbs.guoke;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,13 +10,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lbs.guoke.db.DBTools;
 import com.lbs.guoke.fragment.MySiteListFragment;
+import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
 import com.lbs.guoke.fragment.RemindListFragment;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MySiteListFragmentListener{
 	private static final String[] CONTENT = new String[] { "提醒", "我的地盘" };
 	private static final int[] ICONS = new int[] { R.drawable.ic_launcher,
 			R.drawable.ic_launcher, };
@@ -31,12 +32,6 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 
 		initUI();
-		FragmentPagerAdapter adapter = new MainAdapter(
-				getSupportFragmentManager());
-		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		pager.setAdapter(adapter);
-		TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
-		indicator.setViewPager(pager);
 	}
 
 	@Override
@@ -46,6 +41,13 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private void initUI() {
+		FragmentPagerAdapter adapter = new MainAdapter(
+				getSupportFragmentManager());
+		ViewPager pager = (ViewPager) findViewById(R.id.pager);
+		pager.setAdapter(adapter);
+		TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
+		indicator.setViewPager(pager);
+		
 		GuoKeApp.setMainHandler(mainHandler);
 		remindList = new RemindListFragment();
 		mysiteList = new MySiteListFragment();
@@ -102,4 +104,18 @@ public class MainActivity extends BaseActivity {
 			super.handleMessage(msg);
 		}
 	};
+
+	@Override
+	public void LoadAddSiteFragmentListener(int status) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent(this, AddSiteActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("status", status);
+		startActivity(i);
+//		AddSiteFragment asFragment = new AddSiteFragment();
+//		Bundle arguments = new Bundle();
+//		arguments.putInt("status", status);
+//		asFragment.setArguments(arguments);
+//		getSupportFragmentManager().beginTransaction().add(R.id.content_frame, asFragment).addToBackStack(null).commit();		
+	}
 }

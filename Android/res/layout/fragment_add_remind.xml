@@ -4,8 +4,6 @@
 
     <include
         android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         layout="@layout/view_title" />
     <TextView
         android:id="@+id/text_address"
@@ -40,7 +38,7 @@
         android:layout_height="40dp"
         android:layout_below="@+id/edit_remind"
         />
-    <CkeckBox
+    <CheckBox
         android:id="@+id/cb_vibrate"
         android:layout_width="30dp"
         android:layout_height="30dp"

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import com.lbs.guoke.GuoKeApp;
 import com.lbs.guoke.MainActivity;
 import com.lbs.guoke.db.DBTools;
+import com.lbs.guoke.structure.CellInfo;
 
 public class MySiteModuleManager {
 	private GuoKeApp app;
@@ -59,6 +60,11 @@ public class MySiteModuleManager {
 			}
 		};
 		thread.start();
+	}
+	
+	public void addSiteInfo(String name, String address, int type,
+			String imageLink, String mark, ArrayList<CellInfo> cellInfos){
+		 DBTools.instance().insertSiteData(name, address, type, imageLink, mark, CellModuleManager.instance().getCellInfos());
 	}
 
 	public class SiteInfo {
