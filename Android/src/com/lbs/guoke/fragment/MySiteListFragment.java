@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -52,14 +54,22 @@ public class MySiteListFragment extends ListFragment {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				fListener.LoadAddSiteFragmentListener(AddSiteFragment.ADD_DATA_STATUS);
+				fListener.LoadAddSiteFragmentListener(AddSiteFragment.ADD_DATA_STATUS, null);
 			}	
 		});		
 		setListAdapter(adapter);
+		getListView().setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				fListener.LoadAddSiteFragmentListener(AddSiteFragment.INFO_DATA_STATUS, MySiteModuleManager.instance().getSiteInfos().get(arg2).key);
+			}	
+		});
 	}
 	
     public interface MySiteListFragmentListener{
-        public void LoadAddSiteFragmentListener(int type);
+        public void LoadAddSiteFragmentListener(int type, String key);
     }
     
 	public void updateAdapter(){

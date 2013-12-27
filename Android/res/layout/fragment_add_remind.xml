@@ -1,60 +1,152 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
 
     <include
         android:id="@+id/title"
         layout="@layout/view_title" />
+
     <TextView
-        android:id="@+id/text_address"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_below="@+id/title"
-        android:text="Medium Text"
-        android:textAppearance="@android:style/TextAppearance.Medium" />
-    <Spinner 
-        android:id="@+id/spinner_address"
+        android:id="@+id/text_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_address"
-        />
-    <TextView
-        android:id="@+id/text_remind"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_below="@+id/spinner_address"
-        android:text="Medium Text"
-        android:textAppearance="@android:style/TextAppearance.Medium" />    
-    <EditText
-        android:id="@+id/edit_remind"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_below="@+id/text_remind"
-        android:text="Medium Text"
-        android:textAppearance="@android:style/TextAppearance.Medium" /> 
-    <Button 
-        android:id="@+id/btn_music"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/edit_remind"
-        />
-    <CheckBox
-        android:id="@+id/cb_vibrate"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_toRightOf="@+id/btn_music"
-        android:layout_below="@+id/edit_remind"/>
-    <Button 
-        android:id="@+id/btn_bottom_left"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/site_prompt"
+        android:textColor="#ff0000"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/text_prompt" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:id="@+id/layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" >
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/site_name"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/text_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/site_address"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/edit_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_address"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/text_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/site_type"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btn_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_type"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/site_photo"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/img_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_launcher" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_mark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_photo"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/text_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/site_mark"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/edit_mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        />
-    <Button 
-        android:id="@+id/btn_bottom_right"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        />    
+        layout="@layout/view_bottom" />
+
 </RelativeLayout>

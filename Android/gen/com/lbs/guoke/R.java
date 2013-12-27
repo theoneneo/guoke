@@ -486,38 +486,48 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpi__tab_unselected_pressed_holo=0x7f020014;
     }
     public static final class id {
-        public static final int action_settings=0x7f040022;
-        public static final int add_site=0x7f04000b;
+        public static final int action_settings=0x7f04002c;
         public static final int bottom=0x7f040008;
-        public static final int btn_add=0x7f04001f;
-        public static final int btn_bottom_left=0x7f040015;
-        public static final int btn_bottom_right=0x7f040016;
-        public static final int btn_left=0x7f040020;
-        public static final int btn_music=0x7f040013;
-        public static final int btn_right=0x7f040021;
-        public static final int cb_vibrate=0x7f040014;
+        public static final int btn_add=0x7f040026;
+        public static final int btn_bottom_left=0x7f040027;
+        public static final int btn_bottom_right=0x7f040028;
+        public static final int btn_left=0x7f040029;
+        public static final int btn_right=0x7f04002b;
+        public static final int btn_type=0x7f040018;
         public static final int content_frame=0x7f04000a;
-        public static final int edit_remind=0x7f040012;
+        public static final int edit_address=0x7f040015;
+        public static final int edit_mark=0x7f04001d;
+        public static final int edit_name=0x7f040012;
         public static final int fullscreen=0x7f040003;
-        public static final int icon=0x7f04001b;
-        public static final int indicator=0x7f04000c;
+        public static final int grid=0x7f04001e;
+        public static final int icon=0x7f040022;
+        public static final int img_photo=0x7f04001a;
+        public static final int indicator=0x7f04000b;
+        public static final int layout_address=0x7f040013;
+        public static final int layout_mark=0x7f04001b;
+        public static final int layout_name=0x7f040010;
+        public static final int layout_photo=0x7f040019;
+        public static final int layout_type=0x7f040016;
         public static final int left=0x7f040000;
         public static final int margin=0x7f040002;
-        public static final int menu_frame=0x7f04001d;
+        public static final int menu_frame=0x7f040024;
         public static final int none=0x7f040005;
-        public static final int pager=0x7f04000d;
+        public static final int pager=0x7f04000c;
         public static final int right=0x7f040001;
-        public static final int row_button=0x7f04001c;
-        public static final int row_icon=0x7f040018;
-        public static final int row_message=0x7f04001a;
-        public static final int row_title=0x7f040019;
+        public static final int row_button=0x7f040023;
+        public static final int row_icon=0x7f04001f;
+        public static final int row_message=0x7f040021;
+        public static final int row_title=0x7f040020;
+        public static final int scroll=0x7f04000f;
         public static final int selected_view=0x7f040004;
-        public static final int slidingmenumain=0x7f04001e;
-        public static final int spinner_address=0x7f040010;
-        public static final int text_address=0x7f04000f;
-        public static final int text_prompt=0x7f040017;
-        public static final int text_remind=0x7f040011;
-        public static final int title=0x7f04000e;
+        public static final int slidingmenumain=0x7f040025;
+        public static final int text_address=0x7f040014;
+        public static final int text_mark=0x7f04001c;
+        public static final int text_name=0x7f040011;
+        public static final int text_prompt=0x7f04000e;
+        public static final int text_title=0x7f04002a;
+        public static final int text_type=0x7f040017;
+        public static final int title=0x7f04000d;
         public static final int top=0x7f040009;
         public static final int triangle=0x7f040006;
         public static final int underline=0x7f040007;
@@ -535,26 +545,38 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_main=0x7f030001;
         public static final int fragment_add_remind=0x7f030002;
         public static final int fragment_add_site=0x7f030003;
-        public static final int fragment_list=0x7f030004;
-        public static final int item_remind=0x7f030005;
-        public static final int item_site=0x7f030006;
-        public static final int menu_frame=0x7f030007;
-        public static final int slidingmenumain=0x7f030008;
-        public static final int view_add=0x7f030009;
-        public static final int view_bottom=0x7f03000a;
-        public static final int view_title=0x7f03000b;
+        public static final int fragment_grid=0x7f030004;
+        public static final int fragment_list=0x7f030005;
+        public static final int item_remind=0x7f030006;
+        public static final int item_site=0x7f030007;
+        public static final int menu_frame=0x7f030008;
+        public static final int slidingmenumain=0x7f030009;
+        public static final int view_add=0x7f03000a;
+        public static final int view_bottom=0x7f03000b;
+        public static final int view_title=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
+        public static final int add_site=0x7f07000f;
         public static final int app_name=0x7f070000;
+        public static final int cancel=0x7f07000d;
         public static final int hello_world=0x7f070002;
+        public static final int info_site=0x7f070010;
+        public static final int modify_site=0x7f070011;
         public static final int ptr_last_updated=0x7f070006;
         public static final int ptr_pull_to_refresh=0x7f070003;
         public static final int ptr_refreshing=0x7f070005;
         public static final int ptr_release_to_refresh=0x7f070004;
+        public static final int save=0x7f07000e;
+        public static final int site_address=0x7f070009;
+        public static final int site_mark=0x7f07000c;
+        public static final int site_name=0x7f070008;
+        public static final int site_photo=0x7f07000b;
+        public static final int site_prompt=0x7f070007;
+        public static final int site_type=0x7f07000a;
     }
     public static final class style {
         /** 
@@ -580,7 +602,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
         public static final int CustomCirclePageIndicator=0x7f080005;

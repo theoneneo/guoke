@@ -106,11 +106,13 @@ public class MainActivity extends BaseActivity implements MySiteListFragmentList
 	};
 
 	@Override
-	public void LoadAddSiteFragmentListener(int status) {
+	public void LoadAddSiteFragmentListener(int status, String key) {
 		// TODO Auto-generated method stub
 		Intent i = new Intent(this, AddSiteActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("status", status);
+		bundle.putString("key", key);
+		i.putExtras(bundle);
 		startActivity(i);
 //		AddSiteFragment asFragment = new AddSiteFragment();
 //		Bundle arguments = new Bundle();

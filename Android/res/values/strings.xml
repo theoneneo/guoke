@@ -7,5 +7,17 @@
     <string name="ptr_pull_to_refresh">Pull to refresh</string>
     <string name="ptr_release_to_refresh">Release to refresh</string>
     <string name="ptr_refreshing">Refreshing</string>
-    <string name="ptr_last_updated">Updated: %1$s</string>   
+    <string name="ptr_last_updated">Updated: %1$s</string> 
+    
+    <string name="site_prompt">为了准确提醒，请确保您正在要添加的地点旁边</string>
+    <string name="site_name">名称：</string>
+    <string name="site_address">地址：</string>
+    <string name="site_type">类别：</string>
+    <string name="site_photo">照片：</string>
+    <string name="site_mark">备注：</string>
+    <string name="cancel">取消</string>
+    <string name="save">保存</string>
+    <string name="add_site">添加地点</string>
+    <string name="info_site">地点详情</string>
+    <string name="modify_site">编辑地点</string>
 </resources>

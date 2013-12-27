@@ -88,7 +88,7 @@ public class CellModuleManager {
 					return;
 				for (int i = 0; i < c.getCount(); i++) {
 					CellInfo cellInfo = new CellInfo();
-					cellInfo.key = c.getString(c.getColumnIndex("key"));
+					cellInfo.key = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("key")));
 					cellInfo.isCDMA = c.getInt(c.getColumnIndex("iscdma"));
 					cellInfo.cellid = c.getInt(c.getColumnIndex("cellid"));
 					cellInfo.lac = c.getInt(c.getColumnIndex("lac"));
@@ -96,6 +96,7 @@ public class CellModuleManager {
 					cellInfo.mcc = c.getInt(c.getColumnIndex("mcc"));
 					dbCellInfos.add(cellInfo);
 				}
+				c.close();
 			}
 		};
 		thread.start();

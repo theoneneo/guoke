@@ -43,14 +43,15 @@ public class RemindModuleManager {
 					return;
 				for (int i = 0; i < c.getCount(); i++) {
 					RemindInfo remindInfo = new RemindInfo();
-					remindInfo.key = c.getString(c.getColumnIndex("key"));
-					remindInfo.remindTitle = c.getString(c.getColumnIndex("title"));
-					remindInfo.remindMessage = c.getString(c.getColumnIndex("message"));
+					remindInfo.key = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("key")));
+					remindInfo.remindTitle = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("title")));
+					remindInfo.remindMessage = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("message")));
 					remindInfo.isRemind = c.getInt(c.getColumnIndex("isremind"));
 					remindInfo.isVibrate = c.getInt(c.getColumnIndex("isvibrate"));
 					remindInfo.remindMusic = c.getInt(c.getColumnIndex("remindmusic"));
 					mRemindInfos.add(remindInfo);
 				}
+				c.close();
 
 				if(GuoKeApp.mainHandler != null){
 					GuoKeApp.mainHandler.sendEmptyMessage(GuoKeApp.GUOKE_REMIND_UPDATE);

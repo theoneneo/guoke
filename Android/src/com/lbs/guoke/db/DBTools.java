@@ -86,14 +86,47 @@ public class DBTools {
 		}
 		return cursor;
 	}
+	
+	public static Cursor getSiteInfo(String key){
+		Cursor cursor = null;
+		try {
+			cursor = mContext.getContentResolver().query(
+					ADDRESS_DATA_DB.CONTENT_URI, null, ADDRESS_DATA_DB.KEY + "="+key, null, null);
+			if (cursor != null) {
+				cursor.moveToFirst();
+				return cursor;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cursor;
+	}
+	
+	public static Cursor getRemindInfo(String key){
+		Cursor cursor = null;
+		try {
+			cursor = mContext.getContentResolver().query(
+					REMIND_DATA_DB.CONTENT_URI, null, REMIND_DATA_DB.KEY + "="+key, null, null);
+			if (cursor != null) {
+				cursor.moveToFirst();
+				return cursor;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cursor;
+	}
 
-	public void insertSiteData(String name, String address, int type,
+	public void insertSiteData(String key, String name, String address, int type,
 			String imageLink, String mark, ArrayList<CellInfo> cellInfos) {
 		if (cellInfos == null || name == null || address == null)
 			return;
 
 		ContentValues value = new ContentValues();
-		String key = "site_" + System.currentTimeMillis();
 		value.put("key", toValidRs(key));
 		value.put("name", toValidRs(name));
 		value.put("address", toValidRs(address));
