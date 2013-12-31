@@ -2,8 +2,10 @@ package com.lbs.guoke.fragment;
 
 import com.lbs.guoke.R;
 import com.lbs.guoke.controller.MySiteModuleManager;
+import com.lbs.guoke.fragment.AddSiteFragment.AddSiteListFragmentListener;
 import com.lbs.guoke.fragment.MySiteListFragment.SiteViewHolder;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,6 +37,8 @@ public class SiteTypeFragment extends DialogFragment implements OnTouchListener 
 			R.drawable.ic_launcher, R.drawable.ic_launcher,
 			R.drawable.ic_launcher, R.drawable.ic_launcher,
 			R.drawable.ic_launcher };
+	
+	private SiteTypeFragmentListener fListener;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -46,12 +50,28 @@ public class SiteTypeFragment extends DialogFragment implements OnTouchListener 
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
+				fListener.SetSiteTypeFragmentListener(position);
+				getFragmentManager().popBackStack();
 			}
 		});
 		
 		return new AlertDialog.Builder(getActivity())
 				.setTitle(R.string.site_type).setView(view).create();
 	}
+	
+	@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+        	fListener = (SiteTypeFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentListener");
+        }
+    }
+	
+    public interface SiteTypeFragmentListener{
+        public void SetSiteTypeFragmentListener(int type);
+    }
 
 	public class SiteTypeAdapter extends BaseAdapter {
 		private LayoutInflater inflater;

@@ -88,10 +88,11 @@ public class DBTools {
 	}
 	
 	public static Cursor getSiteInfo(String key){
+		String selection = ADDRESS_DATA_DB.KEY + "='" + toValidRs(key) + "'";
 		Cursor cursor = null;
 		try {
 			cursor = mContext.getContentResolver().query(
-					ADDRESS_DATA_DB.CONTENT_URI, null, ADDRESS_DATA_DB.KEY + "="+key, null, null);
+					ADDRESS_DATA_DB.CONTENT_URI, null, selection, null, null);
 			if (cursor != null) {
 				cursor.moveToFirst();
 				return cursor;
@@ -105,10 +106,11 @@ public class DBTools {
 	}
 	
 	public static Cursor getRemindInfo(String key){
+		String selection = REMIND_DATA_DB.KEY + "='" + toValidRs(key) + "'";
 		Cursor cursor = null;
 		try {
 			cursor = mContext.getContentResolver().query(
-					REMIND_DATA_DB.CONTENT_URI, null, REMIND_DATA_DB.KEY + "="+key, null, null);
+					REMIND_DATA_DB.CONTENT_URI, null, selection, null, null);
 			if (cursor != null) {
 				cursor.moveToFirst();
 				return cursor;

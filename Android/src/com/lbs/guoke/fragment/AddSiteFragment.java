@@ -8,6 +8,7 @@ import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
 import com.lbs.guoke.structure.CellInfo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,7 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AddSiteFragment extends Fragment implements OnTouchListener {
+public class AddSiteFragment extends Fragment {
 	private AddSiteListFragmentListener fListener;
 	
 	public final static int ADD_DATA_STATUS = 0;
@@ -63,20 +64,7 @@ public class AddSiteFragment extends Fragment implements OnTouchListener {
 		}
 		initUI();
 	}
-	
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		// TODO 拦截触摸事件防止泄露下去
-		view.setOnTouchListener(this);
-		super.onViewCreated(view, savedInstanceState);
-	}
 
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
 	@Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -142,6 +130,7 @@ public class AddSiteFragment extends Fragment implements OnTouchListener {
 					setStatus(mStatus);
 				} else {
 					saveSiteInfo();
+	                getActivity().setResult(getActivity().RESULT_OK, null);
 					getActivity().finish();
 				}
 			}
@@ -196,6 +185,11 @@ public class AddSiteFragment extends Fragment implements OnTouchListener {
 		default:
 			break;
 		}
+	}
+	
+	public void setSiteType(int type){
+		this.type = type;
+		changeSiteType();
 	}
 	
 	private void changeSiteType() {

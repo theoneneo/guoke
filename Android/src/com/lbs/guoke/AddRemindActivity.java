@@ -1,5 +1,6 @@
 package com.lbs.guoke;
 
+import com.lbs.guoke.fragment.AddRemindFragment;
 import com.lbs.guoke.fragment.AddSiteFragment;
 import com.lbs.guoke.fragment.SiteTypeFragment;
 import com.lbs.guoke.fragment.AddSiteFragment.AddSiteListFragmentListener;
@@ -9,10 +10,9 @@ import android.app.FragmentManager.OnBackStackChangedListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-public class AddSiteActivity extends FragmentActivity implements
-		AddSiteListFragmentListener, SiteTypeFragmentListener, OnBackStackChangedListener {
-	private AddSiteFragment asFragment;
-	private SiteTypeFragment stFragment;
+public class AddRemindActivity extends FragmentActivity implements
+		OnBackStackChangedListener {
+	private AddRemindFragment arFragment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,30 +31,13 @@ public class AddSiteActivity extends FragmentActivity implements
 			if (savedInstanceState != null) {
 				return;
 			}
-			asFragment = new AddSiteFragment();
-			asFragment.setArguments(getIntent().getExtras());
+			arFragment = new AddRemindFragment();
+			arFragment.setArguments(getIntent().getExtras());
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.content_frame, asFragment).commit();
+					.add(R.id.content_frame, arFragment).commit();
 
 			getFragmentManager().addOnBackStackChangedListener(this);
 		}
-	}
-
-	@Override
-	public void LoadSiteTypeFragmentListener(int type) {
-		// TODO Auto-generated method stub
-		stFragment = new SiteTypeFragment();
-		Bundle arguments = new Bundle();
-		arguments.putInt("type", type);
-		stFragment.setArguments(arguments);
-		getSupportFragmentManager().beginTransaction()
-				.add(stFragment, "dialog").addToBackStack(null).commit();
-	}
-
-	@Override
-	public void SetSiteTypeFragmentListener(int type) {
-		// TODO Auto-generated method stub
-		asFragment.setSiteType(type);
 	}
 
 	@Override

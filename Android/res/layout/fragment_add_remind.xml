@@ -7,137 +7,86 @@
         android:id="@+id/title"
         layout="@layout/view_title" />
 
-    <TextView
-        android:id="@+id/text_prompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/site_prompt"
-        android:textColor="#ff0000"
-        android:textSize="18sp" />
-
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom"
-        android:layout_below="@+id/text_prompt" >
+        android:layout_below="@+id/title" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
+            <TextView
+                android:id="@+id/text_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/remind_prompt"
+                android:textSize="18sp" />
+
             <LinearLayout
                 android:id="@+id/layout_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" >
-
-                <TextView
-                    android:id="@+id/text_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/site_name"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/edit_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_name"
+                android:layout_below="@+id/text_prompt"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp" >
+                android:gravity="center_vertical" >
 
                 <TextView
                     android:id="@+id/text_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/site_address"
+                    android:text="@string/site_name"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/edit_address"
+                <Spinner
+                    android:id="@+id/spin_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_type"
+            <TextView
+                android:id="@+id/text_remind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_name"
+                android:padding="10dp"
+                android:text="@string/remind_me"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edit_remind"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_address"
+                android:layout_below="@+id/text_remind"
+                android:maxLines="3" />
+
+            <LinearLayout
+                android:id="@+id/layout_remind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_remind"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp" >
-
-                <TextView
-                    android:id="@+id/text_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/site_type"
-                    android:textSize="18sp" />
+                android:gravity="center_vertical" >
 
                 <Button
-                    android:id="@+id/btn_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_type"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp" >
-
-                <TextView
-                    android:id="@+id/text_name"
+                    android:id="@+id/btn_ring"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/site_photo"
+                    android:layout_weight="1"
+                    android:text="@string/site_name"
                     android:textSize="18sp" />
 
-                <ImageView
-                    android:id="@+id/img_photo"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:clickable="true"
-                    android:src="@drawable/ic_launcher" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_mark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_photo"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp" >
-
-                <TextView
-                    android:id="@+id/text_mark"
+                <Switch
+                    android:id="@+id/switch_vibrate"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/site_mark"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/edit_mark"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" 
+                    android:layout_weight="1"
+                    />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
