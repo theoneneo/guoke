@@ -86,8 +86,8 @@ public class DBTools {
 		}
 		return cursor;
 	}
-	
-	public static Cursor getSiteInfo(String key){
+
+	public static Cursor getSiteInfo(String key) {
 		String selection = ADDRESS_DATA_DB.KEY + "='" + toValidRs(key) + "'";
 		Cursor cursor = null;
 		try {
@@ -104,8 +104,8 @@ public class DBTools {
 		}
 		return cursor;
 	}
-	
-	public static Cursor getRemindInfo(String key){
+
+	public static Cursor getRemindInfo(String key) {
 		String selection = REMIND_DATA_DB.KEY + "='" + toValidRs(key) + "'";
 		Cursor cursor = null;
 		try {
@@ -123,8 +123,9 @@ public class DBTools {
 		return cursor;
 	}
 
-	public void insertSiteData(String key, String name, String address, int type,
-			String imageLink, String mark, ArrayList<CellInfo> cellInfos) {
+	public void insertSiteData(String key, String name, String address,
+			int type, String imageLink, String mark,
+			ArrayList<CellInfo> cellInfos) {
 		if (cellInfos == null || name == null || address == null)
 			return;
 
@@ -167,6 +168,32 @@ public class DBTools {
 		value.put("isvibrate", isvibrate);
 		value.put("remindmusic", remindmusic);
 		mContext.getContentResolver().insert(REMIND_DATA_DB.CONTENT_URI, value);
+	}
+
+	public void updateSiteInfo(String key, String name, String address,
+			int type, String imageLink, String mark) {
+		String selection = ADDRESS_DATA_DB.KEY + "='" + toValidRs(key) + "'";
+		ContentValues value = new ContentValues();
+		value.put("name", toValidRs(name));
+		value.put("address", toValidRs(address));
+		value.put("type", type);
+		value.put("image", toValidRs(imageLink));
+		value.put("mark", toValidRs(mark));
+		mContext.getContentResolver().update(ADDRESS_DATA_DB.CONTENT_URI,
+				value, selection, null);
+	}
+
+	public void updateRemindInfo(String key, String title, String message,
+			int isremind, int isvibrate, int remindmusic) {
+		String selection = REMIND_DATA_DB.KEY + "='" + toValidRs(key) + "'";
+		ContentValues value = new ContentValues();
+		value.put("title", toValidRs(title));
+		value.put("message", toValidRs(message));
+		value.put("isremind", isremind);
+		value.put("isvibrate", isvibrate);
+		value.put("remindmusic", remindmusic);
+		mContext.getContentResolver().update(REMIND_DATA_DB.CONTENT_URI,
+				value, selection, null);
 	}
 
 	public static String toValidRs(String obj) {

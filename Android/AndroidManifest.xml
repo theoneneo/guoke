@@ -25,7 +25,10 @@
         </activity>
         <activity
             android:name=".AddSiteActivity">
-        </activity>        
+        </activity>  
+        <activity
+            android:name=".AddRemindActivity">
+        </activity>                
         <provider android:name="com.lbs.guoke.db.DBContentProvider" android:authorities="com.lbs.guoke.db.provider"/>
         <service android:name="com.lbs.guoke.controller.GuoKeService">
             <intent-filter> 

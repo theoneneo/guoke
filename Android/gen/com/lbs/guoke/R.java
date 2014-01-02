@@ -568,20 +568,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
-        public static final int add_site=0x7f07000f;
+        public static final int add_site=0x7f070010;
         public static final int app_name=0x7f070000;
         public static final int cancel=0x7f07000d;
         public static final int hello_world=0x7f070002;
-        public static final int info_site=0x7f070010;
-        public static final int modify_site=0x7f070011;
+        public static final int info_site=0x7f070011;
+        public static final int modify=0x7f07000e;
+        public static final int modify_site=0x7f070012;
         public static final int ptr_last_updated=0x7f070006;
         public static final int ptr_pull_to_refresh=0x7f070003;
         public static final int ptr_refreshing=0x7f070005;
         public static final int ptr_release_to_refresh=0x7f070004;
-        public static final int remind=0x7f070012;
-        public static final int remind_me=0x7f070014;
-        public static final int remind_prompt=0x7f070013;
-        public static final int save=0x7f07000e;
+        public static final int remind=0x7f070013;
+        public static final int remind_me=0x7f070015;
+        public static final int remind_prompt=0x7f070014;
+        public static final int save=0x7f07000f;
         public static final int site_address=0x7f070009;
         public static final int site_mark=0x7f07000c;
         public static final int site_name=0x7f070008;

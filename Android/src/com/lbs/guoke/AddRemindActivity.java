@@ -10,8 +10,7 @@ import android.app.FragmentManager.OnBackStackChangedListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-public class AddRemindActivity extends FragmentActivity implements
-		OnBackStackChangedListener {
+public class AddRemindActivity extends FragmentActivity {
 	private AddRemindFragment arFragment;
 
 	@Override
@@ -35,13 +34,6 @@ public class AddRemindActivity extends FragmentActivity implements
 			arFragment.setArguments(getIntent().getExtras());
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.content_frame, arFragment).commit();
-
-			getFragmentManager().addOnBackStackChangedListener(this);
 		}
-	}
-
-	@Override
-	public void onBackStackChanged() {
-		// TODO Auto-generated method stub
 	}
 }

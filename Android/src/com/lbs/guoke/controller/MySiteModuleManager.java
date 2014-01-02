@@ -19,17 +19,13 @@ public class MySiteModuleManager {
 		getSiteInfosFromDB();
 	}
 
-	public static MySiteModuleManager instance(GuoKeApp app) {
+	public static MySiteModuleManager instance() {
 		synchronized (MySiteModuleManager.class) {
 			if (instance == null) {
-				instance = new MySiteModuleManager(app);
+				instance = new MySiteModuleManager(GuoKeApp.getApplication());
 			}
 			return instance;
 		}
-	}
-
-	public static MySiteModuleManager instance() {
-		return instance;
 	}
 
 	public ArrayList<SiteInfo> getSiteInfos() {
@@ -51,6 +47,7 @@ public class MySiteModuleManager {
 					siteInfo.siteImageLink = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("image")));
 					siteInfo.siteMark = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("mark")));
 					mSiteInfos.add(siteInfo);
+					c.moveToNext();
 				}
 				c.close();
 				if (GuoKeApp.mainHandler != null) {
@@ -76,6 +73,25 @@ public class MySiteModuleManager {
 		mSiteInfos.add(siteInfo);
 		DBTools.instance().insertSiteData(key, name, address, type, imageLink, mark,
 				CellModuleManager.instance().getCellInfos());
+	}
+	
+	public void modifySite(String key, String name, String address, int type,
+			String imageLink, String mark){
+		if(key == null || key == "")
+			return;
+		
+		for(int i = 0; i < mSiteInfos.size(); i++){
+			SiteInfo siteInfo = mSiteInfos.get(i);
+			if(siteInfo.key.equals(key)){
+				siteInfo.siteName = name;
+				siteInfo.siteAddress = address;
+				siteInfo.siteType = type;
+				siteInfo.siteImageLink = imageLink;
+				siteInfo.siteMark = mark;
+				break;
+			}
+		}
+		DBTools.instance().updateSiteInfo(key, name, address, type, imageLink, mark);
 	}
 
 	public class SiteInfo {

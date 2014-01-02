@@ -32,17 +32,13 @@ public class CellModuleManager {
 			cellModule.disable();
 	}
 
-	public static CellModuleManager instance(GuoKeApp app) {
+	public static CellModuleManager instance() {
 		synchronized (CellModuleManager.class) {
 			if (instance == null) {
-				instance = new CellModuleManager(app);
+				instance = new CellModuleManager(GuoKeApp.getApplication());
 			}
 			return instance;
 		}
-	}
-
-	public static CellModuleManager instance() {
-		return instance;
 	}
 
 	public ArrayList<CellInfo> getCellInfos() {
@@ -95,6 +91,7 @@ public class CellModuleManager {
 					cellInfo.mnc = c.getInt(c.getColumnIndex("mnc"));
 					cellInfo.mcc = c.getInt(c.getColumnIndex("mcc"));
 					dbCellInfos.add(cellInfo);
+					c.moveToNext();
 				}
 				c.close();
 			}

@@ -17,14 +17,15 @@ import com.lbs.guoke.fragment.RemindListFragment.RemindListFragmentListener;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
-public class MainActivity extends BaseActivity implements MySiteListFragmentListener, RemindListFragmentListener{
+public class MainActivity extends BaseActivity implements
+		MySiteListFragmentListener, RemindListFragmentListener {
 	private static final String[] CONTENT = new String[] { "提醒", "我的地盘" };
 	private static final int[] ICONS = new int[] { R.drawable.ic_launcher,
 			R.drawable.ic_launcher, };
 
 	private static RemindListFragment remindList;
 	private static MySiteListFragment mysiteList;
-	
+
 	private int REQUEST_ADD_SITE = 0;
 	private int REQUEST_ADD_REMIND = 1;
 
@@ -43,17 +44,18 @@ public class MainActivity extends BaseActivity implements MySiteListFragmentList
 		GuoKeApp.setMainHandler(null);
 		super.onDestroy();
 	}
-	
+
 	@Override
-    // 当结果返回后判断并执行操作
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == REQUEST_ADD_SITE) {
-            if (resultCode == RESULT_OK) {
-            	mysiteList.updateAdapter();
-            }
-        }
-    }
+	// 当结果返回后判断并执行操作
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+		if (requestCode == REQUEST_ADD_SITE) {
+			mysiteList.updateAdapter();
+		} else if (requestCode == REQUEST_ADD_REMIND) {
+			remindList.updateAdapter();
+		}
+	}
 
 	private void initUI() {
 		FragmentPagerAdapter adapter = new MainAdapter(
@@ -62,7 +64,7 @@ public class MainActivity extends BaseActivity implements MySiteListFragmentList
 		pager.setAdapter(adapter);
 		TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
 		indicator.setViewPager(pager);
-		
+
 		GuoKeApp.setMainHandler(mainHandler);
 		remindList = new RemindListFragment();
 		mysiteList = new MySiteListFragment();

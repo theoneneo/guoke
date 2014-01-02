@@ -3,6 +3,7 @@ package com.lbs.guoke.fragment;
 import com.lbs.guoke.R;
 import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager;
+import com.lbs.guoke.controller.MySiteModuleManager.SiteInfo;
 import com.lbs.guoke.db.DBTools;
 import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
 import com.lbs.guoke.structure.CellInfo;
@@ -28,7 +29,7 @@ import android.widget.TextView;
 
 public class AddSiteFragment extends Fragment {
 	private AddSiteListFragmentListener fListener;
-	
+
 	public final static int ADD_DATA_STATUS = 0;
 	public final static int INFO_DATA_STATUS = 1;
 	public final static int MODIFY_DATA_STATUS = 2;
@@ -51,37 +52,43 @@ public class AddSiteFragment extends Fragment {
 		mStatus = getArguments().getInt("status", 0);
 		key = getArguments().getString("key");
 		if (INFO_DATA_STATUS == mStatus) {
-			Cursor c = DBTools.getSiteInfo(key);
-			if (c == null)
-				return;
-			key = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("key")));
-			name = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("name")));
-			address = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("address")));
-			type = c.getInt(c.getColumnIndex("type"));
-			img_link = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("image")));
-			mark = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("mark")));
-			c.close();
+			for (int i = 0; i < MySiteModuleManager.instance().getSiteInfos()
+					.size(); i++) {
+				SiteInfo siteInfo = MySiteModuleManager.instance()
+						.getSiteInfos().get(i);
+				if (siteInfo.key.equals(key)) {
+					name = siteInfo.siteName;
+					address = siteInfo.siteAddress;
+					type = siteInfo.siteType;
+					img_link = siteInfo.siteImageLink;
+					mark = siteInfo.siteMark;
+					break;
+				}
+			}
 		}
 		initUI();
 	}
 
 	@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-        	fListener = (AddSiteListFragmentListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement FragmentListener");
-        }
-    }
-	
-    public interface AddSiteListFragmentListener{
-        public void LoadSiteTypeFragmentListener(int type);
-    }
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			fListener = (AddSiteListFragmentListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString()
+					+ " must implement FragmentListener");
+		}
+	}
+
+	public interface AddSiteListFragmentListener {
+		public void LoadSiteTypeFragmentListener(int type);
+	}
 
 	private void initUI() {
-		ImageButton btn_back = (ImageButton) getActivity().findViewById(
-				R.id.title).findViewById(R.id.btn_left);
+		titleText = (TextView) getActivity().findViewById(R.id.title)
+				.findViewById(R.id.text_title);
+		ImageButton btn_back = (ImageButton) titleText
+				.findViewById(R.id.btn_left);
 		btn_back.setVisibility(View.VISIBLE);
 		btn_back.setOnClickListener(new OnClickListener() {
 			@Override
@@ -90,8 +97,6 @@ public class AddSiteFragment extends Fragment {
 				getActivity().finish();
 			}
 		});
-		titleText = (TextView) getActivity().findViewById(R.id.title)
-				.findViewById(R.id.text_title);
 		edit_name = (EditText) getActivity().findViewById(R.id.edit_name);
 		edit_address = (EditText) getActivity().findViewById(R.id.edit_address);
 		edit_mark = (EditText) getActivity().findViewById(R.id.edit_mark);
@@ -127,17 +132,21 @@ public class AddSiteFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if (mStatus == INFO_DATA_STATUS) {
-					setStatus(mStatus);
-				} else {
+					setStatus(MODIFY_DATA_STATUS);
+				} else if (mStatus == ADD_DATA_STATUS) {
 					saveSiteInfo();
-	                getActivity().setResult(getActivity().RESULT_OK, null);
+					getActivity().setResult(getActivity().RESULT_OK, null);
 					getActivity().finish();
+				} else if (mStatus == MODIFY_DATA_STATUS) {
+					modifySiteInfo();
+					setStatus(INFO_DATA_STATUS);
 				}
 			}
 		});
+		changeSiteType();
 		setStatus(mStatus);
 	}
-	
+
 	public void setStatus(int status) {
 		mStatus = status;
 		switch (mStatus) {
@@ -148,6 +157,8 @@ public class AddSiteFragment extends Fragment {
 			edit_mark.setEnabled(true);
 			btn_type.setEnabled(true);
 			img_photo.setEnabled(true);
+			btn_bottom_left.setVisibility(View.VISIBLE);
+			btn_bottom_right.setText(R.string.save);
 		}
 			break;
 		case INFO_DATA_STATUS: {
@@ -159,11 +170,12 @@ public class AddSiteFragment extends Fragment {
 			img_photo.setEnabled(false);
 			edit_name.setText(name);
 			edit_address.setText(address);
-			edit_mark.setTag(mark);
+			edit_mark.setText(mark);
 			btn_type.setText(typeText);
 			Bitmap bm = BitmapFactory.decodeFile(img_link);
 			img_photo.setImageBitmap(bm);
-
+			btn_bottom_left.setVisibility(View.GONE);
+			btn_bottom_right.setText(R.string.modify);
 		}
 			break;
 		case MODIFY_DATA_STATUS: {
@@ -175,23 +187,24 @@ public class AddSiteFragment extends Fragment {
 			img_photo.setEnabled(true);
 			edit_name.setText(name);
 			edit_address.setText(address);
-			edit_mark.setTag(mark);
+			edit_mark.setText(mark);
 			btn_type.setText(typeText);
 			Bitmap bm = BitmapFactory.decodeFile(img_link);
 			img_photo.setImageBitmap(bm);
-			btn_bottom_left.setVisibility(View.GONE);
+			btn_bottom_left.setVisibility(View.VISIBLE);
+			btn_bottom_right.setText(R.string.save);
 		}
 			break;
 		default:
 			break;
 		}
 	}
-	
-	public void setSiteType(int type){
+
+	public void setSiteType(int type) {
 		this.type = type;
 		changeSiteType();
 	}
-	
+
 	private void changeSiteType() {
 		switch (type) {
 		case 0:
@@ -226,8 +239,15 @@ public class AddSiteFragment extends Fragment {
 		name = edit_name.getText().toString();
 		address = edit_address.getText().toString();
 		mark = edit_mark.getText().toString();
-		
 		MySiteModuleManager.instance().addSiteInfo(name, address, type,
+				img_link, mark);
+	}
+
+	private void modifySiteInfo() {
+		name = edit_name.getText().toString();
+		address = edit_address.getText().toString();
+		mark = edit_mark.getText().toString();
+		MySiteModuleManager.instance().modifySite(key, name, address, type,
 				img_link, mark);
 	}
 }

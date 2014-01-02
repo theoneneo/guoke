@@ -26,9 +26,9 @@ public class GuoKeApp extends Application {
 		super.onCreate();
 		app = this;
 		DBTools.instance(this);
-		mCellManager = CellModuleManager.instance(this);
-		mRemindManager = RemindModuleManager.instance(this);
-		mMySiteManager = MySiteModuleManager.instance(this);
+		mCellManager = CellModuleManager.instance();
+		mRemindManager = RemindModuleManager.instance();
+		mMySiteManager = MySiteModuleManager.instance();
 	}
 
 	public void onTerminate() {
