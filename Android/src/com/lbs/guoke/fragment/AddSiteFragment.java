@@ -1,25 +1,19 @@
 package com.lbs.guoke.fragment;
 
 import com.lbs.guoke.R;
-import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager.SiteInfo;
-import com.lbs.guoke.db.DBTools;
-import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
-import com.lbs.guoke.structure.CellInfo;
+import com.neo.tools.CameraUtil;
+import com.neo.tools.GetPhotoFromAlbum;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +29,7 @@ public class AddSiteFragment extends Fragment {
 	public final static int MODIFY_DATA_STATUS = 2;
 	private int mStatus;
 	private int type;
-	private String key, name, address, mark, typeText, img_link;
+	private String key, typeText, img_link;
 
 	private TextView titleText;
 	private EditText edit_name, edit_address, edit_mark;
@@ -49,24 +43,8 @@ public class AddSiteFragment extends Fragment {
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mStatus = getArguments().getInt("status", 0);
-		key = getArguments().getString("key");
-		if (INFO_DATA_STATUS == mStatus) {
-			for (int i = 0; i < MySiteModuleManager.instance().getSiteInfos()
-					.size(); i++) {
-				SiteInfo siteInfo = MySiteModuleManager.instance()
-						.getSiteInfos().get(i);
-				if (siteInfo.key.equals(key)) {
-					name = siteInfo.siteName;
-					address = siteInfo.siteAddress;
-					type = siteInfo.siteType;
-					img_link = siteInfo.siteImageLink;
-					mark = siteInfo.siteMark;
-					break;
-				}
-			}
-		}
 		initUI();
+		initData();
 	}
 
 	@Override
@@ -87,8 +65,8 @@ public class AddSiteFragment extends Fragment {
 	private void initUI() {
 		titleText = (TextView) getActivity().findViewById(R.id.title)
 				.findViewById(R.id.text_title);
-		ImageButton btn_back = (ImageButton) titleText
-				.findViewById(R.id.btn_left);
+		ImageButton btn_back = (ImageButton) getActivity().findViewById(
+				R.id.title).findViewById(R.id.btn_left);
 		btn_back.setVisibility(View.VISIBLE);
 		btn_back.setOnClickListener(new OnClickListener() {
 			@Override
@@ -143,6 +121,30 @@ public class AddSiteFragment extends Fragment {
 				}
 			}
 		});
+	}
+
+	private void initData() {
+		mStatus = getArguments().getInt("status", 0);
+		key = getArguments().getString("key");
+		if (INFO_DATA_STATUS == mStatus) {
+			for (int i = 0; i < MySiteModuleManager.instance().getSiteInfos()
+					.size(); i++) {
+				SiteInfo siteInfo = MySiteModuleManager.instance()
+						.getSiteInfos().get(i);
+				if (siteInfo.key.equals(key)) {
+					type = siteInfo.siteType;
+					img_link = siteInfo.siteImageLink;
+
+					edit_name.setText(siteInfo.siteName);
+					edit_address.setText(siteInfo.siteAddress);
+					edit_mark.setText(siteInfo.siteMark);
+					btn_type.setText(typeText);
+					Bitmap bm = BitmapFactory.decodeFile(img_link);
+					img_photo.setImageBitmap(bm);
+					break;
+				}
+			}
+		}
 		changeSiteType();
 		setStatus(mStatus);
 	}
@@ -168,12 +170,6 @@ public class AddSiteFragment extends Fragment {
 			edit_mark.setEnabled(false);
 			btn_type.setEnabled(false);
 			img_photo.setEnabled(false);
-			edit_name.setText(name);
-			edit_address.setText(address);
-			edit_mark.setText(mark);
-			btn_type.setText(typeText);
-			Bitmap bm = BitmapFactory.decodeFile(img_link);
-			img_photo.setImageBitmap(bm);
 			btn_bottom_left.setVisibility(View.GONE);
 			btn_bottom_right.setText(R.string.modify);
 		}
@@ -185,12 +181,6 @@ public class AddSiteFragment extends Fragment {
 			edit_mark.setEnabled(true);
 			btn_type.setEnabled(true);
 			img_photo.setEnabled(true);
-			edit_name.setText(name);
-			edit_address.setText(address);
-			edit_mark.setText(mark);
-			btn_type.setText(typeText);
-			Bitmap bm = BitmapFactory.decodeFile(img_link);
-			img_photo.setImageBitmap(bm);
 			btn_bottom_left.setVisibility(View.VISIBLE);
 			btn_bottom_right.setText(R.string.save);
 		}
@@ -203,6 +193,12 @@ public class AddSiteFragment extends Fragment {
 	public void setSiteType(int type) {
 		this.type = type;
 		changeSiteType();
+	}
+	
+	public void setImageLink(String imagePath){
+		this.img_link = imagePath;
+		Bitmap bm = BitmapFactory.decodeFile(img_link);
+		img_photo.setImageBitmap(bm);
 	}
 
 	private void changeSiteType() {
@@ -232,22 +228,20 @@ public class AddSiteFragment extends Fragment {
 	}
 
 	private void changeSitePhoto() {
-
+		GetPhotoFromAlbum.ChooseWay(getActivity(), CameraUtil.PHOTO_PICKED_WITH_DATA);
 	}
 
 	private void saveSiteInfo() {
-		name = edit_name.getText().toString();
-		address = edit_address.getText().toString();
-		mark = edit_mark.getText().toString();
-		MySiteModuleManager.instance().addSiteInfo(name, address, type,
-				img_link, mark);
+		MySiteModuleManager.instance().addSiteInfo(
+				edit_name.getText().toString(),
+				edit_address.getText().toString(), type, img_link,
+				edit_mark.getText().toString());
 	}
 
 	private void modifySiteInfo() {
-		name = edit_name.getText().toString();
-		address = edit_address.getText().toString();
-		mark = edit_mark.getText().toString();
-		MySiteModuleManager.instance().modifySite(key, name, address, type,
-				img_link, mark);
+		MySiteModuleManager.instance().modifySite(key,
+				edit_name.getText().toString(),
+				edit_address.getText().toString(), type, img_link,
+				edit_mark.getText().toString());
 	}
 }
