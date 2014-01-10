@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -61,6 +63,20 @@ public class AddRemindFragment extends Fragment {
 		});
 
 		spin_name = (Spinner) getActivity().findViewById(R.id.spin_address);
+		spin_name.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				key = MySiteModuleManager.instance().getSiteInfos().get(arg2).key;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}			
+		});
 		edit_remind = (EditText) getActivity().findViewById(R.id.edit_remind);
 		btn_ring = (Button) getActivity().findViewById(R.id.btn_ring);
 		btn_ring.setOnClickListener(new OnClickListener() {
@@ -179,9 +195,8 @@ public class AddRemindFragment extends Fragment {
 		if (b) {
 			isVibrate = 1;
 		}
-		String str = spin_name.getSelectedItem().toString();
-		RemindModuleManager.instance().addRemindInfo(
-				spin_name.getSelectedItem().toString(),
+		RemindModuleManager.instance().addRemindInfo(key,
+				((SiteInfo)spin_name.getSelectedItem()).siteName.toString(),
 				edit_remind.getText().toString(), 0, isVibrate, 0);
 	}
 
@@ -192,8 +207,8 @@ public class AddRemindFragment extends Fragment {
 			isVibrate = 1;
 		}
 		RemindModuleManager.instance().modifySite(key,
-				spin_name.getSelectedItem().toString(),
-				edit_remind.getText().toString(), 0, isVibrate, 0);
+				((SiteInfo)spin_name.getSelectedItem()).siteName.toString(),
+				edit_remind.getText().toString(), -1, isVibrate, 0);
 	}
 
 	public class SiteNameAdapter implements SpinnerAdapter {

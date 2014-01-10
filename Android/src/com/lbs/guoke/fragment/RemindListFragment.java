@@ -1,11 +1,13 @@
 package com.lbs.guoke.fragment;
 
 import com.lbs.guoke.R;
+import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
 import com.lbs.guoke.fragment.MySiteListFragment.SiteAdapter;
+import com.lbs.guoke.structure.CellInfo;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,14 +21,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class RemindListFragment extends ListFragment {
 	private RemindAdapter adapter;
 	private RemindListFragmentListener fListener;
-	
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_list, null);
@@ -62,8 +67,9 @@ public class RemindListFragment extends ListFragment {
 								.instance().getRemindInfos().get(arg2 - 1).key);
 			}
 		});
+		adapter.notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -74,13 +80,14 @@ public class RemindListFragment extends ListFragment {
 					+ " must implement FragmentListener");
 		}
 	}
-	
+
 	public interface RemindListFragmentListener {
 		public void LoadAddRemindFragmentListener(int status, String key);
 	}
 
 	public void updateAdapter() {
-		adapter.notifyDataSetChanged();
+		if (adapter != null)
+			adapter.notifyDataSetChanged();
 	}
 
 	public class RemindAdapter extends BaseAdapter {
@@ -92,7 +99,8 @@ public class RemindListFragment extends ListFragment {
 			inflater = LayoutInflater.from(mContext);
 		}
 
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			RemindViewHolder holder;
 			if (convertView == null) {
 				convertView = (View) inflater.inflate(R.layout.item_remind,
@@ -104,6 +112,8 @@ public class RemindListFragment extends ListFragment {
 						.findViewById(R.id.row_title);
 				holder.row_menssage = (TextView) convertView
 						.findViewById(R.id.row_message);
+				holder.row_switch = (Switch) convertView
+						.findViewById(R.id.row_switch);
 				convertView.setTag(holder);
 			} else {
 				holder = (RemindViewHolder) convertView.getTag();
@@ -111,8 +121,42 @@ public class RemindListFragment extends ListFragment {
 			holder.row_icon.setImageResource(R.drawable.ic_launcher);
 			holder.row_title.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindTitle);
+//			StringBuffer buf = new StringBuffer();
+//			for(int i = 0; i < CellModuleManager.instance().getCellInfos().size(); i++){
+//				CellInfo cellInfo = CellModuleManager.instance().getCellInfos().get(i);
+//				if(RemindModuleManager.instance()
+//					.getRemindInfos().get(i) != null){
+//
+//				if(cellInfo.key.equals(RemindModuleManager.instance()
+//					.getRemindInfos().get(position).key)){
+//					buf.append(cellInfo.cellid);
+//					buf.append(";");
+//				}
+//				}
+//					
+//			}
 			holder.row_menssage.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindMessage);
+			if (RemindModuleManager.instance().getRemindInfos().get(position).isRemind == 1)
+				holder.row_switch.setChecked(true);
+			else
+				holder.row_switch.setChecked(false);
+			holder.row_switch
+					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton arg0,
+								boolean arg1) {
+							// TODO Auto-generated method stub
+							if (arg1)
+								RemindModuleManager.instance().getRemindInfos()
+										.get(position).isRemind = 1;
+							else
+								RemindModuleManager.instance().getRemindInfos()
+										.get(position).isRemind = 0;
+							
+							RemindModuleManager.instance().matchRemindInfo();
+						}
+					});
 			return convertView;
 		}
 
@@ -139,5 +183,6 @@ public class RemindListFragment extends ListFragment {
 		ImageView row_icon;
 		TextView row_title;
 		TextView row_menssage;
+		Switch row_switch;
 	}
 }

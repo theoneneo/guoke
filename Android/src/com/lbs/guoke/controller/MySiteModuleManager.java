@@ -6,13 +6,14 @@ import android.database.Cursor;
 
 import com.lbs.guoke.GuoKeApp;
 import com.lbs.guoke.MainActivity;
+import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.db.DBTools;
 import com.lbs.guoke.structure.CellInfo;
 
 public class MySiteModuleManager {
 	private GuoKeApp app;
 	private static MySiteModuleManager instance;
-	public static ArrayList<SiteInfo> mSiteInfos = new ArrayList<SiteInfo>();
+	private static ArrayList<SiteInfo> mSiteInfos = new ArrayList<SiteInfo>();
 
 	public MySiteModuleManager(GuoKeApp app) {
 		this.app = app;
@@ -49,11 +50,8 @@ public class MySiteModuleManager {
 					mSiteInfos.add(siteInfo);
 					c.moveToNext();
 				}
-				c.close();
-				if (GuoKeApp.mainHandler != null) {
-					GuoKeApp.mainHandler
-							.sendEmptyMessage(GuoKeApp.GUOKE_SITE_UPDATE);
-				}
+				c.close();			
+				app.eventAction(GuoKeApp.GUOKE_SITE_UPDATE);
 			}
 		};
 		thread.start();
@@ -79,17 +77,15 @@ public class MySiteModuleManager {
 			String imageLink, String mark){
 		if(key == null || key == "")
 			return;
-		
 		for(int i = 0; i < mSiteInfos.size(); i++){
-			SiteInfo siteInfo = mSiteInfos.get(i);
-			if(siteInfo.key.equals(key)){
+			if(mSiteInfos.get(i).key.equals(key)){
+				SiteInfo siteInfo = mSiteInfos.get(i);
 				siteInfo.siteName = name;
 				siteInfo.siteAddress = address;
 				siteInfo.siteType = type;
 				siteInfo.siteImageLink = imageLink;
 				siteInfo.siteMark = mark;
-				break;
-			}
+			}				
 		}
 		DBTools.instance().updateSiteInfo(key, name, address, type, imageLink, mark);
 	}

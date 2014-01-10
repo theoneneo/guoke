@@ -189,7 +189,8 @@ public class DBTools {
 		ContentValues value = new ContentValues();
 		value.put("title", toValidRs(title));
 		value.put("message", toValidRs(message));
-		value.put("isremind", isremind);
+		if(isremind != -1)
+			value.put("isremind", isremind);
 		value.put("isvibrate", isvibrate);
 		value.put("remindmusic", remindmusic);
 		mContext.getContentResolver().update(REMIND_DATA_DB.CONTENT_URI,

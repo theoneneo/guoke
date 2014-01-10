@@ -24,12 +24,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AlertDialogActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/dialog" >
+        </activity>        
+        <activity
             android:name=".AddSiteActivity">
         </activity>  
         <activity
             android:name=".AddRemindActivity">
-        </activity>                
+        </activity>   
+                     
         <provider android:name="com.lbs.guoke.db.DBContentProvider" android:authorities="com.lbs.guoke.db.provider"/>
+        
         <service android:name="com.lbs.guoke.controller.GuoKeService">
             <intent-filter> 
 		        <action android:name="com.lbs.guoke.controller.GuoKeService" /> 

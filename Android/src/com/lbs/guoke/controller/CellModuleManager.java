@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.lbs.guoke.GuoKeApp;
 import com.lbs.guoke.cell.CellModule;
+import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.db.DBTools;
 import com.lbs.guoke.structure.CellInfo;
 
@@ -15,16 +17,15 @@ public class CellModuleManager {
 	private static CellModule cellModule;
 	private static CellModuleManager instance;
 	// private static CellModuleListenerAbility cellModuleLA;
-	public static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
-	public static ArrayList<CellInfo> dbCellInfos = new ArrayList<CellInfo>();
-	public static ArrayList<CellInfo> tempCellInfos = new ArrayList<CellInfo>();
+	private static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
+	private static ArrayList<CellInfo> dbCellInfos = new ArrayList<CellInfo>();
+	private static ArrayList<CellInfo> tempCellInfos = new ArrayList<CellInfo>();
 
 	public CellModuleManager(GuoKeApp app) {
 		this.app = app;
 		getCellInfosFromDB();
 		cellModule = new CellModule(app.getApplicationContext());
 		cellModule.enable();
-		// cellModuleLA = new CellModuleListenerAbility();
 	}
 
 	public void destoryCellModuleManager() {
@@ -45,32 +46,51 @@ public class CellModuleManager {
 		return mCellInfos;
 	}
 
-	// public CellModuleListenerAbility getCellModuleListenerAbility() {
-	// return cellModuleLA;
-	// }
-
 	public void UpdateCellData() {
-		// cellModuleLA.notifyCellChangeListener();
 		Thread thread = new Thread() {
 			public void run() {
-				if (mCellInfos == null)
+				Log.v("guoke", "UpdateCellData");
+				if (mCellInfos == null || mCellInfos.size() == 0)
 					return;
 				synchronized (mCellInfos) {
-					for (int i = 0; i < mCellInfos.size(); i++) {
+					tempCellInfos.clear();
+					for (int i = 0; i < mCellInfos.size(); i++) {// 取得匹配上的cell
 						CellInfo ci = mCellInfos.get(i);
-						if (dbCellInfos == null)
+						if (dbCellInfos == null || dbCellInfos.size() == 0)
 							return;
 						for (int m = 0; m < dbCellInfos.size(); m++) {
 							CellInfo di = dbCellInfos.get(m);
-							if (ci.isCDMA == di.isCDMA
-									&& ci.cellid == di.cellid
-									&& ci.lac == di.lac && ci.mnc == di.mcc
+							if (ci.cellid == di.cellid
+									&& ci.isCDMA == di.isCDMA
+									&& ci.lac == di.lac && ci.mnc == di.mnc
 									&& ci.mcc == di.mcc) {
 								tempCellInfos.add(di);
 							}
 						}
 					}
 				}
+				Log.v("guoke", "temp"+tempCellInfos.size());
+				if (RemindModuleManager.instance().getRemindInfos() == null
+						|| RemindModuleManager.instance().getRemindInfos()
+								.size() == 0)
+					return;
+				RemindModuleManager.instance().getMatchRemindInfos().clear();
+				for (int i = 0; i < RemindModuleManager.instance()
+						.getRemindInfos().size(); i++) {
+					RemindInfo remindInfo = RemindModuleManager.instance()
+							.getRemindInfos().get(i);
+					for (int m = 0; m < tempCellInfos.size(); m++) {
+						CellInfo cell = tempCellInfos.get(m);
+						if (cell.key.equals(remindInfo.key)) {
+							RemindModuleManager.instance()
+									.getMatchRemindInfos().add(remindInfo);
+							break;
+						}
+					}
+				}
+				Log.v("guoke", "getMatchRemindInfos"+RemindModuleManager.instance().getMatchRemindInfos().size());
+				if (RemindModuleManager.instance().getMatchRemindInfos().size() != 0)
+					app.eventAction(GuoKeApp.GUOKE_REMIND_MATCH);
 			}
 		};
 		thread.start();
@@ -84,7 +104,8 @@ public class CellModuleManager {
 					return;
 				for (int i = 0; i < c.getCount(); i++) {
 					CellInfo cellInfo = new CellInfo();
-					cellInfo.key = DBTools.getUnvalidFormRs(c.getString(c.getColumnIndex("key")));
+					cellInfo.key = DBTools.getUnvalidFormRs(c.getString(c
+							.getColumnIndex("key")));
 					cellInfo.isCDMA = c.getInt(c.getColumnIndex("iscdma"));
 					cellInfo.cellid = c.getInt(c.getColumnIndex("cellid"));
 					cellInfo.lac = c.getInt(c.getColumnIndex("lac"));
@@ -94,6 +115,7 @@ public class CellModuleManager {
 					c.moveToNext();
 				}
 				c.close();
+				app.eventAction(GuoKeApp.GUOKE_CELL_DB);
 			}
 		};
 		thread.start();

@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.lbs.guoke.controller.RemindModuleManager;
+import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.fragment.MySiteListFragment;
 import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
 import com.lbs.guoke.fragment.RemindListFragment;
@@ -38,11 +40,18 @@ public class MainActivity extends BaseActivity implements
 
 		initUI();
 	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		RemindModuleManager.instance().destory();
+	}
 
 	@Override
 	public void onDestroy() {
 		GuoKeApp.setMainHandler(null);
 		super.onDestroy();
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 	@Override
@@ -123,17 +132,6 @@ public class MainActivity extends BaseActivity implements
 	};
 
 	@Override
-	public void LoadAddSiteFragmentListener(int status, String key) {
-		// TODO Auto-generated method stub
-		Intent i = new Intent(this, AddSiteActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putInt("status", status);
-		bundle.putString("key", key);
-		i.putExtras(bundle);
-		startActivityForResult(i, REQUEST_ADD_SITE);
-	}
-
-	@Override
 	public void LoadAddRemindFragmentListener(int status, String key) {
 		// TODO Auto-generated method stub
 		Intent i = new Intent(this, AddRemindActivity.class);
@@ -142,5 +140,16 @@ public class MainActivity extends BaseActivity implements
 		bundle.putString("key", key);
 		i.putExtras(bundle);
 		startActivityForResult(i, REQUEST_ADD_REMIND);
+	}
+	
+	@Override
+	public void LoadAddSiteFragmentListener(int status, String key) {
+		// TODO Auto-generated method stub
+		Intent i = new Intent(this, AddSiteActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("status", status);
+		bundle.putString("key", key);
+		i.putExtras(bundle);
+		startActivityForResult(i, REQUEST_ADD_SITE);
 	}
 }

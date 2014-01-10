@@ -60,6 +60,7 @@ public class MySiteListFragment extends ListFragment {
 								.instance().getSiteInfos().get(arg2 - 1).key);
 			}
 		});
+		adapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -79,7 +80,8 @@ public class MySiteListFragment extends ListFragment {
 	}
 
 	public void updateAdapter() {
-		adapter.notifyDataSetChanged();
+		if(adapter != null)
+			adapter.notifyDataSetChanged();
 	}
 
 	public class SiteAdapter extends BaseAdapter {
