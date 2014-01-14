@@ -487,16 +487,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpi__tab_unselected_pressed_holo=0x7f020014;
     }
     public static final class id {
-        public static final int action_settings=0x7f040038;
+        public static final int action_settings=0x7f040039;
         public static final int alerttitle=0x7f040024;
         public static final int bottom=0x7f040008;
         public static final int btnLocalComplete=0x7f040026;
-        public static final int btn_add=0x7f040032;
-        public static final int btn_bottom_left=0x7f040033;
-        public static final int btn_bottom_right=0x7f040034;
-        public static final int btn_left=0x7f040035;
-        public static final int btn_right=0x7f040037;
+        public static final int btn_add=0x7f040033;
+        public static final int btn_bottom_left=0x7f040034;
+        public static final int btn_bottom_right=0x7f040035;
+        public static final int btn_left=0x7f040036;
+        public static final int btn_right=0x7f040038;
         public static final int btn_ring=0x7f040016;
+        public static final int btn_temp=0x7f040032;
         public static final int btn_type=0x7f04001e;
         public static final int content_frame=0x7f04000a;
         public static final int dismiss_bt=0x7f040027;
@@ -538,7 +539,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int text_name=0x7f040018;
         public static final int text_prompt=0x7f04000f;
         public static final int text_remind=0x7f040013;
-        public static final int text_title=0x7f040036;
+        public static final int text_title=0x7f040037;
         public static final int text_type=0x7f04001d;
         public static final int title=0x7f04000d;
         public static final int top=0x7f040009;

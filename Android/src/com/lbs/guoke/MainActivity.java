@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.fragment.MySiteListFragment;
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity implements
 		getSlidingMenu().setMode(SlidingMenu.RIGHT);
 		getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setContentView(R.layout.activity_main);
-
+		
 		initUI();
 	}
 	

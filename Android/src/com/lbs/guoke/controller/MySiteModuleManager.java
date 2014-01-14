@@ -69,6 +69,9 @@ public class MySiteModuleManager {
 		siteInfo.siteImageLink = imageLink;
 		siteInfo.siteMark = mark;
 		mSiteInfos.add(siteInfo);
+		
+		CellModuleManager.instance().setDBCellInfos(key);
+		
 		DBTools.instance().insertSiteData(key, name, address, type, imageLink, mark,
 				CellModuleManager.instance().getCellInfos());
 	}

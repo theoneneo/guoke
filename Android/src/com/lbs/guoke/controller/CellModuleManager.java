@@ -1,22 +1,25 @@
 package com.lbs.guoke.controller;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.lbs.guoke.GuoKeApp;
-import com.lbs.guoke.cell.CellModule;
 import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.db.DBTools;
 import com.lbs.guoke.structure.CellInfo;
 
 public class CellModuleManager {
 	private GuoKeApp app;
-	private static CellModule cellModule;
 	private static CellModuleManager instance;
-	// private static CellModuleListenerAbility cellModuleLA;
+	private GuoKeService bindService;
+	private boolean flag = false;
 	private static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
 	private static ArrayList<CellInfo> dbCellInfos = new ArrayList<CellInfo>();
 	private static ArrayList<CellInfo> tempCellInfos = new ArrayList<CellInfo>();
@@ -24,13 +27,11 @@ public class CellModuleManager {
 	public CellModuleManager(GuoKeApp app) {
 		this.app = app;
 		getCellInfosFromDB();
-		cellModule = new CellModule(app.getApplicationContext());
-		cellModule.enable();
+		startService();
 	}
 
 	public void destoryCellModuleManager() {
-		if (cellModule != null)
-			cellModule.disable();
+		// stopService();
 	}
 
 	public static CellModuleManager instance() {
@@ -42,14 +43,34 @@ public class CellModuleManager {
 		}
 	}
 
+	public void startService() {
+		Intent i = new Intent(app.getApplicationContext(), GuoKeService.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		app.getApplicationContext().startService(i);
+	}
+
+	public void stopService() {
+		Intent i = new Intent(app.getApplicationContext(), GuoKeService.class);
+		app.getApplicationContext().stopService(i);
+	}
+
 	public ArrayList<CellInfo> getCellInfos() {
 		return mCellInfos;
+	}
+	
+	public void setCellInfos(ArrayList<CellInfo> cellInfo){
+		mCellInfos.clear();
+		mCellInfos.addAll(cellInfo);
+		UpdateCellData();
+	}
+
+	public ArrayList<CellInfo> getDBCellInfos() {
+		return dbCellInfos;
 	}
 
 	public void UpdateCellData() {
 		Thread thread = new Thread() {
 			public void run() {
-				Log.v("guoke", "UpdateCellData");
 				if (mCellInfos == null || mCellInfos.size() == 0)
 					return;
 				synchronized (mCellInfos) {
@@ -69,7 +90,6 @@ public class CellModuleManager {
 						}
 					}
 				}
-				Log.v("guoke", "temp"+tempCellInfos.size());
 				if (RemindModuleManager.instance().getRemindInfos() == null
 						|| RemindModuleManager.instance().getRemindInfos()
 								.size() == 0)
@@ -88,7 +108,6 @@ public class CellModuleManager {
 						}
 					}
 				}
-				Log.v("guoke", "getMatchRemindInfos"+RemindModuleManager.instance().getMatchRemindInfos().size());
 				if (RemindModuleManager.instance().getMatchRemindInfos().size() != 0)
 					app.eventAction(GuoKeApp.GUOKE_REMIND_MATCH);
 			}
@@ -119,5 +138,18 @@ public class CellModuleManager {
 			}
 		};
 		thread.start();
+	}
+
+	public void setDBCellInfos(String key) {
+		for (int i = 0; i < mCellInfos.size(); i++) {
+			CellInfo cellInfo = new CellInfo();
+			cellInfo.key = key;
+			cellInfo.isCDMA = mCellInfos.get(i).isCDMA;
+			cellInfo.cellid = mCellInfos.get(i).cellid;
+			cellInfo.lac = mCellInfos.get(i).lac;
+			cellInfo.mnc = mCellInfos.get(i).mnc;
+			cellInfo.mcc = mCellInfos.get(i).mcc;
+			dbCellInfos.add(cellInfo);
+		}
 	}
 }

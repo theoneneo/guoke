@@ -1,12 +1,16 @@
 package com.lbs.guoke.fragment;
 
+import com.lbs.guoke.AddSiteActivity;
 import com.lbs.guoke.R;
+import com.lbs.guoke.tempDialogActivity;
+import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager.SiteInfo;
 import com.lbs.guoke.fragment.RemindListFragment.RemindViewHolder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -34,12 +38,26 @@ public class MySiteListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		initUI();
 	}
+	
+	private void startTemp(){
+		Intent i = new Intent(getActivity(), tempDialogActivity.class);
+		startActivity(i);
+	}
 
 	private void initUI() {
 		adapter = new SiteAdapter(getActivity());
 		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View headView = (View) inflater.inflate(R.layout.view_add, null);
 		getListView().addHeaderView(headView);
+		Button btn_temp = (Button) headView.findViewById(R.id.btn_temp);
+		btn_temp.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				startTemp();
+			}
+		});
+		
 		Button btn_add = (Button) headView.findViewById(R.id.btn_add);
 		btn_add.setOnClickListener(new OnClickListener() {
 			@Override
@@ -114,7 +132,17 @@ public class MySiteListFragment extends ListFragment {
 			final SiteInfo sInfo = MySiteModuleManager.instance().getSiteInfos().get(position);
 			holder.row_icon.setImageResource(R.drawable.ic_launcher);
 			holder.row_name.setText(sInfo.siteName);
-			holder.row_detail.setText(sInfo.siteAddress);
+			
+			StringBuffer buf = new StringBuffer();
+			for(int m = 0; m < CellModuleManager.instance().getDBCellInfos().size(); m++){
+				if(sInfo.key.equals(CellModuleManager.instance().getDBCellInfos().get(m).key)){
+					buf.append(CellModuleManager.instance().getDBCellInfos().get(m).cellid);
+					buf.append(";");
+				}
+			}
+			holder.row_detail.setText(buf.toString());
+			
+//			holder.row_detail.setText(sInfo.siteAddress);
 			holder.row_button.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {

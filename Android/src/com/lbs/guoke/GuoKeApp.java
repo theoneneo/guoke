@@ -73,7 +73,6 @@ public class GuoKeApp extends Application {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case GUOKE_REMIND_MATCH:
-				Log.v("guoke", "GUOKE_REMIND_MATCH");
 				mRemindManager.matchRemindInfo();
 				break;
 			case GUOKE_CELL_DB:
@@ -101,14 +100,4 @@ public class GuoKeApp extends Application {
 			super.handleMessage(msg);
 		}
 	};
-
-	public void startService() {
-		Intent i = new Intent(app.getApplicationContext(), GuoKeService.class);
-		app.getApplicationContext().startService(i);
-	}
-
-	public void stopService() {
-		Intent i = new Intent(app.getApplicationContext(), GuoKeService.class);
-		app.getApplicationContext().stopService(i);
-	}
 }
