@@ -1,21 +1,18 @@
 package com.lbs.guoke;
 
+import java.util.ArrayList;
+
 import com.lbs.guoke.controller.CellModuleManager;
-import com.lbs.guoke.controller.GuoKeService;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
 import com.lbs.guoke.db.DBTools;
 
+import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 //TODO 已经提醒了，是否还需要提醒  RemindModuleManager.instance().matchRemindInfo();
-//TODO 做一个activity管理堆栈
-
-
-
+//TODO 是否要关闭cell service 进程
 
 public class GuoKeApp extends Application {
 	public static final int GUOKE_SITE_UPDATE = 10000;
@@ -27,6 +24,7 @@ public class GuoKeApp extends Application {
 	private static CellModuleManager mCellManager;
 	private static RemindModuleManager mRemindManager;
 	private static MySiteModuleManager mMySiteManager;
+	private ArrayList<Activity> list = new ArrayList<Activity>();
 	private static GuoKeApp app;
 	private boolean isCellDB = false, isSiteDB = false, isRemindDB = false;
 
@@ -42,11 +40,23 @@ public class GuoKeApp extends Application {
 
 	public void onTerminate() {
 		super.onTerminate();
-		mCellManager.destoryCellModuleManager();
 	}
 
 	public static GuoKeApp getApplication() {
 		return app;
+	}
+
+	public void addActivity(Activity activity) {
+		list.add(activity);
+	}
+
+	public void exit() {
+		mRemindManager.destory();
+		mCellManager.destory();
+		for (Activity activity : list) {
+			activity.finish();
+		}
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 	public static void setMainHandler(Handler handler) {
@@ -77,19 +87,19 @@ public class GuoKeApp extends Application {
 				break;
 			case GUOKE_CELL_DB:
 				isCellDB = true;
-				if(isSiteDB && isRemindDB)
+				if (isSiteDB && isRemindDB)
 					CellModuleManager.instance().UpdateCellData();
 				break;
 			case GUOKE_SITE_UPDATE:
 				isSiteDB = true;
-				if(isCellDB && isRemindDB)
+				if (isCellDB && isRemindDB)
 					CellModuleManager.instance().UpdateCellData();
 				if (mainHandler != null)
 					mainHandler.sendEmptyMessage(msg.what);
 				break;
 			case GUOKE_REMIND_UPDATE:
 				isRemindDB = true;
-				if(isSiteDB && isCellDB)
+				if (isSiteDB && isCellDB)
 					CellModuleManager.instance().UpdateCellData();
 				if (mainHandler != null)
 					mainHandler.sendEmptyMessage(msg.what);

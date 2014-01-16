@@ -1,13 +1,12 @@
 package com.lbs.guoke;
 
 import com.lbs.guoke.controller.CellModuleManager;
-import com.lbs.guoke.controller.RemindModuleManager;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class tempDialogActivity extends Activity {
+public class tempDialogActivity extends BaseActivity {
 	private TextView text;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -17,6 +16,8 @@ public class tempDialogActivity extends Activity {
 	}
 	
 	private void initUI(){
+		TextView title = (TextView)findViewById(R.id.alerttitle);
+		title.setText("基站");
 		text = (TextView)findViewById(R.id.event_desc);
 		StringBuffer buf = new StringBuffer();
 		for(int i = 0; i < CellModuleManager.instance().getCellInfos().size(); i++){

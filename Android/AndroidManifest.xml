@@ -26,16 +26,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AlertDialogActivity"
-            android:launchMode="singleInstance"
-            android:theme="@style/dialog" >
-        </activity>
         <activity android:name=".AddSiteActivity" >
         </activity>
         <activity android:name=".AddRemindActivity" >
         </activity>
-        <activity android:name=".tempDialogActivity" >
+        
+        <activity
+            android:name=".AlertDialogActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/dialog" >
+        </activity>        
+        <activity android:name=".tempDialogActivity" 
+            android:launchMode="singleInstance"
+            android:theme="@style/dialog"
+            >
         </activity>
 
         <provider

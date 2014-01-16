@@ -4,6 +4,7 @@
 
     <ImageView
         android:id="@+id/row_icon"
+        android:visibility="gone"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="10dp"
@@ -15,7 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_toLeftOf="@+id/row_switch"
         android:layout_toRightOf="@+id/row_icon" />
 
     <TextView
@@ -25,7 +25,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_below="@+id/row_title"
-        android:layout_toLeftOf="@+id/row_switch"
         android:layout_toRightOf="@+id/row_icon" />
 
     <Switch

@@ -57,9 +57,9 @@ public class RadioLayerProvider extends PhoneStateListener {
     }
 
     public static RadioLayerProvider getInst(Context context) {
-	if (inst == null) {
+//	if (inst == null) {//适配不同手机有可能无法保存回调函数
 	    inst = new RadioLayerProvider(context);
-	}
+//	}
 
 	return inst;
     }

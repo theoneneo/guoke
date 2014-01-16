@@ -1,9 +1,6 @@
 package com.lbs.guoke.controller;
 
-import java.util.ArrayList;
-
 import com.lbs.guoke.cell.CellModule;
-import com.lbs.guoke.structure.CellInfo;
 
 import android.app.Service;
 import android.content.Intent;
@@ -11,7 +8,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 public class GuoKeService extends Service {
-	private static CellModule cellModule;
+	private static CellModule cellModule = null;
 	
 	private IBinder mBinder = new CellBinder();
 
@@ -25,6 +22,7 @@ public class GuoKeService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+//		if (cellModule == null)//适配不同手机有可能无法保存回调函数
 		cellModule = new CellModule(this);
 		cellModule.enable();
 		return START_STICKY;
@@ -35,6 +33,7 @@ public class GuoKeService extends Service {
 		if (cellModule != null)
 			cellModule.disable();		
 		super.onDestroy();
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 	public class CellBinder extends Binder {

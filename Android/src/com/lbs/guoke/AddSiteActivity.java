@@ -14,7 +14,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-public class AddSiteActivity extends FragmentActivity implements
+public class AddSiteActivity extends BaseActivity implements
 		AddSiteListFragmentListener, SiteTypeFragmentListener,
 		OnBackStackChangedListener {
 	private AddSiteFragment asFragment;

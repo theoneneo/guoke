@@ -10,9 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
-import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.fragment.MySiteListFragment;
 import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
 import com.lbs.guoke.fragment.RemindListFragment;
@@ -20,7 +18,7 @@ import com.lbs.guoke.fragment.RemindListFragment.RemindListFragmentListener;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
-public class MainActivity extends BaseActivity implements
+public class MainActivity extends SlidingBaseActivity implements
 		MySiteListFragmentListener, RemindListFragmentListener {
 	private static final String[] CONTENT = new String[] { "提醒", "我的地盘" };
 	private static final int[] ICONS = new int[] { R.drawable.ic_launcher,
@@ -35,6 +33,7 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		getSlidingMenu().setMode(SlidingMenu.RIGHT);
 		getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setContentView(R.layout.activity_main);
@@ -45,14 +44,14 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void onStop(){
 		super.onStop();
-		RemindModuleManager.instance().destory();
+		RemindModuleManager.instance().saveRemindData();
 	}
 
 	@Override
-	public void onDestroy() {
+	public void onBackPressed(){
 		GuoKeApp.setMainHandler(null);
-		super.onDestroy();
-		android.os.Process.killProcess(android.os.Process.myPid());
+		GuoKeApp.getApplication().exit();
+		super.onBackPressed();
 	}
 
 	@Override
@@ -62,6 +61,7 @@ public class MainActivity extends BaseActivity implements
 		super.onActivityResult(requestCode, resultCode, intent);
 		if (requestCode == REQUEST_ADD_SITE) {
 			mysiteList.updateAdapter();
+			remindList.updateAdapter();
 		} else if (requestCode == REQUEST_ADD_REMIND) {
 			remindList.updateAdapter();
 		}

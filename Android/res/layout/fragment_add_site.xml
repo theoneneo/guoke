@@ -72,6 +72,7 @@
 
             <LinearLayout
                 android:id="@+id/layout_type"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_address"
@@ -92,6 +93,7 @@
 
             <LinearLayout
                 android:id="@+id/layout_photo"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_type"

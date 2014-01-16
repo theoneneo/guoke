@@ -121,20 +121,6 @@ public class RemindListFragment extends ListFragment {
 			holder.row_icon.setImageResource(R.drawable.ic_launcher);
 			holder.row_title.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindTitle);
-//			StringBuffer buf = new StringBuffer();
-//			for(int i = 0; i < CellModuleManager.instance().getCellInfos().size(); i++){
-//				CellInfo cellInfo = CellModuleManager.instance().getCellInfos().get(i);
-//				if(RemindModuleManager.instance()
-//					.getRemindInfos().get(i) != null){
-//
-//				if(cellInfo.key.equals(RemindModuleManager.instance()
-//					.getRemindInfos().get(position).key)){
-//					buf.append(cellInfo.cellid);
-//					buf.append(";");
-//				}
-//				}
-//					
-//			}
 			holder.row_menssage.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindMessage);
 			if (RemindModuleManager.instance().getRemindInfos().get(position).isRemind == 1)

@@ -3,17 +3,15 @@ package com.lbs.guoke.cell;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.GuoKeService;
 import com.lbs.guoke.structure.CellInfo;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 public class CellModule {
 

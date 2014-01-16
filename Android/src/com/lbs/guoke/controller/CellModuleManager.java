@@ -2,13 +2,8 @@ package com.lbs.guoke.controller;
 
 import java.util.ArrayList;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.os.IBinder;
-import android.util.Log;
 
 import com.lbs.guoke.GuoKeApp;
 import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
@@ -18,8 +13,6 @@ import com.lbs.guoke.structure.CellInfo;
 public class CellModuleManager {
 	private GuoKeApp app;
 	private static CellModuleManager instance;
-	private GuoKeService bindService;
-	private boolean flag = false;
 	private static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
 	private static ArrayList<CellInfo> dbCellInfos = new ArrayList<CellInfo>();
 	private static ArrayList<CellInfo> tempCellInfos = new ArrayList<CellInfo>();
@@ -30,8 +23,8 @@ public class CellModuleManager {
 		startService();
 	}
 
-	public void destoryCellModuleManager() {
-		// stopService();
+	public void destory() {
+//		 stopService();
 	}
 
 	public static CellModuleManager instance() {

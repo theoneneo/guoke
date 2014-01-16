@@ -90,7 +90,7 @@ public class RemindModuleManager {
 				isRemind, isVibrate, remindMusic);
 	}
 
-	public void modifySite(String key, String remindTitle,
+	public void modifyRemindInfo(String key, String remindTitle,
 			String remindMessage, int isRemind, int isVibrate, int remindMusic) {
 		if (key == null || key == "")
 			return;
@@ -111,7 +111,7 @@ public class RemindModuleManager {
 	public void saveRemindData() {
 		for (int i = 0; i < mRemindInfos.size(); i++) {
 			RemindInfo remindInfo = mRemindInfos.get(i);
-			modifySite(remindInfo.key, remindInfo.remindTitle,
+			modifyRemindInfo(remindInfo.key, remindInfo.remindTitle,
 					remindInfo.remindMessage, remindInfo.isRemind,
 					remindInfo.isVibrate, remindInfo.remindMusic);
 		}

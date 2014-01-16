@@ -1,16 +1,11 @@
 package com.lbs.guoke;
 
 import com.lbs.guoke.fragment.AddRemindFragment;
-import com.lbs.guoke.fragment.AddSiteFragment;
-import com.lbs.guoke.fragment.SiteTypeFragment;
-import com.lbs.guoke.fragment.AddSiteFragment.AddSiteListFragmentListener;
-import com.lbs.guoke.fragment.SiteTypeFragment.SiteTypeFragmentListener;
 
-import android.app.FragmentManager.OnBackStackChangedListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-public class AddRemindActivity extends FragmentActivity {
+public class AddRemindActivity extends BaseActivity {
 	private AddRemindFragment arFragment;
 
 	@Override

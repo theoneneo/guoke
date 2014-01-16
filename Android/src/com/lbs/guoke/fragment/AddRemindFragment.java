@@ -63,7 +63,7 @@ public class AddRemindFragment extends Fragment {
 		});
 
 		spin_name = (Spinner) getActivity().findViewById(R.id.spin_address);
-		spin_name.setOnItemSelectedListener(new OnItemSelectedListener(){
+		spin_name.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
@@ -74,8 +74,8 @@ public class AddRemindFragment extends Fragment {
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
-				
-			}			
+
+			}
 		});
 		edit_remind = (EditText) getActivity().findViewById(R.id.edit_remind);
 		btn_ring = (Button) getActivity().findViewById(R.id.btn_ring);
@@ -196,8 +196,9 @@ public class AddRemindFragment extends Fragment {
 			isVibrate = 1;
 		}
 		RemindModuleManager.instance().addRemindInfo(key,
-				((SiteInfo)spin_name.getSelectedItem()).siteName.toString(),
-				edit_remind.getText().toString(), 0, isVibrate, 0);
+				edit_remind.getText().toString(),
+				((SiteInfo) spin_name.getSelectedItem()).siteName.toString(),
+				0, isVibrate, 0);
 	}
 
 	private void modifyRemindInfo() {
@@ -206,9 +207,10 @@ public class AddRemindFragment extends Fragment {
 		if (b) {
 			isVibrate = 1;
 		}
-		RemindModuleManager.instance().modifySite(key,
-				((SiteInfo)spin_name.getSelectedItem()).siteName.toString(),
-				edit_remind.getText().toString(), -1, isVibrate, 0);
+		RemindModuleManager.instance().modifyRemindInfo(key,
+				edit_remind.getText().toString(),
+				((SiteInfo) spin_name.getSelectedItem()).siteName.toString(),
+				-1, isVibrate, 0);
 	}
 
 	public class SiteNameAdapter implements SpinnerAdapter {
