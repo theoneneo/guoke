@@ -6,9 +6,12 @@ import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
 import com.lbs.guoke.db.DBTools;
+import com.neo.tools.SystemTools;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
 //TODO 已经提醒了，是否还需要提醒  RemindModuleManager.instance().matchRemindInfo();
@@ -44,6 +47,10 @@ public class GuoKeApp extends Application {
 
 	public static GuoKeApp getApplication() {
 		return app;
+	}
+
+	public static Context getAppContext() {
+		return app.getApplicationContext();
 	}
 
 	public void addActivity(Activity activity) {

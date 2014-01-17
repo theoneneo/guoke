@@ -3,6 +3,7 @@ package com.lbs.guoke;
 import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
 import com.lbs.guoke.structure.CellInfo;
+import com.neo.tools.SystemTools;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,7 +15,13 @@ public class AlertDialogActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_alert);
+		SystemTools.instance().wakeLockStart();
 		initUI();
+	}
+	
+	public void onDestroy(){
+		super.onDestroy();
+		SystemTools.instance().wakeLockStop();
 	}
 	
 	private void initUI(){

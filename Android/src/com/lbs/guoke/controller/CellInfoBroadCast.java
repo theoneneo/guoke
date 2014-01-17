@@ -16,7 +16,7 @@ public class CellInfoBroadCast extends BroadcastReceiver {
 		// TODO Auto-generated method stub
 		if ("com.lbs.guoke.cellinfo".equals(arg1.getAction())) {
 			getCellInfoProcess(arg0, arg1);
-			startTemp(arg0);
+//			startTemp(arg0);
 		}
 	}
 

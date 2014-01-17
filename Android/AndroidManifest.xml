@@ -9,6 +9,7 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".GuoKeApp"
@@ -30,16 +31,15 @@
         </activity>
         <activity android:name=".AddRemindActivity" >
         </activity>
-        
         <activity
             android:name=".AlertDialogActivity"
             android:launchMode="singleInstance"
             android:theme="@style/dialog" >
-        </activity>        
-        <activity android:name=".tempDialogActivity" 
+        </activity>
+        <activity
+            android:name=".tempDialogActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/dialog"
-            >
+            android:theme="@style/dialog" >
         </activity>
 
         <provider
