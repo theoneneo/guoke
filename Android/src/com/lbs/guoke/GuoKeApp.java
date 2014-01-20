@@ -14,7 +14,7 @@ import android.content.Context;
 import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
-//TODO 已经提醒了，是否还需要提醒  RemindModuleManager.instance().matchRemindInfo();
+//TODO 已经提醒了，是否还需要提醒  半小时提醒
 //TODO 是否要关闭cell service 进程
 
 public class GuoKeApp extends Application {

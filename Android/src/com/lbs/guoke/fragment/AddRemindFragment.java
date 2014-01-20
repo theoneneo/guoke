@@ -138,7 +138,7 @@ public class AddRemindFragment extends Fragment {
 							break;
 						}
 					}
-					edit_remind.setText(remindInfo.remindMessage);
+					edit_remind.setText(remindInfo.remindTitle);
 					if (remindInfo.isVibrate == 0)
 						switch_vibrate.setChecked(false);
 					else

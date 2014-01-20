@@ -33,22 +33,21 @@ public class MainActivity extends SlidingBaseActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		getSlidingMenu().setMode(SlidingMenu.RIGHT);
 		getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setContentView(R.layout.activity_main);
-		
 		initUI();
 	}
-	
+
 	@Override
-	public void onStop(){
+	public void onStop() {
 		super.onStop();
 		RemindModuleManager.instance().saveRemindData();
 	}
 
 	@Override
-	public void onBackPressed(){
+	public void onBackPressed() {
 		GuoKeApp.setMainHandler(null);
 		GuoKeApp.getApplication().exit();
 		super.onBackPressed();
@@ -142,7 +141,7 @@ public class MainActivity extends SlidingBaseActivity implements
 		i.putExtras(bundle);
 		startActivityForResult(i, REQUEST_ADD_REMIND);
 	}
-	
+
 	@Override
 	public void LoadAddSiteFragmentListener(int status, String key) {
 		// TODO Auto-generated method stub

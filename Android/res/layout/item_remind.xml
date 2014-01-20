@@ -2,30 +2,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/row_icon"
-        android:visibility="gone"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_launcher" />
-
     <TextView
         android:id="@+id/row_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/row_icon" />
+        android:layout_alignParentLeft="true"
+        android:layout_margin="10dp"
+        android:singleLine="true"
+        android:textSize="16sp"
+        android:layout_toLeftOf="@+id/row_switch" />
 
     <TextView
         android:id="@+id/row_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingBottom="10dp"
+        android:singleLine="true"
+        android:textSize="16sp"
         android:layout_below="@+id/row_title"
-        android:layout_toRightOf="@+id/row_icon" />
+        android:layout_toLeftOf="@+id/row_switch" />
 
     <Switch
         android:id="@+id/row_switch"

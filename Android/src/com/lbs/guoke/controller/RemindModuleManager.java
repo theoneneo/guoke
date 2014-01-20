@@ -2,12 +2,13 @@ package com.lbs.guoke.controller;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
+import android.app.Notification;
 import android.database.Cursor;
 
-import com.lbs.guoke.AlertDialogActivity;
 import com.lbs.guoke.GuoKeApp;
+import com.lbs.guoke.R;
 import com.lbs.guoke.db.DBTools;
+import com.neo.tools.NotificationTools;
 
 public class RemindModuleManager {
 	private GuoKeApp app;
@@ -95,14 +96,14 @@ public class RemindModuleManager {
 		if (key == null || key == "")
 			return;
 
-		for(int i = 0; i < mRemindInfos.size(); i++){
-			if(mRemindInfos.get(i).key.equals(key)){
+		for (int i = 0; i < mRemindInfos.size(); i++) {
+			if (mRemindInfos.get(i).key.equals(key)) {
 				RemindInfo remindInfo = mRemindInfos.get(i);
 				remindInfo.remindTitle = remindTitle;
 				remindInfo.remindMessage = remindMessage;
 				remindInfo.isVibrate = isVibrate;
 				remindInfo.remindMusic = remindMusic;
-			}				
+			}
 		}
 		DBTools.instance().updateRemindInfo(key, remindTitle, remindMessage,
 				isRemind, isVibrate, remindMusic);
@@ -124,14 +125,18 @@ public class RemindModuleManager {
 			if (remindInfo.isRemind == 1)
 				curRemindInfos.add(remindInfo);
 		}
-		if(curRemindInfos.size() != 0)
-			startAlertActivity();
-	}
-
-	private void startAlertActivity() {
-		Intent i = new Intent(app, AlertDialogActivity.class);
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		app.startActivity(i);
+		if(curRemindInfos.size() != 0){
+			int defaults = Notification.DEFAULT_SOUND|Notification.DEFAULT_LIGHTS;
+			StringBuffer buf = new StringBuffer(); 
+			for(int i = 0; i < curRemindInfos.size(); i++){
+				RemindInfo remindInfo = curRemindInfos.get(i);
+				if(remindInfo.isVibrate == 1)
+					defaults = Notification.DEFAULT_ALL;
+				buf.append(remindInfo.remindTitle);
+				buf.append(";");
+			}
+			NotificationTools.startAlertNotify(app.getApplicationContext(), R.drawable.ic_launcher, "过客", "过客提醒", defaults, buf.toString());
+		}
 	}
 
 	public class RemindInfo {

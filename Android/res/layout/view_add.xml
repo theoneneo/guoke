@@ -3,19 +3,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-	<Button 
-	    android:id="@+id/btn_temp"
-	    android:layout_width="40dp"
-	    android:layout_height="40dp"
-	    android:layout_centerVertical="true"
-	    android:layout_alignParentLeft="true"
-	    />
-    
-	<Button 
-	    android:id="@+id/btn_add"
-	    android:layout_width="40dp"
-	    android:layout_height="40dp"
-	    android:layout_centerVertical="true"
-	    android:layout_alignParentRight="true"
-	    />
+
+    <Button
+        android:id="@+id/btn_temp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:id="@+id/btn_add"
+        style="@style/btn_blue_style"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/addpoi"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/add" />
+
 </RelativeLayout>

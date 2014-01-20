@@ -464,27 +464,38 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_bar_height=0x7f060005;
     }
     public static final class drawable {
-        public static final int btn_bg_hl=0x7f020000;
-        public static final int btn_bg_selector=0x7f020001;
-        public static final int custom_tab_indicator=0x7f020002;
-        public static final int custom_tab_indicator_divider=0x7f020003;
-        public static final int custom_tab_indicator_selected=0x7f020004;
-        public static final int custom_tab_indicator_selected_focused=0x7f020005;
-        public static final int custom_tab_indicator_selected_pressed=0x7f020006;
-        public static final int custom_tab_indicator_unselected=0x7f020007;
-        public static final int custom_tab_indicator_unselected_focused=0x7f020008;
-        public static final int custom_tab_indicator_unselected_pressed=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int shadow=0x7f02000b;
-        public static final int title_bar_back=0x7f02000c;
-        public static final int title_bar_bg=0x7f02000d;
-        public static final int vpi__tab_indicator=0x7f02000e;
-        public static final int vpi__tab_selected_focused_holo=0x7f02000f;
-        public static final int vpi__tab_selected_holo=0x7f020010;
-        public static final int vpi__tab_selected_pressed_holo=0x7f020011;
-        public static final int vpi__tab_unselected_focused_holo=0x7f020012;
-        public static final int vpi__tab_unselected_holo=0x7f020013;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f020014;
+        public static final int addpoi=0x7f020000;
+        public static final int btn_agree=0x7f020001;
+        public static final int btn_bg_hl=0x7f020002;
+        public static final int btn_bg_selector=0x7f020003;
+        public static final int btn_blue_down=0x7f020004;
+        public static final int btn_blue_normal=0x7f020005;
+        public static final int btn_disagree=0x7f020006;
+        public static final int btn_red_down=0x7f020007;
+        public static final int btn_red_normal=0x7f020008;
+        public static final int common_selector=0x7f020009;
+        public static final int common_title_btn_disable=0x7f02000a;
+        public static final int common_title_btn_normal=0x7f02000b;
+        public static final int common_title_btn_pressed=0x7f02000c;
+        public static final int custom_tab_indicator=0x7f02000d;
+        public static final int custom_tab_indicator_divider=0x7f02000e;
+        public static final int custom_tab_indicator_selected=0x7f02000f;
+        public static final int custom_tab_indicator_selected_focused=0x7f020010;
+        public static final int custom_tab_indicator_selected_pressed=0x7f020011;
+        public static final int custom_tab_indicator_unselected=0x7f020012;
+        public static final int custom_tab_indicator_unselected_focused=0x7f020013;
+        public static final int custom_tab_indicator_unselected_pressed=0x7f020014;
+        public static final int ic_launcher=0x7f020015;
+        public static final int shadow=0x7f020016;
+        public static final int title_bar_back=0x7f020017;
+        public static final int title_bar_bg=0x7f020018;
+        public static final int vpi__tab_indicator=0x7f020019;
+        public static final int vpi__tab_selected_focused_holo=0x7f02001a;
+        public static final int vpi__tab_selected_holo=0x7f02001b;
+        public static final int vpi__tab_selected_pressed_holo=0x7f02001c;
+        public static final int vpi__tab_unselected_focused_holo=0x7f02001d;
+        public static final int vpi__tab_unselected_holo=0x7f02001e;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f02001f;
     }
     public static final class id {
         public static final int action_settings=0x7f040039;
@@ -522,13 +533,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int none=0x7f040005;
         public static final int pager=0x7f04000c;
         public static final int right=0x7f040001;
-        public static final int row_button=0x7f04002f;
-        public static final int row_detail=0x7f04002e;
-        public static final int row_icon=0x7f040029;
+        public static final int row_button=0x7f04002e;
+        public static final int row_detail=0x7f04002f;
+        public static final int row_icon=0x7f04002c;
         public static final int row_message=0x7f04002b;
         public static final int row_name=0x7f04002d;
-        public static final int row_switch=0x7f04002c;
-        public static final int row_title=0x7f04002a;
+        public static final int row_switch=0x7f04002a;
+        public static final int row_title=0x7f040029;
         public static final int scroll=0x7f04000e;
         public static final int selected_view=0x7f040004;
         public static final int slidingmenumain=0x7f040031;
@@ -576,30 +587,32 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class string {
         public static final int action_settings=0x7f080001;
-        public static final int add_remind=0x7f080016;
-        public static final int add_site=0x7f080010;
+        public static final int add=0x7f08000a;
+        public static final int add_remind=0x7f080017;
+        public static final int add_site=0x7f080011;
         public static final int app_name=0x7f080000;
         public static final int cancel=0x7f080007;
         public static final int hello_world=0x7f080002;
-        public static final int info_remind=0x7f080017;
-        public static final int info_site=0x7f080011;
+        public static final int info_remind=0x7f080018;
+        public static final int info_site=0x7f080012;
         public static final int modify=0x7f080008;
-        public static final int modify_remind=0x7f080018;
-        public static final int modify_site=0x7f080012;
+        public static final int modify_remind=0x7f080019;
+        public static final int modify_site=0x7f080013;
         public static final int ptr_last_updated=0x7f080006;
         public static final int ptr_pull_to_refresh=0x7f080003;
         public static final int ptr_refreshing=0x7f080005;
         public static final int ptr_release_to_refresh=0x7f080004;
-        public static final int remind=0x7f080013;
-        public static final int remind_me=0x7f080015;
-        public static final int remind_prompt=0x7f080014;
+        public static final int remind=0x7f080014;
+        public static final int remind_me=0x7f080016;
+        public static final int remind_prompt=0x7f080015;
+        public static final int remind_vibrate=0x7f08001a;
         public static final int save=0x7f080009;
-        public static final int site_address=0x7f08000c;
-        public static final int site_mark=0x7f08000f;
-        public static final int site_name=0x7f08000b;
-        public static final int site_photo=0x7f08000e;
-        public static final int site_prompt=0x7f08000a;
-        public static final int site_type=0x7f08000d;
+        public static final int site_address=0x7f08000d;
+        public static final int site_mark=0x7f080010;
+        public static final int site_name=0x7f08000c;
+        public static final int site_photo=0x7f08000f;
+        public static final int site_prompt=0x7f08000b;
+        public static final int site_type=0x7f08000e;
     }
     public static final class style {
         /** 
@@ -636,12 +649,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int CustomTitlePageIndicator=0x7f090003;
         public static final int CustomUnderlinePageIndicator=0x7f090008;
         public static final int StyledIndicators=0x7f090002;
-        public static final int TextAppearance_TabPageIndicator=0x7f09000e;
-        public static final int Theme_PageIndicatorDefaults=0x7f09000b;
-        public static final int Widget=0x7f09000c;
-        public static final int Widget_IconPageIndicator=0x7f09000f;
-        public static final int Widget_TabPageIndicator=0x7f09000d;
+        public static final int TextAppearance_TabPageIndicator=0x7f090011;
+        public static final int Theme_PageIndicatorDefaults=0x7f09000e;
+        public static final int Widget=0x7f09000f;
+        public static final int Widget_IconPageIndicator=0x7f090012;
+        public static final int Widget_TabPageIndicator=0x7f090010;
         public static final int activity_style=0x7f090009;
+        public static final int btn_agree=0x7f09000c;
+        public static final int btn_blue_style=0x7f09000b;
+        public static final int btn_disagree=0x7f09000d;
         public static final int dialog=0x7f09000a;
     }
     public static final class styleable {

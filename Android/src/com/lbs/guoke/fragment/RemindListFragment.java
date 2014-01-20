@@ -106,8 +106,6 @@ public class RemindListFragment extends ListFragment {
 				convertView = (View) inflater.inflate(R.layout.item_remind,
 						parent, false);
 				holder = new RemindViewHolder();
-				holder.row_icon = (ImageView) convertView
-						.findViewById(R.id.row_icon);
 				holder.row_title = (TextView) convertView
 						.findViewById(R.id.row_title);
 				holder.row_menssage = (TextView) convertView
@@ -118,7 +116,7 @@ public class RemindListFragment extends ListFragment {
 			} else {
 				holder = (RemindViewHolder) convertView.getTag();
 			}
-			holder.row_icon.setImageResource(R.drawable.ic_launcher);
+			
 			holder.row_title.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindTitle);
 			holder.row_menssage.setText(RemindModuleManager.instance()
@@ -166,7 +164,6 @@ public class RemindListFragment extends ListFragment {
 	}
 
 	static class RemindViewHolder {
-		ImageView row_icon;
 		TextView row_title;
 		TextView row_menssage;
 		Switch row_switch;

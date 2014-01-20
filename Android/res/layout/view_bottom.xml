@@ -8,16 +8,20 @@
 
     <Button
         android:id="@+id/btn_bottom_left"
+        style="@style/btn_disagree"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_margin="10dp"
         android:text="@string/cancel" />
 
     <Button
         android:id="@+id/btn_bottom_right"
+        style="@style/btn_agree"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_margin="10dp"
         android:text="@string/save" />
 
 </LinearLayout>
