@@ -94,7 +94,7 @@ public class CellModuleManager {
 							.getRemindInfos().get(i);
 					for (int m = 0; m < tempCellInfos.size(); m++) {
 						CellInfo cell = tempCellInfos.get(m);
-						if (cell.key.equals(remindInfo.key)) {
+						if (cell.key.equals(remindInfo.key) && (remindInfo.isRemind == 1)) {
 							RemindModuleManager.instance()
 									.getMatchRemindInfos().add(remindInfo);
 							break;

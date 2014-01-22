@@ -77,13 +77,13 @@ public class DBContentProvider extends ContentProvider {
 
 		remindDataMap = new HashMap<String, String>();
 		remindDataMap.put(REMIND_DATA_DB._ID, REMIND_DATA_DB._ID);
+		remindDataMap.put(REMIND_DATA_DB.REMINDID, REMIND_DATA_DB.REMINDID);
 		remindDataMap.put(REMIND_DATA_DB.KEY, REMIND_DATA_DB.KEY);
 		remindDataMap.put(REMIND_DATA_DB.TITLE, REMIND_DATA_DB.TITLE);
 		remindDataMap.put(REMIND_DATA_DB.MESSAGE, REMIND_DATA_DB.MESSAGE);
 		remindDataMap.put(REMIND_DATA_DB.ISREMIND, REMIND_DATA_DB.ISREMIND);
 		remindDataMap.put(REMIND_DATA_DB.ISVIBRATE, REMIND_DATA_DB.ISVIBRATE);
-		remindDataMap.put(REMIND_DATA_DB.REMINDMUSIC,
-				REMIND_DATA_DB.REMINDMUSIC);
+		remindDataMap.put(REMIND_DATA_DB.REMINDTIME, REMIND_DATA_DB.REMINDTIME);
 
 		addressDataMap = new HashMap<String, String>();
 		addressDataMap.put(ADDRESS_DATA_DB._ID, ADDRESS_DATA_DB._ID);

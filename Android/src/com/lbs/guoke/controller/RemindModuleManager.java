@@ -3,9 +3,14 @@ package com.lbs.guoke.controller;
 import java.util.ArrayList;
 
 import android.app.Notification;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 
+import com.lbs.guoke.AddRemindActivity;
+import com.lbs.guoke.AlertDialogActivity;
 import com.lbs.guoke.GuoKeApp;
+import com.lbs.guoke.MainActivity;
 import com.lbs.guoke.R;
 import com.lbs.guoke.db.DBTools;
 import com.neo.tools.NotificationTools;
@@ -15,7 +20,6 @@ public class RemindModuleManager {
 	private static RemindModuleManager instance;
 	private static ArrayList<RemindInfo> mRemindInfos = new ArrayList<RemindInfo>();
 	private static ArrayList<RemindInfo> matchRemindInfos = new ArrayList<RemindInfo>();
-	private static ArrayList<RemindInfo> curRemindInfos = new ArrayList<RemindInfo>();
 
 	public RemindModuleManager(GuoKeApp app) {
 		this.app = app;
@@ -43,10 +47,6 @@ public class RemindModuleManager {
 		return matchRemindInfos;
 	}
 
-	public ArrayList<RemindInfo> getCurRemindInfos() {
-		return curRemindInfos;
-	}
-
 	private void getRemindInfosFromDB() {
 		Thread thread = new Thread() {
 			public void run() {
@@ -55,6 +55,8 @@ public class RemindModuleManager {
 					return;
 				for (int i = 0; i < c.getCount(); i++) {
 					RemindInfo remindInfo = new RemindInfo();
+					remindInfo.remindid = DBTools.getUnvalidFormRs(c.getString(c
+							.getColumnIndex("remindid")));
 					remindInfo.key = DBTools.getUnvalidFormRs(c.getString(c
 							.getColumnIndex("key")));
 					remindInfo.remindTitle = DBTools.getUnvalidFormRs(c
@@ -65,8 +67,8 @@ public class RemindModuleManager {
 							.getInt(c.getColumnIndex("isremind"));
 					remindInfo.isVibrate = c.getInt(c
 							.getColumnIndex("isvibrate"));
-					remindInfo.remindMusic = c.getInt(c
-							.getColumnIndex("remindmusic"));
+					remindInfo.remindTime = c.getInt(c
+							.getColumnIndex("remindtime"));
 					mRemindInfos.add(remindInfo);
 					c.moveToNext();
 				}
@@ -78,73 +80,79 @@ public class RemindModuleManager {
 	}
 
 	public void addRemindInfo(String key, String remindTitle,
-			String remindMessage, int isRemind, int isVibrate, int remindMusic) {
+			String remindMessage, int isRemind, int isVibrate, long remindTime) {
+		String remindid = "remind_" + System.currentTimeMillis();
 		RemindInfo remindInfo = new RemindInfo();
+		remindInfo.remindid = remindid;
 		remindInfo.key = key;
 		remindInfo.remindTitle = remindTitle;
 		remindInfo.remindMessage = remindMessage;
 		remindInfo.isRemind = isRemind;
 		remindInfo.isVibrate = isVibrate;
-		remindInfo.remindMusic = remindMusic;
+		remindInfo.remindTime = remindTime;
 		mRemindInfos.add(remindInfo);
-		DBTools.instance().insertRemindData(key, remindTitle, remindMessage,
-				isRemind, isVibrate, remindMusic);
+		DBTools.instance().insertRemindData(remindid, key, remindTitle, remindMessage,
+				isRemind, isVibrate, remindTime);
 	}
 
-	public void modifyRemindInfo(String key, String remindTitle,
-			String remindMessage, int isRemind, int isVibrate, int remindMusic) {
+	public void modifyRemindInfo(String remindid, String key, String remindTitle,
+			String remindMessage, int isRemind, int isVibrate, long remindTime) {
 		if (key == null || key == "")
 			return;
 
 		for (int i = 0; i < mRemindInfos.size(); i++) {
-			if (mRemindInfos.get(i).key.equals(key)) {
+			if (mRemindInfos.get(i).remindid.equals(remindid)) {
 				RemindInfo remindInfo = mRemindInfos.get(i);
+				remindInfo.key = key;
 				remindInfo.remindTitle = remindTitle;
 				remindInfo.remindMessage = remindMessage;
 				remindInfo.isVibrate = isVibrate;
-				remindInfo.remindMusic = remindMusic;
+				remindInfo.remindTime = remindTime;
 			}
 		}
-		DBTools.instance().updateRemindInfo(key, remindTitle, remindMessage,
-				isRemind, isVibrate, remindMusic);
+		DBTools.instance().updateRemindInfo(remindid, key, remindTitle, remindMessage,
+				isRemind, isVibrate, remindTime);
 	}
 
 	public void saveRemindData() {
 		for (int i = 0; i < mRemindInfos.size(); i++) {
 			RemindInfo remindInfo = mRemindInfos.get(i);
-			modifyRemindInfo(remindInfo.key, remindInfo.remindTitle,
+			modifyRemindInfo(remindInfo.remindid, remindInfo.key, remindInfo.remindTitle,
 					remindInfo.remindMessage, remindInfo.isRemind,
-					remindInfo.isVibrate, remindInfo.remindMusic);
+					remindInfo.isVibrate, remindInfo.remindTime);
 		}
 	}
 
 	public void matchRemindInfo() {
-		curRemindInfos.clear();
-		for (int i = 0; i < matchRemindInfos.size(); i++) {
-			RemindInfo remindInfo = matchRemindInfos.get(i);
-			if (remindInfo.isRemind == 1)
-				curRemindInfos.add(remindInfo);
-		}
-		if(curRemindInfos.size() != 0){
-			int defaults = Notification.DEFAULT_SOUND|Notification.DEFAULT_LIGHTS;
-			StringBuffer buf = new StringBuffer(); 
-			for(int i = 0; i < curRemindInfos.size(); i++){
-				RemindInfo remindInfo = curRemindInfos.get(i);
-				if(remindInfo.isVibrate == 1)
-					defaults = Notification.DEFAULT_ALL;
-				buf.append(remindInfo.remindTitle);
-				buf.append(";");
-			}
-			NotificationTools.startAlertNotify(app.getApplicationContext(), R.drawable.ic_launcher, "过客", "过客提醒", defaults, buf.toString());
-		}
+		go2AddRemindFragment();
+//		if(curRemindInfos.size() != 0){
+//			int defaults = Notification.DEFAULT_SOUND|Notification.DEFAULT_LIGHTS;
+//			StringBuffer buf = new StringBuffer(); 
+//			for(int i = 0; i < curRemindInfos.size(); i++){
+//				RemindInfo remindInfo = curRemindInfos.get(i);
+//				if(remindInfo.isVibrate == 1)
+//					defaults = Notification.DEFAULT_ALL;
+//				buf.append(remindInfo.remindTitle);
+//				buf.append(";");
+//			}
+//			
+//			NotificationTools.startAlertNotify(app.getApplicationContext(), R.drawable.ic_launcher, "过客", "过客提醒", defaults, buf.toString());
+//		}
+	}
+	
+	private void go2AddRemindFragment() {
+		Intent i = new Intent(app, AlertDialogActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		app.startActivity(i);
 	}
 
 	public class RemindInfo {
+		public String remindid;
 		public String key;
 		public String remindTitle;
 		public String remindMessage;
 		public int isRemind;
 		public int isVibrate;
-		public int remindMusic;
+		public long remindTime;
 	}
 }

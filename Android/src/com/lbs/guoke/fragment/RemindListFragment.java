@@ -1,36 +1,29 @@
 package com.lbs.guoke.fragment;
 
+import com.lbs.guoke.AddRemindActivity;
+import com.lbs.guoke.MainActivity;
 import com.lbs.guoke.R;
 import com.lbs.guoke.controller.CellModuleManager;
-import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
-import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
-import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
-import com.lbs.guoke.fragment.MySiteListFragment.SiteAdapter;
-import com.lbs.guoke.structure.CellInfo;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class RemindListFragment extends ListFragment {
 	private RemindAdapter adapter;
-	private RemindListFragmentListener fListener;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -47,42 +40,29 @@ public class RemindListFragment extends ListFragment {
 		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View headView = (View) inflater.inflate(R.layout.view_add, null);
 		getListView().addHeaderView(headView);
+		Button btn_temp = (Button) headView.findViewById(R.id.btn_temp);
+		btn_temp.setVisibility(View.GONE);
 		Button btn_add = (Button) headView.findViewById(R.id.btn_add);
-		btn_add.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				fListener.LoadAddRemindFragmentListener(
-						AddRemindFragment.ADD_DATA_STATUS, null);
-			}
-		});
+		btn_add.setVisibility(View.GONE);
 		setListAdapter(adapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				fListener.LoadAddRemindFragmentListener(
-						AddRemindFragment.INFO_DATA_STATUS, RemindModuleManager
-								.instance().getRemindInfos().get(arg2 - 1).key);
+				go2AddRemindFragment(RemindModuleManager.instance()
+						.getRemindInfos().get(arg2 - 1).remindid);
 			}
 		});
 		adapter.notifyDataSetChanged();
 	}
 
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		try {
-			fListener = (RemindListFragmentListener) activity;
-		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString()
-					+ " must implement FragmentListener");
-		}
-	}
-
-	public interface RemindListFragmentListener {
-		public void LoadAddRemindFragmentListener(int status, String key);
+	private void go2AddRemindFragment(String remindid) {
+		Intent i = new Intent(getActivity(), AddRemindActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("remindid", remindid);
+		i.putExtras(bundle);
+		startActivityForResult(i, MainActivity.REQUEST_ADD_REMIND);
 	}
 
 	public void updateAdapter() {
@@ -116,7 +96,7 @@ public class RemindListFragment extends ListFragment {
 			} else {
 				holder = (RemindViewHolder) convertView.getTag();
 			}
-			
+
 			holder.row_title.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindTitle);
 			holder.row_menssage.setText(RemindModuleManager.instance()
@@ -137,8 +117,8 @@ public class RemindListFragment extends ListFragment {
 							else
 								RemindModuleManager.instance().getRemindInfos()
 										.get(position).isRemind = 0;
-							
-							RemindModuleManager.instance().matchRemindInfo();
+
+							CellModuleManager.instance().UpdateCellData();
 						}
 					});
 			return convertView;

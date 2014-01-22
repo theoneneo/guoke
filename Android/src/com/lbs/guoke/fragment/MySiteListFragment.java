@@ -1,11 +1,15 @@
 package com.lbs.guoke.fragment;
 
+import com.lbs.guoke.AddRemindActivity;
 import com.lbs.guoke.AddSiteActivity;
+import com.lbs.guoke.MainActivity;
 import com.lbs.guoke.R;
 import com.lbs.guoke.tempDialogActivity;
 import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager;
+import com.lbs.guoke.controller.RemindModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager.SiteInfo;
+import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.lbs.guoke.fragment.RemindListFragment.RemindViewHolder;
 
 import android.app.Activity;
@@ -26,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MySiteListFragment extends ListFragment {
-	private MySiteListFragmentListener fListener;
 	private SiteAdapter adapter;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +41,8 @@ public class MySiteListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		initUI();
 	}
-	
-	private void startTemp(){
+
+	private void startTemp() {
 		Intent i = new Intent(getActivity(), tempDialogActivity.class);
 		startActivity(i);
 	}
@@ -57,14 +60,13 @@ public class MySiteListFragment extends ListFragment {
 				startTemp();
 			}
 		});
-		
+
 		Button btn_add = (Button) headView.findViewById(R.id.btn_add);
 		btn_add.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				fListener.LoadAddSiteFragmentListener(
-						AddSiteFragment.ADD_DATA_STATUS, null);
+				go2AddSiteFragment(null);
 			}
 		});
 		setListAdapter(adapter);
@@ -73,32 +75,48 @@ public class MySiteListFragment extends ListFragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				fListener.LoadAddSiteFragmentListener(
-						AddSiteFragment.INFO_DATA_STATUS, MySiteModuleManager
-								.instance().getSiteInfos().get(arg2 - 1).key);
+				go2AddSiteFragment(MySiteModuleManager.instance()
+						.getSiteInfos().get(arg2 - 1).key);
 			}
 		});
 		adapter.notifyDataSetChanged();
 	}
-	
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		try {
-			fListener = (MySiteListFragmentListener) activity;
-		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString()
-					+ " must implement FragmentListener");
+
+	private void go2AddSiteFragment(String key) {
+		int status = 0;
+		if (key == null) {
+			status = AddSiteFragment.ADD_DATA_STATUS;
+		} else {
+			status = AddSiteFragment.INFO_DATA_STATUS;
 		}
+		// TODO Auto-generated method stub
+		Intent i = new Intent(getActivity(), AddSiteActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("status", status);
+		bundle.putString("key", key);
+		i.putExtras(bundle);
+		startActivityForResult(i, MainActivity.REQUEST_ADD_SITE);
 	}
 	
-	public interface MySiteListFragmentListener {
-		public void LoadAddSiteFragmentListener(int status, String key);
-		public void LoadAddRemindFragmentListener(int status, String key);
+	private void go2AddRemindFragment(String key){
+		String remindid = null;
+		for(int i = 0; i < RemindModuleManager.instance().getRemindInfos().size(); i++){
+			RemindInfo remindInfo = RemindModuleManager.instance().getRemindInfos().get(i);
+			if(remindInfo.key.equals(key)){
+				remindid = remindInfo.remindid;
+				break;
+			}
+		}
+		Intent i = new Intent(getActivity(), AddRemindActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("key", key);
+		bundle.putString("remindid", remindid);
+		i.putExtras(bundle);
+		startActivityForResult(i, MainActivity.REQUEST_ADD_REMIND);
 	}
 
 	public void updateAdapter() {
-		if(adapter != null)
+		if (adapter != null)
 			adapter.notifyDataSetChanged();
 	}
 
@@ -123,32 +141,37 @@ public class MySiteListFragment extends ListFragment {
 						.findViewById(R.id.row_name);
 				holder.row_detail = (TextView) convertView
 						.findViewById(R.id.row_detail);
-				holder.row_button = (Button) convertView.findViewById(R.id.row_button);
+				holder.row_button = (Button) convertView
+						.findViewById(R.id.row_button);
 				convertView.setTag(holder);
 			} else {
 				holder = (SiteViewHolder) convertView.getTag();
 			}
-			
-			final SiteInfo sInfo = MySiteModuleManager.instance().getSiteInfos().get(position);
+
+			final SiteInfo sInfo = MySiteModuleManager.instance()
+					.getSiteInfos().get(position);
 			holder.row_icon.setImageResource(R.drawable.ic_launcher);
 			holder.row_name.setText(sInfo.siteName);
-			
+
 			StringBuffer buf = new StringBuffer();
-			for(int m = 0; m < CellModuleManager.instance().getDBCellInfos().size(); m++){
-				if(sInfo.key.equals(CellModuleManager.instance().getDBCellInfos().get(m).key)){
-					buf.append(CellModuleManager.instance().getDBCellInfos().get(m).cellid);
+			for (int m = 0; m < CellModuleManager.instance().getDBCellInfos()
+					.size(); m++) {
+				if (sInfo.key.equals(CellModuleManager.instance()
+						.getDBCellInfos().get(m).key)) {
+					buf.append(CellModuleManager.instance().getDBCellInfos()
+							.get(m).cellid);
 					buf.append(";");
 				}
 			}
 			holder.row_detail.setText(buf.toString());
-			
-//			holder.row_detail.setText(sInfo.siteAddress);
-			holder.row_button.setOnClickListener(new OnClickListener(){
+
+			// holder.row_detail.setText(sInfo.siteAddress);
+			holder.row_button.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					fListener.LoadAddRemindFragmentListener(AddRemindFragment.INFO_DATA_STATUS, sInfo.key);
-				}	
+					go2AddRemindFragment(sInfo.key);
+				}
 			});
 			return convertView;
 		}

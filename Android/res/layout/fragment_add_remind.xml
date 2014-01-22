@@ -58,8 +58,14 @@
                     android:text="@string/site_name"
                     android:textSize="18sp" />
 
+               <TextView
+                    android:id="@+id/text_address_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
                 <Spinner
                     android:id="@+id/spin_address"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>

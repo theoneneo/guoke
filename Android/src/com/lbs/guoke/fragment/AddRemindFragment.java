@@ -28,14 +28,14 @@ public class AddRemindFragment extends Fragment {
 	public final static int INFO_DATA_STATUS = 1;
 	public final static int MODIFY_DATA_STATUS = 2;
 
-	private TextView titleText;
-	private Spinner spin_name;
+	private TextView titleText, addressText;
+	// private Spinner spin_name;
 	private EditText edit_remind;
 	private Button btn_ring, btn_bottom_left, btn_bottom_right;
 	private Switch switch_vibrate;
 
 	private int mStatus;
-	private String key;
+	private String key = null, remindid = null, remindMessage = null;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -62,21 +62,24 @@ public class AddRemindFragment extends Fragment {
 			}
 		});
 
-		spin_name = (Spinner) getActivity().findViewById(R.id.spin_address);
-		spin_name.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				// TODO Auto-generated method stub
-				key = MySiteModuleManager.instance().getSiteInfos().get(arg2).key;
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		// spin_name = (Spinner) getActivity().findViewById(R.id.spin_address);
+		// spin_name.setAdapter(new SiteNameAdapter());
+		// spin_name.setOnItemSelectedListener(new OnItemSelectedListener() {
+		// @Override
+		// public void onItemSelected(AdapterView<?> arg0, View arg1,
+		// int arg2, long arg3) {
+		// // TODO Auto-generated method stub
+		// key = MySiteModuleManager.instance().getSiteInfos().get(arg2).key;
+		// }
+		//
+		// @Override
+		// public void onNothingSelected(AdapterView<?> arg0) {
+		// // TODO Auto-generated method stub
+		//
+		// }
+		// });
+		addressText = (TextView) getActivity().findViewById(
+				R.id.text_address_message);
 		edit_remind = (EditText) getActivity().findViewById(R.id.edit_remind);
 		btn_ring = (Button) getActivity().findViewById(R.id.btn_ring);
 		btn_ring.setOnClickListener(new OnClickListener() {
@@ -119,32 +122,47 @@ public class AddRemindFragment extends Fragment {
 	}
 
 	private void initData() {
-		mStatus = getArguments().getInt("status", 0);
+		mStatus = ADD_DATA_STATUS;
 		key = getArguments().getString("key");
+		remindid = getArguments().getString("remindid");
 
-		spin_name.setAdapter(new SiteNameAdapter());
-		if (INFO_DATA_STATUS == mStatus) {
+		if (remindid == null) {
+			for (int m = 0; m < MySiteModuleManager.instance()
+					.getSiteInfos().size(); m++) {
+				SiteInfo siteInfo = MySiteModuleManager.instance()
+						.getSiteInfos().get(m);
+				if (siteInfo.key.equals(key)) {
+					addressText.setText(siteInfo.siteName);
+					key = siteInfo.key;
+					break;
+				}
+			}
+		} else {
 			for (int i = 0; i < RemindModuleManager.instance().getRemindInfos()
 					.size(); i++) {
 				RemindInfo remindInfo = RemindModuleManager.instance()
 						.getRemindInfos().get(i);
-				if (remindInfo.key.equals(key)) {
-					for (int m = 0; m < MySiteModuleManager.instance()
-							.getSiteInfos().size(); m++) {
-						SiteInfo siteInfo = MySiteModuleManager.instance()
-								.getSiteInfos().get(m);
-						if (siteInfo.key.equals(key)) {
-							spin_name.setSelection(m, false);
-							break;
+				if (remindid != null) {
+					if (remindInfo.remindid.equals(remindid)) {
+						for (int m = 0; m < MySiteModuleManager.instance()
+								.getSiteInfos().size(); m++) {
+							SiteInfo siteInfo = MySiteModuleManager.instance()
+									.getSiteInfos().get(m);
+							if (siteInfo.key.equals(remindInfo.key)) {
+								addressText.setText(siteInfo.siteName);
+								key = siteInfo.key;
+								break;
+							}
 						}
-					}
-					edit_remind.setText(remindInfo.remindTitle);
-					if (remindInfo.isVibrate == 0)
-						switch_vibrate.setChecked(false);
-					else
-						switch_vibrate.setChecked(true);
+						edit_remind.setText(remindInfo.remindTitle);
+						if (remindInfo.isVibrate == 0)
+							switch_vibrate.setChecked(false);
+						else
+							switch_vibrate.setChecked(true);
 
-					break;
+						mStatus = INFO_DATA_STATUS;
+						break;
+					}
 				}
 			}
 		}
@@ -156,7 +174,7 @@ public class AddRemindFragment extends Fragment {
 		switch (mStatus) {
 		case ADD_DATA_STATUS: {
 			titleText.setText(R.string.add_remind);
-			spin_name.setEnabled(true);
+			// spin_name.setEnabled(true);
 			edit_remind.setEnabled(true);
 			btn_ring.setEnabled(true);
 			switch_vibrate.setEnabled(true);
@@ -166,7 +184,7 @@ public class AddRemindFragment extends Fragment {
 			break;
 		case INFO_DATA_STATUS: {
 			titleText.setText(R.string.info_remind);
-			spin_name.setEnabled(false);
+			// spin_name.setEnabled(false);
 			edit_remind.setEnabled(false);
 			btn_ring.setEnabled(false);
 			switch_vibrate.setEnabled(false);
@@ -176,7 +194,7 @@ public class AddRemindFragment extends Fragment {
 			break;
 		case MODIFY_DATA_STATUS: {
 			titleText.setText(R.string.modify_remind);
-			spin_name.setEnabled(true);
+			// spin_name.setEnabled(true);
 			edit_remind.setEnabled(true);
 			btn_ring.setEnabled(true);
 			switch_vibrate.setEnabled(true);
@@ -197,7 +215,7 @@ public class AddRemindFragment extends Fragment {
 		}
 		RemindModuleManager.instance().addRemindInfo(key,
 				edit_remind.getText().toString(),
-				((SiteInfo) spin_name.getSelectedItem()).siteName.toString(),
+				addressText.getText().toString(),
 				0, isVibrate, 0);
 	}
 
@@ -207,10 +225,10 @@ public class AddRemindFragment extends Fragment {
 		if (b) {
 			isVibrate = 1;
 		}
-		RemindModuleManager.instance().modifyRemindInfo(key,
+		RemindModuleManager.instance().modifyRemindInfo(remindid, key,
 				edit_remind.getText().toString(),
-				((SiteInfo) spin_name.getSelectedItem()).siteName.toString(),
-				-1, isVibrate, 0);
+				addressText.getText().toString(),
+				-1, isVibrate, System.currentTimeMillis());
 	}
 
 	public class SiteNameAdapter implements SpinnerAdapter {

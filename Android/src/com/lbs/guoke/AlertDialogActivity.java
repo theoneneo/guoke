@@ -27,12 +27,12 @@ public class AlertDialogActivity extends BaseActivity {
 	private void initUI(){
 		text = (TextView)findViewById(R.id.event_desc);
 		StringBuffer buf = new StringBuffer();
-		for(int i = 0; i < RemindModuleManager.instance().getCurRemindInfos().size(); i++){
-			buf.append(RemindModuleManager.instance().getCurRemindInfos().get(i).remindTitle+"=====");
+		for(int i = 0; i < RemindModuleManager.instance().getMatchRemindInfos().size(); i++){
+			buf.append(RemindModuleManager.instance().getMatchRemindInfos().get(i).remindTitle+"=====");
 			for(int m = 0; m < CellModuleManager.instance().getDBCellInfos().size(); m++){
 				CellInfo cellInfo = CellModuleManager.instance().getDBCellInfos().get(m);
 				if(cellInfo.key.equals(RemindModuleManager.instance()
-					.getCurRemindInfos().get(i).key)){
+					.getMatchRemindInfos().get(i).key)){
 					buf.append(cellInfo.cellid);
 					buf.append(";");
 				}

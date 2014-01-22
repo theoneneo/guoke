@@ -158,15 +158,16 @@ public class DBTools {
 		mContext.getContentResolver().insert(CELL_DATA_DB.CONTENT_URI, value);
 	}
 
-	public void insertRemindData(String key, String title, String message,
-			int isremind, int isvibrate, int remindmusic) {
+	public void insertRemindData(String remindid, String key, String title, String message,
+			int isremind, int isvibrate, long remindtime) {
 		ContentValues value = new ContentValues();
+		value.put("remindid", toValidRs(remindid));
 		value.put("key", toValidRs(key));
 		value.put("title", toValidRs(title));
 		value.put("message", toValidRs(message));
 		value.put("isremind", isremind);
 		value.put("isvibrate", isvibrate);
-		value.put("remindmusic", remindmusic);
+		value.put("remindtime", remindtime);
 		mContext.getContentResolver().insert(REMIND_DATA_DB.CONTENT_URI, value);
 	}
 
@@ -183,16 +184,17 @@ public class DBTools {
 				value, selection, null);
 	}
 
-	public void updateRemindInfo(String key, String title, String message,
-			int isremind, int isvibrate, int remindmusic) {
-		String selection = REMIND_DATA_DB.KEY + "='" + toValidRs(key) + "'";
+	public void updateRemindInfo(String remindid, String key, String title, String message,
+			int isremind, int isvibrate, long remindtime) {
+		String selection = REMIND_DATA_DB.REMINDID + "='" + toValidRs(remindid) + "'";
 		ContentValues value = new ContentValues();
+		value.put("key", toValidRs(key));
 		value.put("title", toValidRs(title));
 		value.put("message", toValidRs(message));
 		if(isremind != -1)
 			value.put("isremind", isremind);
 		value.put("isvibrate", isvibrate);
-		value.put("remindmusic", remindmusic);
+		value.put("remindtime", remindtime);
 		mContext.getContentResolver().update(REMIND_DATA_DB.CONTENT_URI,
 				value, selection, null);
 	}

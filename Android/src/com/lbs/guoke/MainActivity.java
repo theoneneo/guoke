@@ -11,15 +11,13 @@ import android.support.v4.view.ViewPager;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lbs.guoke.controller.RemindModuleManager;
+import com.lbs.guoke.fragment.AddSiteFragment;
 import com.lbs.guoke.fragment.MySiteListFragment;
-import com.lbs.guoke.fragment.MySiteListFragment.MySiteListFragmentListener;
 import com.lbs.guoke.fragment.RemindListFragment;
-import com.lbs.guoke.fragment.RemindListFragment.RemindListFragmentListener;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
-public class MainActivity extends SlidingBaseActivity implements
-		MySiteListFragmentListener, RemindListFragmentListener {
+public class MainActivity extends SlidingBaseActivity{
 	private static final String[] CONTENT = new String[] { "提醒", "我的地盘" };
 	private static final int[] ICONS = new int[] { R.drawable.ic_launcher,
 			R.drawable.ic_launcher, };
@@ -27,8 +25,8 @@ public class MainActivity extends SlidingBaseActivity implements
 	private static RemindListFragment remindList;
 	private static MySiteListFragment mysiteList;
 
-	private int REQUEST_ADD_SITE = 0;
-	private int REQUEST_ADD_REMIND = 1;
+	public static int REQUEST_ADD_SITE = 0;
+	public static int REQUEST_ADD_REMIND = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,12 +56,8 @@ public class MainActivity extends SlidingBaseActivity implements
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
-		if (requestCode == REQUEST_ADD_SITE) {
 			mysiteList.updateAdapter();
 			remindList.updateAdapter();
-		} else if (requestCode == REQUEST_ADD_REMIND) {
-			remindList.updateAdapter();
-		}
 	}
 
 	private void initUI() {
@@ -130,26 +124,4 @@ public class MainActivity extends SlidingBaseActivity implements
 			super.handleMessage(msg);
 		}
 	};
-
-	@Override
-	public void LoadAddRemindFragmentListener(int status, String key) {
-		// TODO Auto-generated method stub
-		Intent i = new Intent(this, AddRemindActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putInt("status", status);
-		bundle.putString("key", key);
-		i.putExtras(bundle);
-		startActivityForResult(i, REQUEST_ADD_REMIND);
-	}
-
-	@Override
-	public void LoadAddSiteFragmentListener(int status, String key) {
-		// TODO Auto-generated method stub
-		Intent i = new Intent(this, AddSiteActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putInt("status", status);
-		bundle.putString("key", key);
-		i.putExtras(bundle);
-		startActivityForResult(i, REQUEST_ADD_SITE);
-	}
 }
