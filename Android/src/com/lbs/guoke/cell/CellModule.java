@@ -2,6 +2,8 @@ package com.lbs.guoke.cell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.lbs.guoke.controller.GuoKeService;
 import com.lbs.guoke.structure.CellInfo;
@@ -12,12 +14,15 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 public class CellModule {
-
+	private static Timer timer = null;
 	private boolean mEnabled = false;
 	private RadioLayerProvider radioDataProvider;
+	private long lastAutoCellTime = 0;
 	private Context mContext;
+	private static final int AUTO_CELL_CHANGE_INTERVAL = 8000;
 	private static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
 
 	public CellModule(GuoKeService service) {
@@ -38,6 +43,17 @@ public class CellModule {
 	private void onRadioDataChange(RadioData rd, int signal) {
 		switch (signal) {
 		case RadioLayerProvider.EVENT_SIGNAL_CELL_LOCATION: {
+			if (lastAutoCellTime != 0) {
+				long cur_time = System.currentTimeMillis();
+				if (rd.locationAreaCode != 0 && rd.cellId != 0) {
+					if (cur_time - lastAutoCellTime <= AUTO_CELL_CHANGE_INTERVAL) {
+						return;
+					}
+				}
+			}
+			
+			lastAutoCellTime = System.currentTimeMillis();
+			
 			if (rd.cellId > 0 && rd.locationAreaCode > 0) {
 				mCellInfos.clear();
 				CellInfo cellInfo = new CellInfo();
@@ -49,7 +65,7 @@ public class CellModule {
 				mCellInfos.add(cellInfo);
 				getNeiborCells(0, rd.locationAreaCode, rd.mobileNetworkCode,
 						rd.mobileCountryCode);
-				sendCellInfoBroadCast();
+				waitCellInfoBroadCast();
 			} else {
 			}
 		}
@@ -64,6 +80,17 @@ public class CellModule {
 	private void onCdmaDataChange(CdmaData cdmaData, int signal) {
 		switch (signal) {
 		case RadioLayerProvider.EVENT_SIGNAL_CELL_LOCATION:
+			if (lastAutoCellTime != 0) {
+				long cur_time = System.currentTimeMillis();
+				if (cdmaData.networkId != 0 && cdmaData.baseStationId != 0) {
+					if (cur_time - lastAutoCellTime <= AUTO_CELL_CHANGE_INTERVAL) {
+						return;
+					}
+				}
+			}
+			
+			lastAutoCellTime = System.currentTimeMillis();
+			
 			if (cdmaData != null) {
 				mCellInfos.clear();
 				CellInfo cellInfo = new CellInfo();
@@ -75,7 +102,7 @@ public class CellModule {
 				mCellInfos.add(cellInfo);
 				getNeiborCells(1, cdmaData.networkId,
 						cdmaData.mobileNetworkCode, cdmaData.mobileCountryCode);
-				sendCellInfoBroadCast();
+				waitCellInfoBroadCast();
 			} else {
 			}
 			break;
@@ -132,11 +159,33 @@ public class CellModule {
 		}
 	}
 	
-	private void sendCellInfoBroadCast(){
+	private void waitCellInfoBroadCast(){
+		if(timer != null){
+			timer.cancel();
+			timer = null;
+		}
+		timer = new Timer();
+        timer.schedule(new RemindTask(), 100);
+	}
+	
+	private void sendCellInfoBroadCast(){	
         Intent intent = new Intent("com.lbs.guoke.cellinfo");
         Bundle bundle = new Bundle();  
         bundle.putParcelableArrayList("cellinfo", mCellInfos);
         intent.putExtras(bundle);  
         mContext.sendBroadcast(intent);
 	}
+	
+	public void stopCellBroadCastSchedule(){
+		if(timer != null){
+			timer.cancel();
+			timer = null;
+		}
+	}
+	
+	class RemindTask extends TimerTask {
+        public void run() {
+        	sendCellInfoBroadCast();
+        }
+    }
 }

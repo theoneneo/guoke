@@ -9,6 +9,7 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -33,8 +34,9 @@
         </activity>
         <activity
             android:name=".AlertDialogActivity"
+            android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:theme="@style/dialog" >
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar" >
         </activity>
         <activity
             android:name=".tempDialogActivity"
@@ -54,8 +56,7 @@
 
         <receiver android:name="com.lbs.guoke.controller.CellInfoBroadCast" >
             <intent-filter>
-                <action android:name="com.lbs.guoke.cellinfo" >
-                </action>
+                <action android:name="com.lbs.guoke.cellinfo" />
             </intent-filter>
         </receiver>
     </application>

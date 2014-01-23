@@ -1,6 +1,9 @@
 package com.lbs.guoke;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,9 +38,10 @@ public class MainActivity extends SlidingBaseActivity{
 		getSlidingMenu().setMode(SlidingMenu.RIGHT);
 		getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setContentView(R.layout.activity_main);
+
 		initUI();
 	}
-
+	
 	@Override
 	public void onStop() {
 		super.onStop();

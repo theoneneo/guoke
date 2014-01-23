@@ -16,7 +16,6 @@ public class CellInfoBroadCast extends BroadcastReceiver {
 		// TODO Auto-generated method stub
 		if ("com.lbs.guoke.cellinfo".equals(arg1.getAction())) {
 			getCellInfoProcess(arg0, arg1);
-//			startTemp(arg0);
 		}
 	}
 
@@ -26,11 +25,4 @@ public class CellInfoBroadCast extends BroadcastReceiver {
 		if (cellInfos != null)
 			CellModuleManager.instance().setCellInfos(cellInfos);
 	}
-	
-	private void startTemp(Context arg0){
-		Intent i = new Intent(arg0, tempDialogActivity.class);
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		arg0.startActivity(i);
-	}
-
 }

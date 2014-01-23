@@ -124,23 +124,10 @@ public class RemindModuleManager {
 	}
 
 	public void matchRemindInfo() {
-		go2AddRemindFragment();
-//		if(curRemindInfos.size() != 0){
-//			int defaults = Notification.DEFAULT_SOUND|Notification.DEFAULT_LIGHTS;
-//			StringBuffer buf = new StringBuffer(); 
-//			for(int i = 0; i < curRemindInfos.size(); i++){
-//				RemindInfo remindInfo = curRemindInfos.get(i);
-//				if(remindInfo.isVibrate == 1)
-//					defaults = Notification.DEFAULT_ALL;
-//				buf.append(remindInfo.remindTitle);
-//				buf.append(";");
-//			}
-//			
-//			NotificationTools.startAlertNotify(app.getApplicationContext(), R.drawable.ic_launcher, "过客", "过客提醒", defaults, buf.toString());
-//		}
+		go2AlertDialogActivity();
 	}
 	
-	private void go2AddRemindFragment() {
+	private void go2AlertDialogActivity() {
 		Intent i = new Intent(app, AlertDialogActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		app.startActivity(i);

@@ -16,14 +16,6 @@ public class tempDialogActivity extends BaseActivity {
 	}
 	
 	private void initUI(){
-		TextView title = (TextView)findViewById(R.id.alerttitle);
-		title.setText("基站");
-		text = (TextView)findViewById(R.id.event_desc);
-		StringBuffer buf = new StringBuffer();
-		for(int i = 0; i < CellModuleManager.instance().getCellInfos().size(); i++){
-			buf.append(CellModuleManager.instance().getCellInfos().get(i).cellid);
-			buf.append(";");
-		}
-		text.setText(buf.toString());
+
 	}
 }
