@@ -55,8 +55,8 @@ public class RemindModuleManager {
 					return;
 				for (int i = 0; i < c.getCount(); i++) {
 					RemindInfo remindInfo = new RemindInfo();
-					remindInfo.remindid = DBTools.getUnvalidFormRs(c.getString(c
-							.getColumnIndex("remindid")));
+					remindInfo.remindid = DBTools.getUnvalidFormRs(c
+							.getString(c.getColumnIndex("remindid")));
 					remindInfo.key = DBTools.getUnvalidFormRs(c.getString(c
 							.getColumnIndex("key")));
 					remindInfo.remindTitle = DBTools.getUnvalidFormRs(c
@@ -91,12 +91,13 @@ public class RemindModuleManager {
 		remindInfo.isVibrate = isVibrate;
 		remindInfo.remindTime = remindTime;
 		mRemindInfos.add(remindInfo);
-		DBTools.instance().insertRemindData(remindid, key, remindTitle, remindMessage,
-				isRemind, isVibrate, remindTime);
+		DBTools.instance().insertRemindData(remindid, key, remindTitle,
+				remindMessage, isRemind, isVibrate, remindTime);
 	}
 
-	public void modifyRemindInfo(String remindid, String key, String remindTitle,
-			String remindMessage, int isRemind, int isVibrate, long remindTime) {
+	public void modifyRemindInfo(String remindid, String key,
+			String remindTitle, String remindMessage, int isRemind,
+			int isVibrate, long remindTime) {
 		if (key == null || key == "")
 			return;
 
@@ -107,26 +108,51 @@ public class RemindModuleManager {
 				remindInfo.remindTitle = remindTitle;
 				remindInfo.remindMessage = remindMessage;
 				remindInfo.isVibrate = isVibrate;
-				remindInfo.remindTime = remindTime;
+				if (remindTime != -1)
+					remindInfo.remindTime = remindTime;
 			}
 		}
-		DBTools.instance().updateRemindInfo(remindid, key, remindTitle, remindMessage,
-				isRemind, isVibrate, remindTime);
+		DBTools.instance().updateRemindInfo(remindid, key, remindTitle,
+				remindMessage, isRemind, isVibrate, remindTime);
 	}
 
 	public void saveRemindData() {
 		for (int i = 0; i < mRemindInfos.size(); i++) {
 			RemindInfo remindInfo = mRemindInfos.get(i);
-			modifyRemindInfo(remindInfo.remindid, remindInfo.key, remindInfo.remindTitle,
+			DBTools.instance().updateRemindInfo(remindInfo.remindid,
+					remindInfo.key, remindInfo.remindTitle,
 					remindInfo.remindMessage, remindInfo.isRemind,
 					remindInfo.isVibrate, remindInfo.remindTime);
 		}
 	}
+	
+	public void saveRemindTimer(ArrayList<String> remindids) {
+		for (int i = 0; i < mRemindInfos.size(); i++) {
+			RemindInfo remindInfo = mRemindInfos.get(i);
+			for(int m = 0; m < remindids.size(); m++){
+				if(remindids.get(m).equals(remindInfo.remindid)){
+					remindInfo.remindTime = System.currentTimeMillis();
+					DBTools.instance().updateRemindInfo(remindInfo.remindid,
+							remindInfo.key, remindInfo.remindTitle,
+							remindInfo.remindMessage, remindInfo.isRemind,
+							remindInfo.isVibrate, remindInfo.remindTime);
+					break;
+				}
+			}
+		}
+	}
 
 	public void matchRemindInfo() {
-		go2AlertDialogActivity();
+		for (int i = 0; i < matchRemindInfos.size(); i++) {
+			RemindInfo remindInfo = matchRemindInfos.get(i);
+			if(System.currentTimeMillis() - remindInfo.remindTime < 30*60*1000){
+				matchRemindInfos.remove(i);
+			}
+		}
+		if(matchRemindInfos.size() != 0)
+			go2AlertDialogActivity();
 	}
-	
+
 	private void go2AlertDialogActivity() {
 		Intent i = new Intent(app, AlertDialogActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

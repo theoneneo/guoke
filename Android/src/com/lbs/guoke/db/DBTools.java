@@ -194,7 +194,8 @@ public class DBTools {
 		if(isremind != -1)
 			value.put("isremind", isremind);
 		value.put("isvibrate", isvibrate);
-		value.put("remindtime", remindtime);
+		if(remindtime != -1)
+			value.put("remindtime", remindtime);
 		mContext.getContentResolver().update(REMIND_DATA_DB.CONTENT_URI,
 				value, selection, null);
 	}

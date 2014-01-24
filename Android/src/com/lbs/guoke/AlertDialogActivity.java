@@ -1,5 +1,7 @@
 package com.lbs.guoke;
 
+import java.util.ArrayList;
+
 import com.lbs.guoke.controller.RemindModuleManager;
 import com.neo.tools.RingTong;
 import com.neo.tools.SystemTools;
@@ -19,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class AlertDialogActivity extends BaseActivity {
+	private ArrayList<String> remindids = new ArrayList<String>();
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final Window win = getWindow();
@@ -27,11 +31,11 @@ public class AlertDialogActivity extends BaseActivity {
 		win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
 				| WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 		setContentView(R.layout.fragment_alert);
-		
+
 		SystemTools.instance().wakeLockStart();
 		SystemTools.instance().startVibrator(this);
 		RingTong.systemNotificationRing(this);
-
+		saveRemindId();
 		initUI();
 	}
 
@@ -39,6 +43,19 @@ public class AlertDialogActivity extends BaseActivity {
 		super.onPause();
 		SystemTools.instance().wakeLockStop();
 		SystemTools.instance().stopVibrator();
+	}
+
+	public void onDestroy() {
+		RemindModuleManager.instance().saveRemindTimer(remindids);
+		super.onDestroy();
+	}
+	
+	private void saveRemindId() {
+		for (int i = 0; i < RemindModuleManager.instance()
+				.getMatchRemindInfos().size(); i++) {
+			remindids.add(RemindModuleManager.instance().getMatchRemindInfos()
+					.get(i).remindid);
+		}
 	}
 
 	private void initUI() {

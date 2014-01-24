@@ -228,7 +228,7 @@ public class AddRemindFragment extends Fragment {
 		RemindModuleManager.instance().modifyRemindInfo(remindid, key,
 				edit_remind.getText().toString(),
 				addressText.getText().toString(),
-				-1, isVibrate, System.currentTimeMillis());
+				-1, isVibrate, -1);
 	}
 
 	public class SiteNameAdapter implements SpinnerAdapter {
