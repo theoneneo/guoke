@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
@@ -37,13 +38,6 @@ public class RemindListFragment extends ListFragment {
 
 	private void initUI() {
 		adapter = new RemindAdapter(getActivity());
-		LayoutInflater inflater = LayoutInflater.from(getActivity());
-		View headView = (View) inflater.inflate(R.layout.view_add, null);
-		getListView().addHeaderView(headView);
-		Button btn_temp = (Button) headView.findViewById(R.id.btn_temp);
-		btn_temp.setVisibility(View.GONE);
-		Button btn_add = (Button) headView.findViewById(R.id.btn_add);
-		btn_add.setVisibility(View.GONE);
 		setListAdapter(adapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -90,7 +84,7 @@ public class RemindListFragment extends ListFragment {
 						.findViewById(R.id.row_title);
 				holder.row_menssage = (TextView) convertView
 						.findViewById(R.id.row_message);
-				holder.row_switch = (Switch) convertView
+				holder.row_switch = (CheckBox) convertView
 						.findViewById(R.id.row_switch);
 				convertView.setTag(holder);
 			} else {
@@ -101,6 +95,8 @@ public class RemindListFragment extends ListFragment {
 					.getRemindInfos().get(position).remindTitle);
 			holder.row_menssage.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindMessage);
+			holder.row_menssage.setCompoundDrawablesWithIntrinsicBounds(R.drawable.place_small, 0, 0, 0);
+			holder.row_switch.setOnCheckedChangeListener(null);
 			if (RemindModuleManager.instance().getRemindInfos().get(position).isRemind == 1)
 				holder.row_switch.setChecked(true);
 			else
@@ -117,7 +113,6 @@ public class RemindListFragment extends ListFragment {
 							else
 								RemindModuleManager.instance().getRemindInfos()
 										.get(position).isRemind = 0;
-
 							CellModuleManager.instance().UpdateCellData();
 						}
 					});
@@ -146,6 +141,6 @@ public class RemindListFragment extends ListFragment {
 	static class RemindViewHolder {
 		TextView row_title;
 		TextView row_menssage;
-		Switch row_switch;
+		CheckBox row_switch;
 	}
 }

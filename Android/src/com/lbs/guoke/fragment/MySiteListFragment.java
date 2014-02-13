@@ -34,7 +34,7 @@ public class MySiteListFragment extends ListFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_list, null);
+		return inflater.inflate(R.layout.fragment_list_add, null);
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -48,27 +48,15 @@ public class MySiteListFragment extends ListFragment {
 	}
 
 	private void initUI() {
-		adapter = new SiteAdapter(getActivity());
-		LayoutInflater inflater = LayoutInflater.from(getActivity());
-		View headView = (View) inflater.inflate(R.layout.view_add, null);
-		getListView().addHeaderView(headView);
-		Button btn_temp = (Button) headView.findViewById(R.id.btn_temp);
-		btn_temp.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				startTemp();
-			}
-		});
-
-		Button btn_add = (Button) headView.findViewById(R.id.btn_add);
-		btn_add.setOnClickListener(new OnClickListener() {
+		Button btn_add = (Button)getActivity().findViewById(R.id.add).findViewById(R.id.btn_add);
+		btn_add.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				go2AddSiteFragment(null);
-			}
+			}	
 		});
+		adapter = new SiteAdapter(getActivity());
 		setListAdapter(adapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -152,20 +140,7 @@ public class MySiteListFragment extends ListFragment {
 					.getSiteInfos().get(position);
 			holder.row_icon.setImageResource(R.drawable.ic_launcher);
 			holder.row_name.setText(sInfo.siteName);
-
-			StringBuffer buf = new StringBuffer();
-			for (int m = 0; m < CellModuleManager.instance().getDBCellInfos()
-					.size(); m++) {
-				if (sInfo.key.equals(CellModuleManager.instance()
-						.getDBCellInfos().get(m).key)) {
-					buf.append(CellModuleManager.instance().getDBCellInfos()
-							.get(m).cellid);
-					buf.append(";");
-				}
-			}
-			holder.row_detail.setText(buf.toString());
-
-			// holder.row_detail.setText(sInfo.siteAddress);
+			holder.row_detail.setText(sInfo.siteAddress);
 			holder.row_button.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

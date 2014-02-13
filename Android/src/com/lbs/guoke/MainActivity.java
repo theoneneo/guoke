@@ -1,9 +1,6 @@
 package com.lbs.guoke;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,8 +19,8 @@ import com.viewpagerindicator.TabPageIndicator;
 
 public class MainActivity extends SlidingBaseActivity{
 	private static final String[] CONTENT = new String[] { "提醒", "我的地盘" };
-	private static final int[] ICONS = new int[] { R.drawable.ic_launcher,
-			R.drawable.ic_launcher, };
+	private static final int[] ICONS = new int[] { R.drawable.bg_bell,
+			R.drawable.bg_place, };
 
 	private static RemindListFragment remindList;
 	private static MySiteListFragment mysiteList;
