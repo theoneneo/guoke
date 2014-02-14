@@ -35,6 +35,7 @@
         </activity>
         <activity
             android:name=".AlertDialogActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|locale|fontScale"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"

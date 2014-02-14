@@ -1,26 +1,94 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
-    
-    <TextView 
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_margin="30dp"
-    	android:layout_centerHorizontal="true"
-    	android:text="@string/remind"
-    	android:gravity="center"
-    	android:textColor="#ffffff"
-    	android:textSize="26sp"
-    	android:background="@drawable/common_selector"  	
-        />
-    <ListView 
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-    	android:layout_height="match_parent"
-    	android:layout_marginTop="20dp"
-    	android:layout_below="@+id/title"
-        />
+    android:background="#ffffff"
+    android:orientation="vertical" >
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/icon"
+            android:gravity="bottom"
+            android:text="@string/lujia_remind"
+            android:textColor="#1C3D66"
+            android:textSize="22sp" />
+        
+        <TextView
+            android:id="@+id/ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
+            android:gravity="bottom"
+            android:textColor="#1C3D66"
+            android:textSize="16sp" />	
+            
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/title"
+            android:layout_margin="5dp"
+            android:background="#00ffff" />
+
+        <ImageView
+            android:id="@+id/ring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@anim/ring_anim" />
+
+        <TextView
+            android:id="@+id/remind_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ring"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:textColor="#1C3D66"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/remind_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/remind_title"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:textColor="#1C3D66"
+            android:textSize="22sp" />
+
+        <CheckBox
+            android:id="@+id/check_remind"
+            android:layout_below="@+id/remind_message"
+            android:layout_margin="10dp"
+            android:button="@drawable/check_drawable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1C3D66"
+            android:text="@string/next_remind"
+             />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/confirm"
+        android:layout_margin="10dp"
+        layout="@layout/view_add" />
+
+</LinearLayout>

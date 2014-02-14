@@ -44,6 +44,14 @@ public class MainActivity extends SlidingBaseActivity{
 		super.onStop();
 		RemindModuleManager.instance().saveRemindData();
 	}
+	
+	public void onStart(){
+		super.onStart();
+		if(mysiteList != null)
+			mysiteList.updateAdapter();
+		if(remindList != null)
+			remindList.updateAdapter();
+	}
 
 	@Override
 	public void onBackPressed() {

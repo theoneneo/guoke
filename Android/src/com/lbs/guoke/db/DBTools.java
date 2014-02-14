@@ -123,7 +123,7 @@ public class DBTools {
 		return cursor;
 	}
 
-	public void insertSiteData(String key, String name, String address,
+	public void insertSiteInfo(String key, String name, String address,
 			int type, String imageLink, String mark,
 			ArrayList<CellInfo> cellInfos) {
 		if (cellInfos == null || name == null || address == null)
@@ -158,7 +158,7 @@ public class DBTools {
 		mContext.getContentResolver().insert(CELL_DATA_DB.CONTENT_URI, value);
 	}
 
-	public void insertRemindData(String remindid, String key, String title, String message,
+	public void insertRemindInfo(String remindid, String key, String title, String message,
 			int isremind, int isvibrate, long remindtime) {
 		ContentValues value = new ContentValues();
 		value.put("remindid", toValidRs(remindid));
@@ -169,6 +169,16 @@ public class DBTools {
 		value.put("isvibrate", isvibrate);
 		value.put("remindtime", remindtime);
 		mContext.getContentResolver().insert(REMIND_DATA_DB.CONTENT_URI, value);
+	}
+	
+	public void deleteSiteInfo(String key){
+		String selection = ADDRESS_DATA_DB.KEY + "='" + toValidRs(key) + "'";
+		mContext.getContentResolver().delete(ADDRESS_DATA_DB.CONTENT_URI, selection, null);
+	}
+	
+	public void deleteRemindInfo(String remindid){
+		String selection = REMIND_DATA_DB.REMINDID + "='" + toValidRs(remindid) + "'";
+		mContext.getContentResolver().delete(REMIND_DATA_DB.CONTENT_URI, selection, null);
 	}
 
 	public void updateSiteInfo(String key, String name, String address,

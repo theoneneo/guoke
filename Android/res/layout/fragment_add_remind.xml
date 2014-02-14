@@ -16,85 +16,96 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" >
+			
             <TextView
                 android:id="@+id/text_remind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/remind_me"
+                android:text="@string/remind_prompt"
+                android:layout_marginTop="10dp"
                 android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/edit_remind"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_remind"
-                android:maxLines="3" />
 
             <TextView
-                android:id="@+id/text_prompt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_remind"
-                android:padding="10dp"
-                android:text="@string/remind_prompt"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:id="@+id/layout_name"
+                android:id="@+id/edit_remind"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_prompt"
+                android:layout_below="@+id/text_remind"/>
+
+            <RelativeLayout
+                android:id="@+id/remind_check"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_remind" >
+
+                <TextView
+                    android:id="@+id/text_prompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/remind_me"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/remind"
+                    android:layout_width="64dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/switch_drawable"
+                    android:button="@null" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/edit_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/remind_check"
+                android:hint="@string/remind_content"
+                android:singleLine="true" />
+
+            <RelativeLayout
+                android:id="@+id/layout_remind"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center_vertical" >
 
                 <TextView
-                    android:id="@+id/text_address"
+                    android:id="@+id/txt_ring"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/site_name"
+                    android:layout_centerVertical="true"
+                    android:text="@string/ring"
                     android:textSize="18sp" />
-
-               <TextView
-                    android:id="@+id/text_address_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />
-                <Spinner
-                    android:id="@+id/spin_address"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_remind"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_name"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical" >
 
                 <Button
                     android:id="@+id/btn_ring"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/txt_ring"
                     android:layout_weight="1"
-                    android:visibility="gone"
                     android:text="@string/site_name"
                     android:textSize="18sp" />
 
-                <Switch
-                    android:id="@+id/switch_vibrate"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:text="@string/remind_vibrate"
+                <CheckBox
+                    android:id="@+id/vibrate"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:button="@drawable/check_drawable"
+                    android:text="@string/remind_vibrate" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

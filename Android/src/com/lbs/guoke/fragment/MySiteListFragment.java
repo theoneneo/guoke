@@ -64,7 +64,7 @@ public class MySiteListFragment extends ListFragment {
 					long arg3) {
 				// TODO Auto-generated method stub
 				go2AddSiteFragment(MySiteModuleManager.instance()
-						.getSiteInfos().get(arg2 - 1).key);
+						.getSiteInfos().get(arg2).key);
 			}
 		});
 		adapter.notifyDataSetChanged();

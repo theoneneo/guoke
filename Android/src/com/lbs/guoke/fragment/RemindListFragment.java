@@ -45,7 +45,7 @@ public class RemindListFragment extends ListFragment {
 					long arg3) {
 				// TODO Auto-generated method stub
 				go2AddRemindFragment(RemindModuleManager.instance()
-						.getRemindInfos().get(arg2 - 1).remindid);
+						.getRemindInfos().get(arg2).remindid);
 			}
 		});
 		adapter.notifyDataSetChanged();
@@ -92,9 +92,9 @@ public class RemindListFragment extends ListFragment {
 			}
 
 			holder.row_title.setText(RemindModuleManager.instance()
-					.getRemindInfos().get(position).remindTitle);
-			holder.row_menssage.setText(RemindModuleManager.instance()
 					.getRemindInfos().get(position).remindMessage);
+			holder.row_menssage.setText(RemindModuleManager.instance()
+					.getRemindInfos().get(position).remindTitle);
 			holder.row_menssage.setCompoundDrawablesWithIntrinsicBounds(R.drawable.place_small, 0, 0, 0);
 			holder.row_switch.setOnCheckedChangeListener(null);
 			if (RemindModuleManager.instance().getRemindInfos().get(position).isRemind == 1)

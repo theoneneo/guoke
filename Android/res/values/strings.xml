@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">过客</string>
+    <string name="app_name">路佳</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="ptr_pull_to_refresh">Pull to refresh</string>
@@ -12,23 +12,29 @@
     <string name="cancel">取消</string>
     <string name="modify">编辑</string>
     <string name="save">保存</string>
+    <string name="delete">删除</string>
     <string name="add_place">添加地点</string>
     
     <string name="site_prompt">为了准确提醒，请确保您正在要添加的地点旁边</string>
-    <string name="site_name">名称：</string>
-    <string name="site_address">地址：</string>
+    <string name="site_name">输入地点名称</string>
+    <string name="site_address">输入地址</string>
     <string name="site_type">类别：</string>
     <string name="site_photo">照片：</string>
     <string name="site_mark">备注：</string>
     <string name="add_site">添加地点</string>
     <string name="info_site">地点详情</string>
     <string name="modify_site">编辑地点</string>
+    <string name="delete_site_remind">请先删除对应的提醒后删除地点</string>
     
+    <string name="lujia_remind">路佳提醒</string>
     <string name="remind">提醒</string>
     <string name="remind_prompt">经过下面地点时：</string>
     <string name="remind_me">提醒我：</string>
    	<string name="add_remind">添加提醒</string>
     <string name="info_remind">提醒详情</string>
     <string name="modify_remind">编辑提醒</string>
-    <string name="remind_vibrate">提醒震动</string>
+    <string name="remind_content">输入提醒内容</string>
+    <string name="ring">铃音:</string>
+    <string name="remind_vibrate">震动</string>
+    <string name="next_remind">下次经过时继续提醒</string>
 </resources>

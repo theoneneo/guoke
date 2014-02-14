@@ -75,11 +75,21 @@ public class MySiteModuleManager {
 
 		CellModuleManager.instance().setDBCellInfos(key);
 
-		DBTools.instance().insertSiteData(key, name, address, type, imageLink,
+		DBTools.instance().insertSiteInfo(key, name, address, type, imageLink,
 				mark, CellModuleManager.instance().getCellInfos());
 	}
+	
+	public void deleteSiteInfo(String key){
+		for (int i = 0; i < mSiteInfos.size(); i++) {
+			if (mSiteInfos.get(i).key.equals(key)) {
+				mSiteInfos.remove(i);
+				DBTools.instance().deleteSiteInfo(key);
+				return;
+			}
+		}
+	}
 
-	public void modifySite(String key, String name, String address, int type,
+	public void modifySiteInfo(String key, String name, String address, int type,
 			String imageLink, String mark) {
 		if (key == null || key == "")
 			return;

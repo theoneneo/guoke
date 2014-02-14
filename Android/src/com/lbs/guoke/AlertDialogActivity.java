@@ -3,26 +3,35 @@ package com.lbs.guoke;
 import java.util.ArrayList;
 
 import com.lbs.guoke.controller.RemindModuleManager;
+import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.neo.tools.RingTong;
 import com.neo.tools.SystemTools;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class AlertDialogActivity extends BaseActivity {
 	private ArrayList<String> remindids = new ArrayList<String>();
-
+	private TextView remindTitle, remindMessage, ratio;
+	private Button btn_confirm;
+	private CheckBox check_remind;
+	private int index,max;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final Window win = getWindow();
@@ -33,7 +42,6 @@ public class AlertDialogActivity extends BaseActivity {
 		setContentView(R.layout.fragment_alert);
 
 		SystemTools.instance().wakeLockStart();
-		SystemTools.instance().startVibrator(this);
 		RingTong.systemNotificationRing(this);
 		saveRemindId();
 		initUI();
@@ -49,28 +57,69 @@ public class AlertDialogActivity extends BaseActivity {
 		RemindModuleManager.instance().saveRemindTimer(remindids);
 		super.onDestroy();
 	}
-	
+
 	private void saveRemindId() {
+		boolean isVibrate = false;
 		for (int i = 0; i < RemindModuleManager.instance()
 				.getMatchRemindInfos().size(); i++) {
 			remindids.add(RemindModuleManager.instance().getMatchRemindInfos()
 					.get(i).remindid);
+			if (!isVibrate) {
+				if (RemindModuleManager.instance().getMatchRemindInfos().get(i).isVibrate == 1) {
+					isVibrate = true;
+				}
+			}
+		}
+		if (isVibrate) {
+			SystemTools.instance().startVibrator(this);
 		}
 	}
 
 	private void initUI() {
-		ListView list = (ListView) findViewById(R.id.list);
-		RemindAdapter adapter = new RemindAdapter(this);
-		list.setAdapter(adapter);
-		list.setOnItemClickListener(new OnItemClickListener() {
+		ImageView ring = (ImageView) findViewById(R.id.ring);
+		AnimationDrawable anim = (AnimationDrawable) ring.getBackground();  
+        anim.start(); 
+        max = RemindModuleManager.instance().getMatchRemindInfos().size();
+        index = 0;
+        remindTitle = (TextView)findViewById(R.id.remind_title);
+        remindTitle.setText("您已接近"+RemindModuleManager.instance().getMatchRemindInfos().get(0).remindTitle);
+        ratio = (TextView)findViewById(R.id.ratio);
+        ratio.setText(String.valueOf(index+1)+"/"+RemindModuleManager.instance().getMatchRemindInfos().size());
+        remindMessage = (TextView)findViewById(R.id.remind_message);
+        remindMessage.setText(RemindModuleManager.instance().getMatchRemindInfos().get(0).remindMessage);
+        btn_confirm = (Button)findViewById(R.id.confirm).findViewById(R.id.btn_add);
+        btn_confirm.setText("知道了！");
+        btn_confirm.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				go2AddRemindFragment(RemindModuleManager.instance()
-						.getMatchRemindInfos().get(arg2).remindid);
+				nextRemind();
+			}   	
+        });
+        check_remind = (CheckBox)findViewById(R.id.check_remind);
+        
+	}
+	
+	private void nextRemind(){
+		for(int i = 0; i < RemindModuleManager.instance().getRemindInfos().size(); i++){
+			RemindInfo info = RemindModuleManager.instance().getRemindInfos().get(i);
+			if(info.remindid.equals(remindids.get(index))){
+				if(!check_remind.isChecked()){
+					info.isRemind = 0;
+				}
 			}
-		});
+		}
+		check_remind.setChecked(false);
+		
+		if(max <= index+1){
+			finish();
+			return;
+		}		
+		index++;		
+
+        remindTitle.setText("您已接近"+RemindModuleManager.instance().getMatchRemindInfos().get(index).remindTitle);
+        ratio.setText(String.valueOf(index+1)+"/"+RemindModuleManager.instance().getMatchRemindInfos().size());
+        remindMessage.setText(RemindModuleManager.instance().getMatchRemindInfos().get(index).remindMessage);
 	}
 
 	private void go2AddRemindFragment(String remindid) {
@@ -80,54 +129,5 @@ public class AlertDialogActivity extends BaseActivity {
 		i.putExtras(bundle);
 		startActivity(i);
 		finish();
-	}
-
-	public class RemindAdapter extends BaseAdapter {
-		private LayoutInflater inflater;
-		private Context mContext;
-
-		public RemindAdapter(Context context) {
-			mContext = context;
-			inflater = LayoutInflater.from(mContext);
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent) {
-			RemindViewHolder holder;
-			if (convertView == null) {
-				convertView = (View) inflater.inflate(R.layout.item_remind_pop,
-						parent, false);
-				holder = new RemindViewHolder();
-				holder.row_message = (TextView) convertView
-						.findViewById(R.id.row_message);
-				convertView.setTag(holder);
-			} else {
-				holder = (RemindViewHolder) convertView.getTag();
-			}
-			holder.row_message.setText(RemindModuleManager.instance()
-					.getMatchRemindInfos().get(position).remindTitle);
-			return convertView;
-		}
-
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return RemindModuleManager.instance().getMatchRemindInfos().size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-	}
-
-	static class RemindViewHolder {
-		TextView row_message;
 	}
 }

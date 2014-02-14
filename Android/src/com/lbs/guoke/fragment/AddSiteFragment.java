@@ -3,6 +3,8 @@ package com.lbs.guoke.fragment;
 import com.lbs.guoke.R;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager.SiteInfo;
+import com.lbs.guoke.controller.RemindModuleManager;
+import com.lbs.guoke.controller.RemindModuleManager.RemindInfo;
 import com.neo.tools.CameraUtil;
 import com.neo.tools.GetPhotoFromAlbum;
 
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddSiteFragment extends Fragment {
 	private AddSiteListFragmentListener fListener;
@@ -100,7 +103,14 @@ public class AddSiteFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				getActivity().finish();
+				if (mStatus == INFO_DATA_STATUS) {
+					deleteSite();
+				} else if (mStatus == ADD_DATA_STATUS) {
+					getActivity().finish();
+				} else if (mStatus == MODIFY_DATA_STATUS) {
+					getActivity().finish();
+				}
+
 			}
 		});
 		btn_bottom_right = (Button) getActivity().findViewById(R.id.bottom)
@@ -159,7 +169,7 @@ public class AddSiteFragment extends Fragment {
 			edit_mark.setEnabled(true);
 			btn_type.setEnabled(true);
 			img_photo.setEnabled(true);
-			btn_bottom_left.setVisibility(View.VISIBLE);
+			btn_bottom_left.setText(R.string.cancel);
 			btn_bottom_right.setText(R.string.save);
 		}
 			break;
@@ -170,7 +180,7 @@ public class AddSiteFragment extends Fragment {
 			edit_mark.setEnabled(false);
 			btn_type.setEnabled(false);
 			img_photo.setEnabled(false);
-			btn_bottom_left.setVisibility(View.GONE);
+			btn_bottom_left.setText(R.string.delete);
 			btn_bottom_right.setText(R.string.modify);
 		}
 			break;
@@ -181,7 +191,7 @@ public class AddSiteFragment extends Fragment {
 			edit_mark.setEnabled(true);
 			btn_type.setEnabled(true);
 			img_photo.setEnabled(true);
-			btn_bottom_left.setVisibility(View.VISIBLE);
+			btn_bottom_left.setText(R.string.cancel);
 			btn_bottom_right.setText(R.string.save);
 		}
 			break;
@@ -194,11 +204,26 @@ public class AddSiteFragment extends Fragment {
 		this.type = type;
 		changeSiteType();
 	}
-	
-	public void setImageLink(String imagePath){
+
+	public void setImageLink(String imagePath) {
 		this.img_link = imagePath;
 		Bitmap bm = BitmapFactory.decodeFile(img_link);
 		img_photo.setImageBitmap(bm);
+	}
+
+	private void deleteSite() {
+		for (int i = 0; i < RemindModuleManager.instance().getRemindInfos()
+				.size(); i++) {
+			RemindInfo info = RemindModuleManager.instance().getRemindInfos()
+					.get(i);
+			if (info.key.equals(key)) {
+				Toast.makeText(getActivity(), R.string.delete_site_remind,
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+		}
+		MySiteModuleManager.instance().deleteSiteInfo(key);
+		getActivity().finish();//
 	}
 
 	private void changeSiteType() {
@@ -228,7 +253,8 @@ public class AddSiteFragment extends Fragment {
 	}
 
 	private void changeSitePhoto() {
-		GetPhotoFromAlbum.ChooseWay(getActivity(), CameraUtil.PHOTO_PICKED_WITH_DATA);
+		GetPhotoFromAlbum.ChooseWay(getActivity(),
+				CameraUtil.PHOTO_PICKED_WITH_DATA);
 	}
 
 	private void saveSiteInfo() {
@@ -237,9 +263,9 @@ public class AddSiteFragment extends Fragment {
 				edit_address.getText().toString(), type, img_link,
 				edit_mark.getText().toString());
 	}
-
+	
 	private void modifySiteInfo() {
-		MySiteModuleManager.instance().modifySite(key,
+		MySiteModuleManager.instance().modifySiteInfo(key,
 				edit_name.getText().toString(),
 				edit_address.getText().toString(), type, img_link,
 				edit_mark.getText().toString());

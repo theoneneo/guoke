@@ -91,10 +91,23 @@ public class RemindModuleManager {
 		remindInfo.isVibrate = isVibrate;
 		remindInfo.remindTime = remindTime;
 		mRemindInfos.add(remindInfo);
-		DBTools.instance().insertRemindData(remindid, key, remindTitle,
+		DBTools.instance().insertRemindInfo(remindid, key, remindTitle,
 				remindMessage, isRemind, isVibrate, remindTime);
 	}
+	
+	
+	public void deleteRemindInfo(String remindid) {
+		if (remindid == null || remindid == "")
+			return;
 
+		for (int i = 0; i < mRemindInfos.size(); i++) {
+			if (mRemindInfos.get(i).remindid.equals(remindid)) {
+				mRemindInfos.remove(i);
+			}
+		}
+		DBTools.instance().deleteRemindInfo(remindid);
+	}
+	
 	public void modifyRemindInfo(String remindid, String key,
 			String remindTitle, String remindMessage, int isRemind,
 			int isVibrate, long remindTime) {
@@ -107,6 +120,7 @@ public class RemindModuleManager {
 				remindInfo.key = key;
 				remindInfo.remindTitle = remindTitle;
 				remindInfo.remindMessage = remindMessage;
+				remindInfo.isRemind = isRemind;
 				remindInfo.isVibrate = isVibrate;
 				if (remindTime != -1)
 					remindInfo.remindTime = remindTime;
