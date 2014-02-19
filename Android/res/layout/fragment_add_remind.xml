@@ -94,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/txt_ring"
                     android:layout_weight="1"
+                    android:drawableRight="@drawable/go"
                     android:text="@string/site_name"
                     android:textSize="18sp" />
 
