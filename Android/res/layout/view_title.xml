@@ -2,15 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/title_bar_height"
     android:background="@drawable/title_bar_bg"
+    android:padding="0dp"
     android:orientation="horizontal" >
 
     <ImageButton
         android:id="@+id/btn_left"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/btn_bg_selector"
-        android:src="@drawable/title_bar_back"/>
+        android:background="@drawable/title_bar_back"/>
 
     <TextView
         android:id="@+id/text_title"
@@ -20,7 +20,7 @@
         android:gravity="center"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:padding="10dp"/>
+        android:padding="5dp"/>
 
     <ImageButton
         android:id="@+id/btn_right"

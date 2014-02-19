@@ -37,14 +37,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/site_name"
+                android:padding="10dp"
+                android:background="@drawable/contentbox_upper"
                 android:textColor="#000000" />
-
+			<View
+			    android:id="@+id/line"
+			    android:layout_below="@+id/edit_name"
+			    android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#C0C0C0"
+			    />
             <EditText
                 android:id="@+id/edit_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_name"
-                android:layout_marginTop="20dp"
+                android:layout_below="@+id/line"
+                android:padding="10dp"
+                android:background="@drawable/contentbox_bottom"
                 android:hint="@string/site_address"
                 android:textColor="#000000" />
 

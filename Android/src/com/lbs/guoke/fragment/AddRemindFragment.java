@@ -1,6 +1,8 @@
 package com.lbs.guoke.fragment;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -70,7 +72,7 @@ public class AddRemindFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-
+				onChooseSound();
 			}
 		});
 		vibrate = (CheckBox) getActivity().findViewById(
@@ -109,6 +111,15 @@ public class AddRemindFragment extends Fragment {
 				}
 			}
 		});
+	}
+	
+	protected void onChooseSound() {
+		Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+		intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,
+				RingtoneManager.TYPE_NOTIFICATION);
+		intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "设置通知铃声");
+
+		startActivityForResult(intent, 0);
 	}
 
 	private void initData() {

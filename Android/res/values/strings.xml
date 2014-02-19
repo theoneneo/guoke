@@ -35,6 +35,7 @@
     <string name="modify_remind">编辑提醒</string>
     <string name="remind_content">输入提醒内容</string>
     <string name="ring">铃音:</string>
+    <string name="select_ring">选择铃音</string>
     <string name="remind_vibrate">震动</string>
     <string name="next_remind">下次经过时继续提醒</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.lbs.guoke;
 
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lbs.guoke.controller.RemindModuleManager;
@@ -17,7 +22,7 @@ import com.lbs.guoke.fragment.RemindListFragment;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
-public class MainActivity extends SlidingBaseActivity{
+public class MainActivity extends SlidingBaseActivity {
 	private static final String[] CONTENT = new String[] { "提醒", "我的地盘" };
 	private static final int[] ICONS = new int[] { R.drawable.bg_bell,
 			R.drawable.bg_place, };
@@ -27,6 +32,7 @@ public class MainActivity extends SlidingBaseActivity{
 
 	public static int REQUEST_ADD_SITE = 0;
 	public static int REQUEST_ADD_REMIND = 1;
+	public static int REQUEST_SELECT_RING = 2;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,18 +44,18 @@ public class MainActivity extends SlidingBaseActivity{
 
 		initUI();
 	}
-	
+
 	@Override
 	public void onStop() {
 		super.onStop();
 		RemindModuleManager.instance().saveRemindData();
 	}
-	
-	public void onStart(){
+
+	public void onStart() {
 		super.onStart();
-		if(mysiteList != null)
+		if (mysiteList != null)
 			mysiteList.updateAdapter();
-		if(remindList != null)
+		if (remindList != null)
 			remindList.updateAdapter();
 	}
 
@@ -62,11 +68,18 @@ public class MainActivity extends SlidingBaseActivity{
 
 	@Override
 	// 当结果返回后判断并执行操作
-	protected void onActivityResult(int requestCode, int resultCode,
-			Intent intent) {
-		super.onActivityResult(requestCode, resultCode, intent);
-			mysiteList.updateAdapter();
-			remindList.updateAdapter();
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) { // resultCode为回传的标记，我在B中回传的是RESULT_OK
+			case 0:
+			case 1:
+				mysiteList.updateAdapter();
+				remindList.updateAdapter();
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	private void initUI() {
@@ -133,4 +146,25 @@ public class MainActivity extends SlidingBaseActivity{
 			super.handleMessage(msg);
 		}
 	};
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		menu.add(0, 1, 1, "关于路佳");
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if (item.getItemId() == 1) {
+			goToAboutActivity();
+		}
+		return true;
+	}
+
+	private void goToAboutActivity() {
+		Intent i = new Intent(this, tempDialogActivity.class);
+		startActivity(i);
+	}
 }
