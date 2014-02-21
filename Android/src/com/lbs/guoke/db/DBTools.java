@@ -159,7 +159,7 @@ public class DBTools {
 	}
 
 	public void insertRemindInfo(String remindid, String key, String title, String message,
-			int isremind, int isvibrate, long remindtime) {
+			int isremind, int isvibrate, long remindtime, String ring) {
 		ContentValues value = new ContentValues();
 		value.put("remindid", toValidRs(remindid));
 		value.put("key", toValidRs(key));
@@ -168,6 +168,7 @@ public class DBTools {
 		value.put("isremind", isremind);
 		value.put("isvibrate", isvibrate);
 		value.put("remindtime", remindtime);
+		value.put("ring", ring);
 		mContext.getContentResolver().insert(REMIND_DATA_DB.CONTENT_URI, value);
 	}
 	
@@ -195,7 +196,7 @@ public class DBTools {
 	}
 
 	public void updateRemindInfo(String remindid, String key, String title, String message,
-			int isremind, int isvibrate, long remindtime) {
+			int isremind, int isvibrate, long remindtime, String ring) {
 		String selection = REMIND_DATA_DB.REMINDID + "='" + toValidRs(remindid) + "'";
 		ContentValues value = new ContentValues();
 		value.put("key", toValidRs(key));
@@ -206,6 +207,8 @@ public class DBTools {
 		value.put("isvibrate", isvibrate);
 		if(remindtime != -1)
 			value.put("remindtime", remindtime);
+		if(ring != null)
+			value.put("ring", ring);
 		mContext.getContentResolver().update(REMIND_DATA_DB.CONTENT_URI,
 				value, selection, null);
 	}

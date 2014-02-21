@@ -6,12 +6,13 @@ import android.provider.Settings;
 
 public class RingTong {
 	public static String musicUrl = null;
-	public static void systemNotificationRing(Context context) {
+	public static MediaPlayer player;
+	public static void systemNotificationRing(Context context, String musicUrl) {
 		if (musicUrl == null) {
 			musicUrl = Settings.System.getString(context.getContentResolver(),
 					Settings.System.NOTIFICATION_SOUND);
 		}
-		MediaPlayer player = new MediaPlayer();
+		player = new MediaPlayer();
 		try {
 			player.setDataSource(musicUrl);
 			player.prepare();
@@ -19,5 +20,10 @@ public class RingTong {
 			e.printStackTrace();
 		}
 		player.start();
+	}
+	
+	public static void stopRing(){
+		if(player != null)
+			player.stop();
 	}
 }

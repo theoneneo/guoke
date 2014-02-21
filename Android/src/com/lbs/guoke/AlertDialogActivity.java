@@ -42,7 +42,6 @@ public class AlertDialogActivity extends BaseActivity {
 		setContentView(R.layout.fragment_alert);
 
 		SystemTools.instance().wakeLockStart();
-		RingTong.systemNotificationRing(this);
 		saveRemindId();
 		initUI();
 	}
@@ -54,6 +53,7 @@ public class AlertDialogActivity extends BaseActivity {
 	}
 
 	public void onDestroy() {
+		RingTong.stopRing();
 		RemindModuleManager.instance().saveRemindTimer(remindids);
 		super.onDestroy();
 	}
@@ -73,6 +73,7 @@ public class AlertDialogActivity extends BaseActivity {
 		if (isVibrate) {
 			SystemTools.instance().startVibrator(this);
 		}
+		RingTong.systemNotificationRing(this, RemindModuleManager.instance().getMatchRemindInfos().get(0).ring);
 	}
 
 	private void initUI() {

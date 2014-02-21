@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class AddRemindFragment extends Fragment {
 	private CheckBox remind, vibrate;
 
 	private int mStatus;
-	private String key = null, remindid = null;
+	private String key = null, remindid = null, ring = null;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -156,6 +157,7 @@ public class AddRemindFragment extends Fragment {
 							}
 						}
 						addressEdit.setText(remindInfo.remindMessage);
+						ring = remindInfo.ring;
 						if (remindInfo.isVibrate == 0)
 							vibrate.setChecked(false);
 						else
@@ -223,10 +225,12 @@ public class AddRemindFragment extends Fragment {
 		if(bRemind){
 			isRemind = 1;
 		}
+		String musicUrl = Settings.System.getString(getActivity().getContentResolver(),
+				Settings.System.NOTIFICATION_SOUND);
 		RemindModuleManager.instance().addRemindInfo(key,
 				edit_remind.getText().toString(),
 				addressEdit.getText().toString(),
-				isRemind, isVibrate, 0);
+				isRemind, isVibrate, 0, musicUrl);
 	}
 
 	private void deleteRemind() {
@@ -257,7 +261,11 @@ public class AddRemindFragment extends Fragment {
 		RemindModuleManager.instance().modifyRemindInfo(remindid, key,
 				edit_remind.getText().toString(),
 				addressEdit.getText().toString(),
-				isRemind, isVibrate, -1);
+				isRemind, isVibrate, -1, ring);
+	}
+	
+	public void setRing(String ring){
+		this.ring = ring;
 	}
 
 	public class SiteNameAdapter implements SpinnerAdapter {

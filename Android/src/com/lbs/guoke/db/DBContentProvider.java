@@ -84,6 +84,7 @@ public class DBContentProvider extends ContentProvider {
 		remindDataMap.put(REMIND_DATA_DB.ISREMIND, REMIND_DATA_DB.ISREMIND);
 		remindDataMap.put(REMIND_DATA_DB.ISVIBRATE, REMIND_DATA_DB.ISVIBRATE);
 		remindDataMap.put(REMIND_DATA_DB.REMINDTIME, REMIND_DATA_DB.REMINDTIME);
+		remindDataMap.put(REMIND_DATA_DB.RING, REMIND_DATA_DB.RING);
 
 		addressDataMap = new HashMap<String, String>();
 		addressDataMap.put(ADDRESS_DATA_DB._ID, ADDRESS_DATA_DB._ID);

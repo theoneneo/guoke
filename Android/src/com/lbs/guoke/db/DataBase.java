@@ -39,9 +39,10 @@ public class DataBase {
 	public static final String ISREMIND = "isremind";
 	public static final String ISVIBRATE = "isvibrate";
 	public static final String REMINDTIME = "remindtime";
+	public static final String RING = "ring";
 
 	public static final String CREATE_TABLE = "CREATE TABLE remind_data(_id INTEGER PRIMARY KEY AUTOINCREMENT"
-	    + ", remindid TEXT, key TEXT, title TEXT, message TEXT, isremind INTEGER, isvibrate INTEGER, remindtime INTEGER);";
+	    + ", remindid TEXT, key TEXT, title TEXT, message TEXT, isremind INTEGER, isvibrate INTEGER, remindtime INTEGER, ring TEXT);";
     }
     
     public static final class ADDRESS_DATA_DB implements BaseColumns {

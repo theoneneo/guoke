@@ -48,7 +48,7 @@ public class AddRemindActivity extends BaseActivity {
 		try {
 			Uri pickedUri = data
 					.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-			RingTong.musicUrl = pickedUri.toString();
+			arFragment.setRing(pickedUri.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
