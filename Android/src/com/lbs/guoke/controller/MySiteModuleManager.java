@@ -76,7 +76,8 @@ public class MySiteModuleManager {
 		CellModuleManager.instance().setDBCellInfos(key);
 
 		DBTools.instance().insertSiteInfo(key, name, address, type, imageLink,
-				mark, CellModuleManager.instance().getCellInfos());
+				mark, CellModuleManager.instance().getBugCellInfos());
+		CellModuleManager.instance().clearBugCellInfos();
 	}
 	
 	public void deleteSiteInfo(String key){

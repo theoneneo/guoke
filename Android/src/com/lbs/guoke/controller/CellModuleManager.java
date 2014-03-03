@@ -15,7 +15,8 @@ public class CellModuleManager {
 	private static CellModuleManager instance;
 	private static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
 	private static ArrayList<CellInfo> dbCellInfos = new ArrayList<CellInfo>();
-	private static ArrayList<CellInfo> tempCellInfos = new ArrayList<CellInfo>();
+	private static ArrayList<CellInfo> mBugCellInfos = new ArrayList<CellInfo>();
+	public static boolean bAddToArray = false;
 
 	public CellModuleManager(GuoKeApp app) {
 		this.app = app;
@@ -37,18 +38,22 @@ public class CellModuleManager {
 	}
 
 	public void startService() {
-		Intent i = new Intent(app.getApplicationContext(), GuoKeService.class);
+		Intent i = new Intent(app.getApplicationContext(), LoKaService.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		app.getApplicationContext().startService(i);
 	}
 
 	public void stopService() {
-		Intent i = new Intent(app.getApplicationContext(), GuoKeService.class);
+		Intent i = new Intent(app.getApplicationContext(), LoKaService.class);
 		app.getApplicationContext().stopService(i);
 	}
 
 	public ArrayList<CellInfo> getCellInfos() {
 		return mCellInfos;
+	}
+	
+	public ArrayList<CellInfo> getBugCellInfos(){
+		return mBugCellInfos;
 	}
 	
 	public void setCellInfos(ArrayList<CellInfo> cellInfo){
@@ -66,6 +71,7 @@ public class CellModuleManager {
 			public void run() {
 				if (mCellInfos == null || mCellInfos.size() == 0)
 					return;
+				ArrayList<CellInfo> tempCellInfos = new ArrayList<CellInfo>();
 				synchronized (mCellInfos) {
 					tempCellInfos.clear();
 					for (int i = 0; i < mCellInfos.size(); i++) {// 取得匹配上的cell
@@ -82,6 +88,10 @@ public class CellModuleManager {
 							}
 						}
 					}
+					
+					if(bAddToArray)
+						checkBugCellInfos(mCellInfos);
+					
 				}
 				if (RemindModuleManager.instance().getRemindInfos() == null
 						|| RemindModuleManager.instance().getRemindInfos()
@@ -106,6 +116,23 @@ public class CellModuleManager {
 			}
 		};
 		thread.start();
+	}
+	
+	private void checkBugCellInfos(ArrayList<CellInfo> cellInfos){
+		boolean bSave = false;
+		for(int m = 0; m < cellInfos.size(); m++){
+			CellInfo cell = cellInfos.get(m);
+			for(int n = 0; n < mBugCellInfos.size(); n++){
+				if(cell.cellid == mBugCellInfos.get(n).cellid){
+					bSave = false;
+					break;
+				}
+				bSave = true;
+			}
+			if(bSave){
+				mBugCellInfos.add(cell);
+			}
+		}
 	}
 
 	private void getCellInfosFromDB() {
@@ -134,15 +161,20 @@ public class CellModuleManager {
 	}
 
 	public void setDBCellInfos(String key) {
-		for (int i = 0; i < mCellInfos.size(); i++) {
+		for (int i = 0; i < mBugCellInfos.size(); i++) {
 			CellInfo cellInfo = new CellInfo();
 			cellInfo.key = key;
-			cellInfo.isCDMA = mCellInfos.get(i).isCDMA;
-			cellInfo.cellid = mCellInfos.get(i).cellid;
-			cellInfo.lac = mCellInfos.get(i).lac;
-			cellInfo.mnc = mCellInfos.get(i).mnc;
-			cellInfo.mcc = mCellInfos.get(i).mcc;
+			cellInfo.isCDMA = mBugCellInfos.get(i).isCDMA;
+			cellInfo.cellid = mBugCellInfos.get(i).cellid;
+			cellInfo.lac = mBugCellInfos.get(i).lac;
+			cellInfo.mnc = mBugCellInfos.get(i).mnc;
+			cellInfo.mcc = mBugCellInfos.get(i).mcc;
 			dbCellInfos.add(cellInfo);
 		}
+	}
+	
+	public void clearBugCellInfos(){
+		if(mBugCellInfos != null)
+			mBugCellInfos.clear();
 	}
 }

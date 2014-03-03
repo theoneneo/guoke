@@ -2,7 +2,7 @@ package com.lbs.guoke.fragment;
 
 import com.lbs.guoke.AddRemindActivity;
 import com.lbs.guoke.MainActivity;
-import com.lbs.guoke.R;
+import com.pad_go.loka.R;
 import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.RemindModuleManager;
 

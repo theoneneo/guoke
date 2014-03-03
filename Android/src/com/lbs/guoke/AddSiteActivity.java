@@ -1,5 +1,9 @@
 package com.lbs.guoke;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.fragment.AddSiteFragment;
 import com.lbs.guoke.fragment.SiteTypeFragment;
 import com.lbs.guoke.fragment.AddSiteFragment.AddSiteListFragmentListener;
@@ -7,11 +11,14 @@ import com.lbs.guoke.fragment.SiteTypeFragment.SiteTypeFragmentListener;
 import com.neo.tools.CameraUtil;
 import com.neo.tools.GetPhotoFromAlbum;
 import com.neo.tools.PhotoCallBack;
+import com.pad_go.loka.R;
 
 import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 
 public class AddSiteActivity extends BaseActivity implements
@@ -21,6 +28,7 @@ public class AddSiteActivity extends BaseActivity implements
 	private SiteTypeFragment stFragment;
 
 	private String imagePath;
+	private static Timer mTimer;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -118,4 +126,50 @@ public class AddSiteActivity extends BaseActivity implements
 			}
 		}
 	}
+
+	public static void setTimer() {
+		if (mTimer != null) {
+			mTimer.cancel();
+			mTimer = null;
+			CellModuleManager.bAddToArray = false;
+		}
+		mTimer = new Timer();
+		CellModuleManager.bAddToArray = true;
+		setTimerTask();
+	}
+
+	private static void setTimerTask() {
+		mTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				sHandler.sendEmptyMessage(1);
+			}
+		}, 300000);
+	}
+	
+	public static void stopTimer(){
+		if (mTimer != null) {
+			mTimer.cancel();
+			mTimer = null;
+		}
+		CellModuleManager.bAddToArray = false;
+	}
+
+	private static Handler sHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				if (mTimer != null) {
+					mTimer.cancel();
+					mTimer = null;
+				}
+				CellModuleManager.bAddToArray = false;
+				break;
+			default:
+				break;
+			}
+			super.handleMessage(msg);
+		}
+	};
 }

@@ -2,18 +2,12 @@ package com.lbs.guoke.controller;
 
 import java.util.ArrayList;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Bundle;
 
-import com.lbs.guoke.AddRemindActivity;
 import com.lbs.guoke.AlertDialogActivity;
 import com.lbs.guoke.GuoKeApp;
-import com.lbs.guoke.MainActivity;
-import com.lbs.guoke.R;
 import com.lbs.guoke.db.DBTools;
-import com.neo.tools.NotificationTools;
 
 public class RemindModuleManager {
 	private GuoKeApp app;

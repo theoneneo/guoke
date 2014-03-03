@@ -16,7 +16,7 @@
  */
 package com.viewpagerindicator;
 
-import com.lbs.guoke.R;
+import com.pad_go.loka.R;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

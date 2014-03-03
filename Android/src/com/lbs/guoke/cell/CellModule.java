@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.lbs.guoke.controller.GuoKeService;
+import com.lbs.guoke.controller.LoKaService;
 import com.lbs.guoke.structure.CellInfo;
 
 import android.content.Context;
@@ -25,7 +25,7 @@ public class CellModule {
 	private static final int AUTO_CELL_CHANGE_INTERVAL = 8000;
 	private static ArrayList<CellInfo> mCellInfos = new ArrayList<CellInfo>();
 
-	public CellModule(GuoKeService service) {
+	public CellModule(LoKaService service) {
 		mContext = service.getBaseContext();
 		radioDataProvider = RadioLayerProvider.getInst(mContext);
 	}

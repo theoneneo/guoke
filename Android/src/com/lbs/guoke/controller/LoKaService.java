@@ -10,11 +10,11 @@ import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 
-public class GuoKeService extends Service {
+public class LoKaService extends Service {
 	private static CellModule cellModule = null;
 	private IBinder mBinder = new CellBinder();
 
-	public GuoKeService() {
+	public LoKaService() {
 	}
 
 	@Override
@@ -56,8 +56,8 @@ public class GuoKeService extends Service {
 	};
 
 	public class CellBinder extends Binder {
-		public GuoKeService getService() {
-			return GuoKeService.this;
+		public LoKaService getService() {
+			return LoKaService.this;
 		}
 	}
 

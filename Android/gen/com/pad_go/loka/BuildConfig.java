@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.lbs.guoke;
+package com.pad_go.loka;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

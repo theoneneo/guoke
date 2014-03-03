@@ -1,6 +1,7 @@
 package com.neo.tools;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.provider.Settings;
 
@@ -14,7 +15,7 @@ public class RingTong {
 		}
 		player = new MediaPlayer();
 		try {
-			player.setDataSource(musicUrl);
+			player.setDataSource(musicUrl);	
 			player.prepare();
 		} catch (Exception e) {
 			e.printStackTrace();

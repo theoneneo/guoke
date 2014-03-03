@@ -7,6 +7,7 @@ import android.support.v4.app.ListFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.lbs.guoke.fragment.RemindListFragment;
+import com.pad_go.loka.R;
 
 public class SlidingBaseActivity extends SlidingFragmentActivity {
 	protected ListFragment mFrag;

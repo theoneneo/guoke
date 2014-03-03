@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:orientation="horizontal"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
+    android:orientation="horizontal">
 
     <Button
         android:id="@+id/btn_bottom_left"
-        style="@style/btn_disagree"
+        style="@style/btn_agree"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:text="@string/cancel" />
 
     <Button
@@ -21,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:text="@string/save" />
 
 </LinearLayout>

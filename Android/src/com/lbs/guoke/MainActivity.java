@@ -1,5 +1,8 @@
 package com.lbs.guoke;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,17 +16,19 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lbs.guoke.controller.RemindModuleManager;
 import com.lbs.guoke.fragment.AddSiteFragment;
 import com.lbs.guoke.fragment.MySiteListFragment;
 import com.lbs.guoke.fragment.RemindListFragment;
+import com.pad_go.loka.R;
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
-public class MainActivity extends SlidingBaseActivity {
-	private static final String[] CONTENT = new String[] { "提醒", "我的地盘" };
+public class MainActivity extends BaseActivity {
+	private static final String[] CONTENT = new String[] { "提醒", "地点" };
 	private static final int[] ICONS = new int[] { R.drawable.bg_bell,
 			R.drawable.bg_place, };
 
@@ -34,12 +39,15 @@ public class MainActivity extends SlidingBaseActivity {
 	public static int REQUEST_ADD_REMIND = 1;
 	public static int REQUEST_SELECT_RING = 2;
 
+	private boolean bExit = false;
+	private Timer mTimer;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		getSlidingMenu().setMode(SlidingMenu.RIGHT);
-		getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		//
+		// getSlidingMenu().setMode(SlidingMenu.RIGHT);
+		// getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setContentView(R.layout.activity_main);
 
 		initUI();
@@ -61,9 +69,27 @@ public class MainActivity extends SlidingBaseActivity {
 
 	@Override
 	public void onBackPressed() {
-		GuoKeApp.setMainHandler(null);
-		GuoKeApp.getApplication().exit();
-		super.onBackPressed();
+		if (bExit) {
+			if(mTimer != null)
+				mTimer.cancel();
+			GuoKeApp.setMainHandler(null);
+			GuoKeApp.getApplication().exit();
+			super.onBackPressed();
+		} else {
+			Toast.makeText(this, "再按一次退出路佳", Toast.LENGTH_SHORT).show();
+			bExit = true;
+			mTimer = new Timer();
+			setTimerTask();
+		}
+	}
+
+	private void setTimerTask() {
+		mTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				mainHandler.sendEmptyMessage(GuoKeApp.GUOKE_EXIT);
+			}
+		}, 2000);
 	}
 
 	@Override
@@ -140,6 +166,9 @@ public class MainActivity extends SlidingBaseActivity {
 			case GuoKeApp.GUOKE_SITE_UPDATE:
 				mysiteList.updateAdapter();
 				break;
+			case GuoKeApp.GUOKE_EXIT:
+				bExit = false;
+				break;
 			default:
 				break;
 			}
@@ -165,6 +194,7 @@ public class MainActivity extends SlidingBaseActivity {
 
 	private void goToAboutActivity() {
 		Intent i = new Intent(this, tempDialogActivity.class);
+		
 		startActivity(i);
 	}
 }

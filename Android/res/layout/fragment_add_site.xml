@@ -17,6 +17,7 @@
         android:gravity="center"
         android:text="@string/site_prompt"
         android:textColor="#ff0000"
+        android:visibility="invisible"
         android:textSize="18sp" />
 
     <ScrollView

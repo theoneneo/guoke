@@ -13,14 +13,16 @@
             android:id="@+id/icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/icon"
             android:gravity="bottom"
             android:text="@string/lujia_remind"
@@ -31,7 +33,8 @@
             android:id="@+id/ratio"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
             android:layout_alignParentRight="true"
             android:gravity="bottom"
             android:textColor="#1C3D66"
@@ -43,7 +46,7 @@
             android:layout_height="2dp"
             android:layout_below="@+id/title"
             android:layout_margin="5dp"
-            android:background="#00ffff" />
+            android:background="#6790C4" />
 
         <ImageView
             android:id="@+id/ring"
@@ -62,7 +65,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:textColor="#1C3D66"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/remind_message"
@@ -72,17 +75,19 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:textColor="#1C3D66"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <CheckBox
             android:id="@+id/check_remind"
             android:layout_below="@+id/remind_message"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
             android:button="@drawable/check_drawable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1C3D66"
+            android:textColor="#4285F4"
             android:text="@string/next_remind"
+            android:textSize="16sp"
              />
     </RelativeLayout>
 

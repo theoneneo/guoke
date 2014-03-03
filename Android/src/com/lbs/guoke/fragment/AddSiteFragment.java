@@ -1,6 +1,8 @@
 package com.lbs.guoke.fragment;
 
-import com.lbs.guoke.R;
+import com.pad_go.loka.R;
+import com.lbs.guoke.AddSiteActivity;
+import com.lbs.guoke.controller.CellModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager.SiteInfo;
 import com.lbs.guoke.controller.RemindModuleManager;
@@ -9,6 +11,8 @@ import com.neo.tools.CameraUtil;
 import com.neo.tools.GetPhotoFromAlbum;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -34,7 +38,7 @@ public class AddSiteFragment extends Fragment {
 	private int type;
 	private String key, typeText, img_link;
 
-	private TextView titleText;
+	private TextView titleText, text_prompt;
 	private EditText edit_name, edit_address, edit_mark;
 	private Button btn_type, btn_bottom_left, btn_bottom_right;
 	private ImageView img_photo;
@@ -68,6 +72,7 @@ public class AddSiteFragment extends Fragment {
 	private void initUI() {
 		titleText = (TextView) getActivity().findViewById(R.id.title)
 				.findViewById(R.id.text_title);
+		text_prompt = (TextView) getActivity().findViewById(R.id.text_prompt);
 		ImageButton btn_back = (ImageButton) getActivity().findViewById(
 				R.id.title).findViewById(R.id.btn_left);
 		btn_back.setVisibility(View.VISIBLE);
@@ -135,6 +140,10 @@ public class AddSiteFragment extends Fragment {
 
 	private void initData() {
 		mStatus = getArguments().getInt("status", 0);
+		if(mStatus == ADD_DATA_STATUS){
+			text_prompt.setVisibility(View.VISIBLE);
+			AddSiteActivity.setTimer();
+		}
 		key = getArguments().getString("key");
 		if (INFO_DATA_STATUS == mStatus) {
 			for (int i = 0; i < MySiteModuleManager.instance().getSiteInfos()
@@ -212,18 +221,30 @@ public class AddSiteFragment extends Fragment {
 	}
 
 	private void deleteSite() {
-		for (int i = 0; i < RemindModuleManager.instance().getRemindInfos()
-				.size(); i++) {
-			RemindInfo info = RemindModuleManager.instance().getRemindInfos()
-					.get(i);
-			if (info.key.equals(key)) {
-				Toast.makeText(getActivity(), R.string.delete_site_remind,
-						Toast.LENGTH_SHORT).show();
-				return;
-			}
-		}
-		MySiteModuleManager.instance().deleteSiteInfo(key);
-		getActivity().finish();//
+		new AlertDialog.Builder(getActivity()).setTitle("提醒")
+				.setMessage("确认删除")
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				})
+				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						for (int i = 0; i < RemindModuleManager.instance()
+								.getRemindInfos().size(); i++) {
+							RemindInfo info = RemindModuleManager.instance()
+									.getRemindInfos().get(i);
+							if (info.key.equals(key)) {
+								Toast.makeText(getActivity(),
+										R.string.delete_site_remind,
+										Toast.LENGTH_SHORT).show();
+								return;
+							}
+						}
+						MySiteModuleManager.instance().deleteSiteInfo(key);
+						getActivity().finish();//
+					}
+				}).create().show();
 	}
 
 	private void changeSiteType() {
@@ -262,8 +283,9 @@ public class AddSiteFragment extends Fragment {
 				edit_name.getText().toString(),
 				edit_address.getText().toString(), type, img_link,
 				edit_mark.getText().toString());
+		AddSiteActivity.stopTimer();
 	}
-	
+
 	private void modifySiteInfo() {
 		MySiteModuleManager.instance().modifySiteInfo(key,
 				edit_name.getText().toString(),

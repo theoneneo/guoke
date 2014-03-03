@@ -2,6 +2,7 @@ package com.lbs.guoke;
 
 import com.lbs.guoke.fragment.AddRemindFragment;
 import com.neo.tools.RingTong;
+import com.pad_go.loka.R;
 
 import android.content.Intent;
 import android.media.RingtoneManager;

@@ -1,6 +1,6 @@
 package com.lbs.guoke.fragment;
 
-import com.lbs.guoke.R;
+import com.pad_go.loka.R;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.fragment.AddSiteFragment.AddSiteListFragmentListener;
 import com.lbs.guoke.fragment.MySiteListFragment.SiteViewHolder;

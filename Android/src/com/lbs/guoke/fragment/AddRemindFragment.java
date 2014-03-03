@@ -1,5 +1,7 @@
 package com.lbs.guoke.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.media.RingtoneManager;
@@ -22,7 +24,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lbs.guoke.R;
+import com.pad_go.loka.R;
 import com.lbs.guoke.controller.MySiteModuleManager;
 import com.lbs.guoke.controller.MySiteModuleManager.SiteInfo;
 import com.lbs.guoke.controller.RemindModuleManager;
@@ -234,17 +236,25 @@ public class AddRemindFragment extends Fragment {
 	}
 
 	private void deleteRemind() {
-		for (int i = 0; i < RemindModuleManager.instance().getRemindInfos()
-				.size(); i++) {
-			RemindInfo info = RemindModuleManager.instance().getRemindInfos()
-					.get(i);
-			if (info.key.equals(key)) {
-				RemindModuleManager.instance().getRemindInfos().remove(i);
+		new AlertDialog.Builder(getActivity()).setTitle("提醒").setMessage("确认删除").setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
 			}
-		}
-		
-		RemindModuleManager.instance().deleteRemindInfo(remindid);
-		getActivity().finish();//
+		}).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				for (int i = 0; i < RemindModuleManager.instance().getRemindInfos()
+						.size(); i++) {
+					RemindInfo info = RemindModuleManager.instance().getRemindInfos()
+							.get(i);
+					if (info.key.equals(key)) {
+						RemindModuleManager.instance().getRemindInfos().remove(i);
+					}
+				}
+				
+				RemindModuleManager.instance().deleteRemindInfo(remindid);
+				getActivity().finish();//
+			}
+		}).create().show();
 	}
 
 	private void modifyRemindInfo() {

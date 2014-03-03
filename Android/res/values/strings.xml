@@ -22,16 +22,16 @@
     <string name="site_photo">照片：</string>
     <string name="site_mark">备注：</string>
     <string name="add_site">添加地点</string>
-    <string name="info_site">地点详情</string>
+    <string name="info_site">地点</string>
     <string name="modify_site">编辑地点</string>
-    <string name="delete_site_remind">请先删除对应的提醒后删除地点</string>
+    <string name="delete_site_remind">请先删除对应的提醒后再删除地点</string>
     
     <string name="lujia_remind">路佳提醒</string>
     <string name="remind">提醒</string>
     <string name="remind_prompt">经过下面地点时：</string>
     <string name="remind_me">提醒我：</string>
    	<string name="add_remind">添加提醒</string>
-    <string name="info_remind">提醒详情</string>
+    <string name="info_remind">提醒</string>
     <string name="modify_remind">编辑提醒</string>
     <string name="remind_content">输入提醒内容</string>
     <string name="ring">铃音:</string>

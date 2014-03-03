@@ -22,6 +22,7 @@ public class GuoKeApp extends Application {
 	public static final int GUOKE_REMIND_UPDATE = GUOKE_SITE_UPDATE + 1;
 	public static final int GUOKE_REMIND_MATCH = GUOKE_REMIND_UPDATE + 1;
 	public static final int GUOKE_CELL_DB = GUOKE_REMIND_MATCH + 1;
+	public static final int GUOKE_EXIT = GUOKE_CELL_DB + 1;
 
 	public static Handler mainHandler;
 	private static CellModuleManager mCellManager;
