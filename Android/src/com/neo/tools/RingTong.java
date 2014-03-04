@@ -16,6 +16,7 @@ public class RingTong {
 		player = new MediaPlayer();
 		try {
 			player.setDataSource(musicUrl);	
+			player.setLooping(true);
 			player.prepare();
 		} catch (Exception e) {
 			e.printStackTrace();

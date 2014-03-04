@@ -502,33 +502,34 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_launcher=0x7f02001f;
         public static final int inputbox=0x7f020020;
         public static final int line=0x7f020021;
-        public static final int logo_large=0x7f020022;
-        public static final int place_active=0x7f020023;
-        public static final int place_inactive=0x7f020024;
-        public static final int place_small=0x7f020025;
-        public static final int ring_1=0x7f020026;
-        public static final int ring_2=0x7f020027;
-        public static final int ring_3=0x7f020028;
-        public static final int ring_4=0x7f020029;
-        public static final int shadow=0x7f02002a;
-        public static final int slogan=0x7f02002b;
-        public static final int switch_drawable=0x7f02002c;
-        public static final int switch_off=0x7f02002d;
-        public static final int switch_on=0x7f02002e;
-        public static final int tab_select=0x7f02002f;
-        public static final int tab_unselect=0x7f020030;
-        public static final int title_bar_back=0x7f020031;
-        public static final int title_bar_bg=0x7f020032;
-        public static final int title_btn_back=0x7f020033;
-        public static final int title_btn_back_pressed=0x7f020034;
-        public static final int unchecked=0x7f020035;
-        public static final int vpi__tab_indicator=0x7f020036;
-        public static final int vpi__tab_selected_focused_holo=0x7f020037;
-        public static final int vpi__tab_selected_holo=0x7f020038;
-        public static final int vpi__tab_selected_pressed_holo=0x7f020039;
-        public static final int vpi__tab_unselected_focused_holo=0x7f02003a;
-        public static final int vpi__tab_unselected_holo=0x7f02003b;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f02003c;
+        public static final int line_vertical=0x7f020022;
+        public static final int logo_large=0x7f020023;
+        public static final int place_active=0x7f020024;
+        public static final int place_inactive=0x7f020025;
+        public static final int place_small=0x7f020026;
+        public static final int ring_1=0x7f020027;
+        public static final int ring_2=0x7f020028;
+        public static final int ring_3=0x7f020029;
+        public static final int ring_4=0x7f02002a;
+        public static final int shadow=0x7f02002b;
+        public static final int slogan=0x7f02002c;
+        public static final int switch_drawable=0x7f02002d;
+        public static final int switch_off=0x7f02002e;
+        public static final int switch_on=0x7f02002f;
+        public static final int tab_select=0x7f020030;
+        public static final int tab_unselect=0x7f020031;
+        public static final int title_bar_back=0x7f020032;
+        public static final int title_bar_bg=0x7f020033;
+        public static final int title_btn_back=0x7f020034;
+        public static final int title_btn_back_pressed=0x7f020035;
+        public static final int unchecked=0x7f020036;
+        public static final int vpi__tab_indicator=0x7f020037;
+        public static final int vpi__tab_selected_focused_holo=0x7f020038;
+        public static final int vpi__tab_selected_holo=0x7f020039;
+        public static final int vpi__tab_selected_pressed_holo=0x7f02003a;
+        public static final int vpi__tab_unselected_focused_holo=0x7f02003b;
+        public static final int vpi__tab_unselected_holo=0x7f02003c;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f02003d;
     }
     public static final class id {
         public static final int action_settings=0x7f05003f;
@@ -715,8 +716,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CirclePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_android_orientation android:orientation}</code></td><td> Orientation of the indicator.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_android_background com.pad_go.loka:android_background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_android_orientation com.pad_go.loka:android_orientation}</code></td><td> Orientation of the indicator.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_centered com.pad_go.loka:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_fillColor com.pad_go.loka:fillColor}</code></td><td> Color of the filled circle that represents the current page.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_pageColor com.pad_go.loka:pageColor}</code></td><td> Color of the filled circles that represents pages.</td></tr>
@@ -744,18 +745,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.pad_go.loka.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int CirclePageIndicator_android_background = 1;
         /**
           <p>
           @attr description
            Orientation of the indicator. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#orientation}.
-          @attr name android:orientation
+          <p>This corresponds to the global attribute          resource symbol {@link com.pad_go.loka.R.attr#android_orientation}.
+          @attr name android:android_orientation
         */
         public static final int CirclePageIndicator_android_orientation = 0;
         /**
@@ -771,7 +770,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:centered
+          @attr name android:centered
         */
         public static final int CirclePageIndicator_centered = 2;
         /**
@@ -788,7 +787,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:fillColor
+          @attr name android:fillColor
         */
         public static final int CirclePageIndicator_fillColor = 4;
         /**
@@ -805,7 +804,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:pageColor
+          @attr name android:pageColor
         */
         public static final int CirclePageIndicator_pageColor = 5;
         /**
@@ -823,7 +822,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:radius
+          @attr name android:radius
         */
         public static final int CirclePageIndicator_radius = 6;
         /**
@@ -839,7 +838,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:snap
+          @attr name android:snap
         */
         public static final int CirclePageIndicator_snap = 7;
         /**
@@ -856,7 +855,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:strokeColor
+          @attr name android:strokeColor
         */
         public static final int CirclePageIndicator_strokeColor = 8;
         /**
@@ -874,7 +873,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:strokeWidth
+          @attr name android:strokeWidth
         */
         public static final int CirclePageIndicator_strokeWidth = 3;
         /** Attributes that can be used with a LinePageIndicator.
@@ -883,7 +882,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #LinePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #LinePageIndicator_android_background com.pad_go.loka:android_background}</code></td><td> View background </td></tr>
            <tr><td><code>{@link #LinePageIndicator_centered com.pad_go.loka:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
            <tr><td><code>{@link #LinePageIndicator_gapWidth com.pad_go.loka:gapWidth}</code></td><td> Width of the gap between each indicator line.</td></tr>
            <tr><td><code>{@link #LinePageIndicator_lineWidth com.pad_go.loka:lineWidth}</code></td><td> Width of each indicator line.</td></tr>
@@ -907,9 +906,8 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.pad_go.loka.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int LinePageIndicator_android_background = 0;
         /**
@@ -925,7 +923,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:centered
+          @attr name android:centered
         */
         public static final int LinePageIndicator_centered = 1;
         /**
@@ -943,7 +941,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:gapWidth
+          @attr name android:gapWidth
         */
         public static final int LinePageIndicator_gapWidth = 6;
         /**
@@ -961,7 +959,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:lineWidth
+          @attr name android:lineWidth
         */
         public static final int LinePageIndicator_lineWidth = 5;
         /**
@@ -978,7 +976,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:selectedColor
+          @attr name android:selectedColor
         */
         public static final int LinePageIndicator_selectedColor = 2;
         /**
@@ -996,7 +994,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:strokeWidth
+          @attr name android:strokeWidth
         */
         public static final int LinePageIndicator_strokeWidth = 3;
         /**
@@ -1013,7 +1011,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:unselectedColor
+          @attr name android:unselectedColor
         */
         public static final int LinePageIndicator_unselectedColor = 4;
         /** Attributes that can be used with a SlidingMenu.
@@ -1071,7 +1069,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.pad_go.loka:behindOffset
+          @attr name android:behindOffset
         */
         public static final int SlidingMenu_behindOffset = 3;
         /**
@@ -1085,7 +1083,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.pad_go.loka:behindScrollScale
+          @attr name android:behindScrollScale
         */
         public static final int SlidingMenu_behindScrollScale = 5;
         /**
@@ -1101,7 +1099,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.pad_go.loka:behindWidth
+          @attr name android:behindWidth
         */
         public static final int SlidingMenu_behindWidth = 4;
         /**
@@ -1115,7 +1113,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.pad_go.loka:fadeDegree
+          @attr name android:fadeDegree
         */
         public static final int SlidingMenu_fadeDegree = 11;
         /**
@@ -1129,7 +1127,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.pad_go.loka:fadeEnabled
+          @attr name android:fadeEnabled
         */
         public static final int SlidingMenu_fadeEnabled = 10;
         /**
@@ -1146,7 +1144,7 @@ containing a value of this type.
 <tr><td><code>left</code></td><td>0</td><td></td></tr>
 <tr><td><code>right</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.pad_go.loka:mode
+          @attr name android:mode
         */
         public static final int SlidingMenu_mode = 0;
         /**
@@ -1156,7 +1154,7 @@ containing a value of this type.
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.pad_go.loka:selectorDrawable
+          @attr name android:selectorDrawable
         */
         public static final int SlidingMenu_selectorDrawable = 13;
         /**
@@ -1170,7 +1168,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.pad_go.loka:selectorEnabled
+          @attr name android:selectorEnabled
         */
         public static final int SlidingMenu_selectorEnabled = 12;
         /**
@@ -1180,7 +1178,7 @@ containing a value of this type.
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.pad_go.loka:shadowDrawable
+          @attr name android:shadowDrawable
         */
         public static final int SlidingMenu_shadowDrawable = 8;
         /**
@@ -1196,7 +1194,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.pad_go.loka:shadowWidth
+          @attr name android:shadowWidth
         */
         public static final int SlidingMenu_shadowWidth = 9;
         /**
@@ -1213,7 +1211,7 @@ containing a value of this type.
 <tr><td><code>margin</code></td><td>0</td><td></td></tr>
 <tr><td><code>fullscreen</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.pad_go.loka:touchModeAbove
+          @attr name android:touchModeAbove
         */
         public static final int SlidingMenu_touchModeAbove = 6;
         /**
@@ -1230,7 +1228,7 @@ containing a value of this type.
 <tr><td><code>margin</code></td><td>0</td><td></td></tr>
 <tr><td><code>fullscreen</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.pad_go.loka:touchModeBehind
+          @attr name android:touchModeBehind
         */
         public static final int SlidingMenu_touchModeBehind = 7;
         /**
@@ -1240,7 +1238,7 @@ containing a value of this type.
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.pad_go.loka:viewAbove
+          @attr name android:viewAbove
         */
         public static final int SlidingMenu_viewAbove = 1;
         /**
@@ -1250,7 +1248,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.pad_go.loka:viewBehind
+          @attr name android:viewBehind
         */
         public static final int SlidingMenu_viewBehind = 2;
         /** Attributes that can be used with a TitlePageIndicator.
@@ -1259,9 +1257,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_textColor android:textColor}</code></td><td> Color of regular titles.</td></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_textSize android:textSize}</code></td><td> Size of title text.</td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_background com.pad_go.loka:android_background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_textColor com.pad_go.loka:android_textColor}</code></td><td> Color of regular titles.</td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_textSize com.pad_go.loka:android_textSize}</code></td><td> Size of title text.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_clipPadding com.pad_go.loka:clipPadding}</code></td><td> Screen edge padding.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_footerColor com.pad_go.loka:footerColor}</code></td><td> Color of the footer line and indicator.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_footerIndicatorHeight com.pad_go.loka:footerIndicatorHeight}</code></td><td> Height of the indicator above the footer line.</td></tr>
@@ -1301,27 +1299,24 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.pad_go.loka.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int TitlePageIndicator_android_background = 2;
         /**
           <p>
           @attr description
            Color of regular titles. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textColor}.
-          @attr name android:textColor
+          <p>This corresponds to the global attribute          resource symbol {@link com.pad_go.loka.R.attr#android_textColor}.
+          @attr name android:android_textColor
         */
         public static final int TitlePageIndicator_android_textColor = 1;
         /**
           <p>
           @attr description
            Size of title text. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textSize}.
-          @attr name android:textSize
+          <p>This corresponds to the global attribute          resource symbol {@link com.pad_go.loka.R.attr#android_textSize}.
+          @attr name android:android_textSize
         */
         public static final int TitlePageIndicator_android_textSize = 0;
         /**
@@ -1339,7 +1334,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:clipPadding
+          @attr name android:clipPadding
         */
         public static final int TitlePageIndicator_clipPadding = 4;
         /**
@@ -1356,7 +1351,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:footerColor
+          @attr name android:footerColor
         */
         public static final int TitlePageIndicator_footerColor = 5;
         /**
@@ -1374,7 +1369,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:footerIndicatorHeight
+          @attr name android:footerIndicatorHeight
         */
         public static final int TitlePageIndicator_footerIndicatorHeight = 8;
         /**
@@ -1394,7 +1389,7 @@ containing a value of this type.
 <tr><td><code>underline</code></td><td>2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:footerIndicatorStyle
+          @attr name android:footerIndicatorStyle
         */
         public static final int TitlePageIndicator_footerIndicatorStyle = 7;
         /**
@@ -1412,7 +1407,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:footerIndicatorUnderlinePadding
+          @attr name android:footerIndicatorUnderlinePadding
         */
         public static final int TitlePageIndicator_footerIndicatorUnderlinePadding = 9;
         /**
@@ -1430,7 +1425,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:footerLineHeight
+          @attr name android:footerLineHeight
         */
         public static final int TitlePageIndicator_footerLineHeight = 6;
         /**
@@ -1448,7 +1443,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:footerPadding
+          @attr name android:footerPadding
         */
         public static final int TitlePageIndicator_footerPadding = 10;
         /**
@@ -1467,7 +1462,7 @@ containing a value of this type.
 <tr><td><code>top</code></td><td>1</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:linePosition
+          @attr name android:linePosition
         */
         public static final int TitlePageIndicator_linePosition = 11;
         /**
@@ -1483,7 +1478,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:selectedBold
+          @attr name android:selectedBold
         */
         public static final int TitlePageIndicator_selectedBold = 12;
         /**
@@ -1500,7 +1495,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:selectedColor
+          @attr name android:selectedColor
         */
         public static final int TitlePageIndicator_selectedColor = 3;
         /**
@@ -1518,7 +1513,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:titlePadding
+          @attr name android:titlePadding
         */
         public static final int TitlePageIndicator_titlePadding = 13;
         /**
@@ -1536,7 +1531,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:topPadding
+          @attr name android:topPadding
         */
         public static final int TitlePageIndicator_topPadding = 14;
         /** Attributes that can be used with a UnderlinePageIndicator.
@@ -1545,7 +1540,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #UnderlinePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #UnderlinePageIndicator_android_background com.pad_go.loka:android_background}</code></td><td> View background </td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fadeDelay com.pad_go.loka:fadeDelay}</code></td><td> Length of the delay to fade the indicator.</td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fadeLength com.pad_go.loka:fadeLength}</code></td><td> Length of the indicator fade to transparent.</td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fades com.pad_go.loka:fades}</code></td><td> Whether or not the selected indicator fades.</td></tr>
@@ -1565,9 +1560,8 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.pad_go.loka.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int UnderlinePageIndicator_android_background = 0;
         /**
@@ -1583,7 +1577,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:fadeDelay
+          @attr name android:fadeDelay
         */
         public static final int UnderlinePageIndicator_fadeDelay = 3;
         /**
@@ -1599,7 +1593,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:fadeLength
+          @attr name android:fadeLength
         */
         public static final int UnderlinePageIndicator_fadeLength = 4;
         /**
@@ -1615,7 +1609,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:fades
+          @attr name android:fades
         */
         public static final int UnderlinePageIndicator_fades = 2;
         /**
@@ -1632,7 +1626,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:selectedColor
+          @attr name android:selectedColor
         */
         public static final int UnderlinePageIndicator_selectedColor = 1;
         /** Attributes that can be used with a ViewPagerIndicator.
@@ -1668,7 +1662,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:vpiCirclePageIndicatorStyle
+          @attr name android:vpiCirclePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiCirclePageIndicatorStyle = 0;
         /**
@@ -1680,7 +1674,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:vpiIconPageIndicatorStyle
+          @attr name android:vpiIconPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiIconPageIndicatorStyle = 1;
         /**
@@ -1692,7 +1686,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:vpiLinePageIndicatorStyle
+          @attr name android:vpiLinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiLinePageIndicatorStyle = 2;
         /**
@@ -1704,7 +1698,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:vpiTabPageIndicatorStyle
+          @attr name android:vpiTabPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTabPageIndicatorStyle = 4;
         /**
@@ -1716,7 +1710,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:vpiTitlePageIndicatorStyle
+          @attr name android:vpiTitlePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTitlePageIndicatorStyle = 3;
         /**
@@ -1728,7 +1722,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.pad_go.loka:vpiUnderlinePageIndicatorStyle
+          @attr name android:vpiUnderlinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiUnderlinePageIndicatorStyle = 5;
     };

@@ -48,8 +48,8 @@ public class SystemTools {
 		 */
 		vibrator = (Vibrator) context
 				.getSystemService(Context.VIBRATOR_SERVICE);
-		long[] pattern = { 1000, 400, 1000, 400 }; // 停止 开启 停止 开启
-		vibrator.vibrate(pattern, -2); // 重复两次上面的pattern 如果只想震动一次，index设为-1
+		long[] pattern = { 100, 400, 100, 400 }; // 停止 开启 停止 开启
+		vibrator.vibrate(pattern, 0); // 重复两次上面的pattern 如果只想震动一次，index设为-1
 	}
 	
 	public void stopVibrator(){
