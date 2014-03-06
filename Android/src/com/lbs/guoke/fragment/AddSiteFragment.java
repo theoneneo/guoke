@@ -111,6 +111,7 @@ public class AddSiteFragment extends Fragment {
 				if (mStatus == INFO_DATA_STATUS) {
 					deleteSite();
 				} else if (mStatus == ADD_DATA_STATUS) {
+					AddSiteActivity.stopTimer();
 					getActivity().finish();
 				} else if (mStatus == MODIFY_DATA_STATUS) {
 					getActivity().finish();

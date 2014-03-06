@@ -18,7 +18,7 @@ public class CellModuleManager {
 	private static ArrayList<CellInfo> mBugCellInfos = new ArrayList<CellInfo>();
 	public static boolean bAddToArray = false;
 
-	public CellModuleManager(GuoKeApp app) {
+	private CellModuleManager(GuoKeApp app) {
 		this.app = app;
 		getCellInfosFromDB();
 		startService();
@@ -60,6 +60,8 @@ public class CellModuleManager {
 		mCellInfos.clear();
 		mCellInfos.addAll(cellInfo);
 		UpdateCellData();
+		if(bAddToArray)
+			checkBugCellInfos(mCellInfos);
 	}
 
 	public ArrayList<CellInfo> getDBCellInfos() {
@@ -88,10 +90,6 @@ public class CellModuleManager {
 							}
 						}
 					}
-					
-					if(bAddToArray)
-						checkBugCellInfos(mCellInfos);
-					
 				}
 				if (RemindModuleManager.instance().getRemindInfos() == null
 						|| RemindModuleManager.instance().getRemindInfos()

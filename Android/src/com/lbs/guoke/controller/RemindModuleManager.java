@@ -15,7 +15,7 @@ public class RemindModuleManager {
 	private static ArrayList<RemindInfo> mRemindInfos = new ArrayList<RemindInfo>();
 	private static ArrayList<RemindInfo> matchRemindInfos = new ArrayList<RemindInfo>();
 
-	public RemindModuleManager(GuoKeApp app) {
+	private RemindModuleManager(GuoKeApp app) {
 		this.app = app;
 		getRemindInfosFromDB();
 	}

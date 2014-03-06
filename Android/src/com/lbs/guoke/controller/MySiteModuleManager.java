@@ -13,7 +13,7 @@ public class MySiteModuleManager {
 	private static MySiteModuleManager instance;
 	private static ArrayList<SiteInfo> mSiteInfos = new ArrayList<SiteInfo>();
 
-	public MySiteModuleManager(GuoKeApp app) {
+	private MySiteModuleManager(GuoKeApp app) {
 		this.app = app;
 		getSiteInfosFromDB();
 	}

@@ -135,6 +135,11 @@ public class AddSiteActivity extends BaseActivity implements
 		}
 		mTimer = new Timer();
 		CellModuleManager.bAddToArray = true;
+		CellModuleManager.instance().getBugCellInfos().clear();
+		for (int i = 0; i < CellModuleManager.instance().getCellInfos().size(); i++) {
+			CellModuleManager.instance().getBugCellInfos()
+					.add(CellModuleManager.instance().getCellInfos().get(i));
+		}
 		setTimerTask();
 	}
 
@@ -146,8 +151,8 @@ public class AddSiteActivity extends BaseActivity implements
 			}
 		}, 300000);
 	}
-	
-	public static void stopTimer(){
+
+	public static void stopTimer() {
 		if (mTimer != null) {
 			mTimer.cancel();
 			mTimer = null;
