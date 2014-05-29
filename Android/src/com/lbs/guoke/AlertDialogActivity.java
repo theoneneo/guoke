@@ -184,7 +184,7 @@ public class AlertDialogActivity extends BaseActivity {
 		Bundle bundle = new Bundle();
 		bundle.putString("remindid", remindid);
 		intent.putExtras(bundle);
-		PendingIntent pd = PendingIntent.getActivity(context, 0, intent, 0);
+		PendingIntent pd = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Notification.Builder builder = new Notification.Builder(context);
 		Notification baseNF = builder.getNotification();
